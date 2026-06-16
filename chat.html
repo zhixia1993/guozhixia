@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>轻量本体平台 · 对话</title>
+    <title>轻量本体平台 · 应用测试</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -20,12 +20,12 @@
           <a class="active" href="chat.html">对话 <small>Chat</small></a>
           <a href="admin.html">管理 <small>Admin</small></a>
         </nav>
-        <div class="sidebar-note"><strong>本体对话</strong><p>对话页强调“先选模型与技能，再提问”，让回答具备明确知识边界。</p></div>
+        <div class="sidebar-note"><strong>应用测试</strong><p>问答页优先作为模型效果测试入口，展示证据、SPARQL、数据查询调用和分享发布能力。</p></div>
       </aside>
 
       <main class="page">
         <header class="topbar">
-          <div><p class="kicker">Chat</p><h1>对话中心</h1></div>
+          <div><p class="kicker">Application Test</p><h1>应用测试与问答调试</h1></div>
           <label class="topbar-search"><span>当前</span><input type="search" value="合同领域本体 + 合同风险识别" readonly /></label>
           <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>普通用户</small></div></div>
         </header>
@@ -33,7 +33,7 @@
         <section class="chat-panel">
           <div class="chat-layout">
             <aside class="session-list">
-              <h3>历史会话</h3>
+              <h3>测试记录</h3>
               <a class="active" href="#">合同风险分析</a>
               <a href="#">企业客户查询</a>
               <a href="#">产品知识问答</a>
@@ -42,11 +42,11 @@
             </aside>
 
             <section class="conversation">
-              <div class="context-strip">当前配置：合同领域本体 · 合同风险识别技能 · 合同分析助手 · 合同文件夹</div>
+              <div class="context-strip">当前测试应用：合同领域本体 · 合同风险识别技能 · Jena 推理开启 · 合同文件夹 · 数据查询技能</div>
               <div class="message user"><strong>用户</strong><p>请分析这份合同中有哪些违约风险？</p></div>
               <div class="message ai"><strong>AI</strong><p>根据合同领域本体，识别到 3 类风险：履约期限表述不明确、违约责任条款缺少赔偿上限、付款条件与验收节点存在依赖但未定义触发条件。</p></div>
               <div class="message user"><strong>用户</strong><p>这些风险分别关联哪些本体概念？</p></div>
-              <div class="message ai"><strong>AI</strong><p>关联概念包括：合同、履约期限、付款节点、验收条件、违约责任。可在可视化页面查看这些概念之间的关系。</p></div>
+              <div class="message ai"><strong>AI</strong><p>关联概念包括：合同、履约期限、付款节点、验收条件、违约责任。调用链：SPARQL 查询合同概念关系，数据查询技能读取合同元数据，关系推理技能补充风险路径。</p></div>
               <label class="chat-composer">
                 <input type="text" placeholder="输入问题，例如：找出付款条款的风险依据" />
                 <a class="btn primary" href="#">发送</a>
@@ -54,10 +54,11 @@
             </section>
 
             <aside class="chat-config">
-              <h3>对话配置</h3>
+              <h3>测试配置</h3>
               <label class="select-field"><span>本体模型</span><select><option>合同领域本体</option><option>企业知识本体</option><option>产品知识本体</option></select></label>
               <label class="select-field"><span>技能</span><select><option>合同风险识别</option><option>关系路径推理</option><option>条款抽取</option></select></label>
               <label class="select-field"><span>智能体</span><select><option>合同分析助手</option><option>知识问答助手</option><option>数据分析助手</option></select></label>
+              <label class="select-field"><span>推理模式</span><select><option>RDFS + 简单 OWL</option><option>仅 SPARQL</option><option>业务规则推理</option></select></label>
               <div>
                 <h3>数据范围</h3>
                 <div class="permission-list">
@@ -68,7 +69,8 @@
               </div>
               <div class="action-row">
                 <a class="btn secondary" href="visualization.html">查看模型</a>
-                <a class="btn primary" href="#">保存配置</a>
+                <a class="btn ghost" href="#">查看调用链</a>
+                <a class="btn primary" href="marketplace.html">发布到广场</a>
               </div>
             </aside>
           </div>

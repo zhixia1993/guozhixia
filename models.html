@@ -20,7 +20,7 @@
           <a href="chat.html">对话 <small>Chat</small></a>
           <a href="admin.html">管理 <small>Admin</small></a>
         </nav>
-        <div class="sidebar-note"><strong>模型库</strong><p>模型库把本体当成轻量资产管理：版本、状态、用途和可复用能力一目了然。</p></div>
+        <div class="sidebar-note"><strong>模型库</strong><p>模型库管理平台元数据，审批通过的本体结构写入 Jena named graph，并对外提供查询与推理接口。</p></div>
       </aside>
 
       <main class="page">
@@ -34,40 +34,40 @@
           <div class="tabs">
             <a class="active" href="#">全部模型</a>
             <a href="#">我的草稿</a>
-            <a href="#">已发布</a>
+            <a href="#">Jena 已发布</a>
             <a href="#">广场引用</a>
           </div>
           <div class="action-row">
             <a class="btn secondary" href="modeling.html">新建模型</a>
-            <a class="btn primary" href="visualization.html">打开可视化</a>
+            <a class="btn primary" href="visualization.html">打开 Jena 图谱</a>
           </div>
         </section>
 
         <section class="section grid three">
           <article class="card model-card">
             <div class="section-head"><span class="type model">已发布</span><span class="status ok">v1.2</span></div>
-            <div><h2>企业知识本体</h2><p class="muted">组织、客户、产品、订单和业务事件的统一语义模型。</p></div>
+            <div><h2>企业知识本体</h2><p class="muted">组织、客户、产品、订单和业务事件的统一语义模型，已写入 Jena named graph。</p></div>
             <div class="model-stats">
               <div><strong>38</strong><span>概念</span></div>
               <div><strong>72</strong><span>关系</span></div>
               <div><strong>124</strong><span>属性</span></div>
             </div>
             <div class="action-row">
-              <a class="btn secondary" href="visualization.html">查看图谱</a>
-              <a class="btn ghost" href="chat.html">用于对话</a>
+              <a class="btn secondary" href="visualization.html">SPARQL / 图谱</a>
+              <a class="btn ghost" href="chat.html">推理测试</a>
             </div>
           </article>
 
           <article class="card model-card">
             <div class="section-head"><span class="type">草稿</span><span class="status warn">待确认</span></div>
-            <div><h2>合同领域本体</h2><p class="muted">从合同文件夹自动抽取，适合法务风险识别和条款问答。</p></div>
+            <div><h2>合同领域本体</h2><p class="muted">从合同文件夹自动抽取，正在标注审批，适合法务风险识别和条款问答。</p></div>
             <div class="model-stats">
               <div><strong>18</strong><span>概念</span></div>
               <div><strong>42</strong><span>关系</span></div>
               <div><strong>12</strong><span>约束</span></div>
             </div>
             <div class="action-row">
-              <a class="btn secondary" href="auto-model.html">继续确认</a>
+              <a class="btn secondary" href="auto-model.html">继续标注</a>
               <a class="btn ghost" href="visualization.html">预览</a>
             </div>
           </article>
@@ -88,13 +88,13 @@
         </section>
 
         <section class="section table-panel">
-          <div class="section-head"><div><p class="kicker">Versions</p><h2>版本与发布</h2></div></div>
+          <div class="section-head"><div><p class="kicker">Jena & Versions</p><h2>版本、图谱与接口</h2></div></div>
           <table>
-            <thead><tr><th>模型</th><th>当前版本</th><th>发布范围</th><th>最近更新</th><th>操作</th></tr></thead>
+            <thead><tr><th>模型</th><th>当前版本</th><th>Jena Graph</th><th>接口能力</th><th>操作</th></tr></thead>
             <tbody>
-              <tr><td>企业知识本体</td><td>v1.2</td><td>团队内</td><td>今天</td><td><a href="visualization.html">对比版本</a></td></tr>
-              <tr><td>合同领域本体</td><td>草稿 v0.3</td><td>仅自己</td><td>今天</td><td><a href="auto-model.html">继续编辑</a></td></tr>
-              <tr><td>产品知识本体</td><td>v2.1</td><td>广场引用</td><td>昨天</td><td><a href="marketplace.html">查看来源</a></td></tr>
+              <tr><td>企业知识本体</td><td>v1.2</td><td>schema / instances</td><td>SPARQL、RDFS 推理</td><td><a href="visualization.html">查询推理</a></td></tr>
+              <tr><td>合同领域本体</td><td>草稿 v0.3</td><td>未发布</td><td>待审批</td><td><a href="auto-model.html">继续编辑</a></td></tr>
+              <tr><td>产品知识本体</td><td>v2.1</td><td>schema</td><td>SPARQL、关系推理</td><td><a href="marketplace.html">查看来源</a></td></tr>
             </tbody>
           </table>
         </section>

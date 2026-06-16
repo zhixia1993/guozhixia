@@ -25,7 +25,7 @@
         </nav>
         <div class="sidebar-note">
           <strong>数据设计</strong>
-          <p>轻量平台只保留“接入、解析、可用于建模”三个核心状态，避免复杂数据治理后台。</p>
+          <p>轻量平台聚焦“接入、探查、自动接口、解析、可用于建模”，避免演变成重型数据治理后台。</p>
         </div>
       </aside>
 
@@ -45,8 +45,8 @@
         <section class="hero">
           <div>
             <p class="kicker">Connect Once, Reuse Everywhere</p>
-            <h1>接入结构化和非结构化数据，作为建模与对话的知识底座。</h1>
-            <p>支持数据库、API、单个文件、文件夹批量导入。每个数据源都可以标记是否参与自动建模、检索问答或模型验证。</p>
+            <h1>接入结构化和非结构化数据，作为建模与应用测试的知识底座。</h1>
+            <p>结构化数据支持多源直连、元数据主动探查和自动生成只读查询接口；非结构化数据支持文件、文件夹和对象路径批量导入解析。</p>
             <div class="action-row">
               <a class="btn primary" href="data-new.html">新建数据连接</a>
               <a class="btn secondary" href="modeling.html">用数据创建模型</a>
@@ -55,26 +55,26 @@
           <div class="hero-preview">
             <div class="metric-card"><strong>3</strong><span>结构化数据源</span></div>
             <div class="metric-card"><strong>12</strong><span>非结构化文件</span></div>
-            <div class="metric-card"><strong>86%</strong><span>解析完成率</span></div>
+            <div class="metric-card"><strong>7</strong><span>自动查询接口</span></div>
           </div>
         </section>
 
         <section class="section grid four">
           <a class="card link-card" href="data-new.html">
             <span class="tag">数据库</span>
-            <div><h3>MySQL / PostgreSQL</h3><p class="muted">连接业务库，选择表和字段参与建模。</p></div>
+            <div><h3>MySQL / PostgreSQL</h3><p class="muted">连接业务库，主动探查表字段并生成数据查询接口。</p></div>
           </a>
           <a class="card link-card" href="data-new.html">
             <span class="tag teal">文件上传</span>
-            <div><h3>PDF / Word / Excel</h3><p class="muted">单文件上传，自动解析文本和表格。</p></div>
+            <div><h3>PDF / Word / Excel</h3><p class="muted">单文件上传，自动解析文本、表格、章节和证据位置。</p></div>
           </a>
           <a class="card link-card" href="data-new.html">
             <span class="tag purple">文件夹</span>
-            <div><h3>批量目录加载</h3><p class="muted">适合合同库、说明书库和知识文档库。</p></div>
+            <div><h3>批量目录加载</h3><p class="muted">适合合同库、说明书库和知识文档库的批量解析任务。</p></div>
           </a>
           <a class="card link-card" href="data-new.html">
             <span class="tag amber">API</span>
-            <div><h3>接口数据</h3><p class="muted">接入第三方结构化响应作为补充数据。</p></div>
+            <div><h3>元数据探查</h3><p class="muted">主动发现 schema、字段样例、主外键和候选语义映射。</p></div>
           </a>
         </section>
 
@@ -93,6 +93,7 @@
                 <th>名称</th>
                 <th>来源</th>
                 <th>用途</th>
+                <th>自动接口</th>
                 <th>状态</th>
                 <th>下一步</th>
               </tr>
@@ -101,7 +102,8 @@
               <tr>
                 <td>客户业务库</td>
                 <td>PostgreSQL</td>
-                <td>建模、问答</td>
+                <td>建模、应用测试</td>
+                <td>/query/customer</td>
                 <td><span class="status ok">已连接</span></td>
                 <td><a href="modeling.html">创建模型</a></td>
               </tr>
@@ -109,6 +111,7 @@
                 <td>合同文件夹</td>
                 <td>PDF 目录</td>
                 <td>自动建模</td>
+                <td>解析产物</td>
                 <td><span class="status ok">已解析</span></td>
                 <td><a href="auto-model.html">自动建模</a></td>
               </tr>
@@ -116,6 +119,7 @@
                 <td>产品说明书</td>
                 <td>Word / Markdown</td>
                 <td>检索问答</td>
+                <td>待生成</td>
                 <td><span class="status warn">待解析</span></td>
                 <td><a href="data-new.html">继续配置</a></td>
               </tr>
@@ -123,6 +127,7 @@
                 <td>组织架构 API</td>
                 <td>REST API</td>
                 <td>模型验证</td>
+                <td>/query/org</td>
                 <td><span class="status run">测试中</span></td>
                 <td><a href="models.html">关联模型</a></td>
               </tr>

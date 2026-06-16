@@ -20,13 +20,13 @@
           <a href="chat.html">对话 <small>Chat</small></a>
           <a href="admin.html">管理 <small>Admin</small></a>
         </nav>
-        <div class="sidebar-note"><strong>可视化</strong><p>轻量图谱页用于理解模型结构，不追求复杂编辑器，优先支持查看、筛选和快速跳转到对话。</p></div>
+        <div class="sidebar-note"><strong>可视化</strong><p>轻量图谱页用于理解 Jena 中的模型结构，并提供 SPARQL 查询、推理测试和应用测试跳转。</p></div>
       </aside>
 
       <main class="page">
         <header class="topbar">
           <div><p class="kicker">Graph</p><h1>本体模型可视化</h1></div>
-          <label class="topbar-search"><span>模型</span><input type="search" value="企业知识本体 v1.2" readonly /></label>
+          <label class="topbar-search"><span>Jena Graph</span><input type="search" value="urn:ontolite:ontology:enterprise:v1.2:schema" readonly /></label>
           <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>建模人员</small></div></div>
         </header>
 
@@ -35,11 +35,12 @@
             <a class="active" href="#">图谱视图</a>
             <a href="#">树形视图</a>
             <a href="#">表格视图</a>
-            <a href="#">版本对比</a>
+            <a href="#">SPARQL 查询</a>
+            <a href="#">推理测试</a>
           </div>
           <div class="action-row">
             <a class="btn secondary" href="models.html">返回模型库</a>
-            <a class="btn primary" href="chat.html">用该模型对话</a>
+            <a class="btn primary" href="chat.html">进入应用测试</a>
           </div>
         </section>
 
@@ -94,9 +95,9 @@
         </section>
 
         <section class="section grid three">
-          <article class="card"><span class="tag">质量</span><h3>结构完整度 82%</h3><p class="muted">建议补充订单到客户的反向关系定义。</p></article>
-          <article class="card"><span class="tag teal">复用</span><h3>被 3 个对话配置使用</h3><p class="muted">企业客户查询、产品推荐、订单追踪。</p></article>
-          <article class="card"><span class="tag purple">导出</span><h3>OWL / RDF / JSON-LD</h3><p class="muted">用于系统集成和模型迁移。</p></article>
+          <article class="card"><span class="tag">SPARQL</span><h3>Jena 查询接口</h3><p class="muted">支持 SELECT、ASK、CONSTRUCT 和查询模板，限制命名图、超时和返回行数。</p></article>
+          <article class="card"><span class="tag teal">Reasoning</span><h3>RDFS / OWL 简单推理</h3><p class="muted">支持 subclass、domain、range、inverseOf 和少量业务规则测试。</p></article>
+          <article class="card"><span class="tag purple">Export</span><h3>OWL / RDF / JSON-LD</h3><p class="muted">审批发布后可导出，也可分享为广场本体模型。</p></article>
         </section>
       </main>
     </div>

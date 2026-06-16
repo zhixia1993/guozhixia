@@ -20,7 +20,7 @@
           <a href="chat.html">对话 <small>Chat</small></a>
           <a href="admin.html">管理 <small>Admin</small></a>
         </nav>
-        <div class="sidebar-note"><strong>自动建模</strong><p>这一页是原型中的核心任务页，展示从文档到本体草稿的轻量操作体验。</p></div>
+        <div class="sidebar-note"><strong>自动建模</strong><p>核心任务页展示从文档到本体草稿，再到证据标注和审批发布的轻量闭环。</p></div>
       </aside>
 
       <main class="page">
@@ -33,8 +33,8 @@
         <section class="section grid four">
           <article class="card"><span class="tag">1</span><h3>选择数据</h3><p class="muted">合同文件夹 / 已解析</p></article>
           <article class="card"><span class="tag teal">2</span><h3>输入要求</h3><p class="muted">指定抽取范围和领域语言。</p></article>
-          <article class="card"><span class="tag purple">3</span><h3>生成草稿</h3><p class="muted">概念、关系、属性自动抽取。</p></article>
-          <article class="card"><span class="tag amber">4</span><h3>人工确认</h3><p class="muted">保存为可复用本体模型。</p></article>
+          <article class="card"><span class="tag purple">3</span><h3>生成草稿</h3><p class="muted">概念、关系、属性和证据自动抽取。</p></article>
+          <article class="card"><span class="tag amber">4</span><h3>标注审批</h3><p class="muted">在线标注确认后提交审批，审批通过写入 Jena。</p></article>
         </section>
 
         <section class="section split">
@@ -53,6 +53,7 @@
               <label><input type="checkbox" checked /> 抽取关系</label>
               <label><input type="checkbox" checked /> 抽取约束规则</label>
               <label><input type="checkbox" checked /> 抽取同义词</label>
+              <label><input type="checkbox" checked /> 保留证据来源</label>
             </div>
             <div class="action-row">
               <a class="btn secondary" href="modeling.html">返回建模</a>
@@ -82,17 +83,18 @@
             </div>
             <div class="section table-panel">
               <table>
-                <thead><tr><th>候选项</th><th>类型</th><th>置信度</th><th>处理</th></tr></thead>
+                <thead><tr><th>候选项</th><th>类型</th><th>证据来源</th><th>置信度</th><th>标注/审批</th></tr></thead>
                 <tbody>
-                  <tr><td>付款条件</td><td>概念</td><td>0.92</td><td><span class="status ok">接受</span></td></tr>
-                  <tr><td>争议解决</td><td>关系</td><td>0.84</td><td><span class="status warn">需确认</span></td></tr>
-                  <tr><td>违约责任说明</td><td>属性</td><td>0.78</td><td><span class="status warn">需确认</span></td></tr>
+                  <tr><td>付款条件</td><td>概念</td><td>合同第 4.2 条</td><td>0.92</td><td><span class="status ok">已标注</span></td></tr>
+                  <tr><td>争议解决</td><td>关系</td><td>合同第 9 条</td><td>0.84</td><td><span class="status warn">待确认</span></td></tr>
+                  <tr><td>违约责任说明</td><td>属性</td><td>合同第 7.1 条</td><td>0.78</td><td><span class="status warn">待审批</span></td></tr>
                 </tbody>
               </table>
             </div>
             <div class="action-row">
               <a class="btn secondary" href="visualization.html">图谱预览</a>
-              <a class="btn primary" href="models.html">保存为本体模型</a>
+              <a class="btn ghost" href="#">在线标注</a>
+              <a class="btn primary" href="models.html">提交审批并保存</a>
             </div>
           </article>
         </section>
