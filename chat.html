@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>轻量本体平台 · 应用测试</title>
+    <title>本体平台 · 应用测试</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="prototype-shell">
       <aside class="sidebar">
-        <a class="brand" href="index.html"><span class="brand-mark">O</span><div><strong>OntoLite</strong><span>轻量本体平台</span></div></a>
+        <a class="brand" href="index.html"><span class="brand-mark">O</span><div><strong>OntoHub</strong><span>本体平台</span></div></a>
         <nav class="nav-group" aria-label="主导航">
           <a href="index.html">工作台 <small>Home</small></a>
           <a href="data.html">数据 <small>Data</small></a>
@@ -20,7 +20,7 @@
           <a class="active" href="chat.html">对话 <small>Chat</small></a>
           <a href="admin.html">管理 <small>Admin</small></a>
         </nav>
-        <div class="sidebar-note"><strong>应用测试</strong><p>问答页优先作为模型效果测试入口，展示证据、SPARQL、数据查询调用和分享发布能力。</p></div>
+        <div class="sidebar-note"><strong>应用测试</strong><p>问答页优先作为模型效果测试入口，展示证据、调用过程和分享发布能力。</p></div>
       </aside>
 
       <main class="page">
@@ -42,11 +42,11 @@
             </aside>
 
             <section class="conversation">
-              <div class="context-strip">当前测试应用：合同领域本体 · 合同风险识别技能 · Jena 推理开启 · 合同文件夹 · 数据查询技能</div>
+              <div class="context-strip">当前测试应用：合同领域本体 · 合同风险识别技能 · 推理开启 · 合同文件夹 · 数据查询技能</div>
               <div class="message user"><strong>用户</strong><p>请分析这份合同中有哪些违约风险？</p></div>
               <div class="message ai"><strong>AI</strong><p>根据合同领域本体，识别到 3 类风险：履约期限表述不明确、违约责任条款缺少赔偿上限、付款条件与验收节点存在依赖但未定义触发条件。</p></div>
               <div class="message user"><strong>用户</strong><p>这些风险分别关联哪些本体概念？</p></div>
-              <div class="message ai"><strong>AI</strong><p>关联概念包括：合同、履约期限、付款节点、验收条件、违约责任。调用链：SPARQL 查询合同概念关系，数据查询技能读取合同元数据，关系推理技能补充风险路径。</p></div>
+              <div class="message ai"><strong>AI</strong><p>关联概念包括：合同、履约期限、付款节点、验收条件、违约责任。调用过程：先查询模型关系，再读取相关数据，最后通过关系推理补充风险路径。</p></div>
               <label class="chat-composer">
                 <input type="text" placeholder="输入问题，例如：找出付款条款的风险依据" />
                 <a class="btn primary" href="#">发送</a>
@@ -58,7 +58,7 @@
               <label class="select-field"><span>本体模型</span><select><option>合同领域本体</option><option>企业知识本体</option><option>产品知识本体</option></select></label>
               <label class="select-field"><span>技能</span><select><option>合同风险识别</option><option>关系路径推理</option><option>条款抽取</option></select></label>
               <label class="select-field"><span>智能体</span><select><option>合同分析助手</option><option>知识问答助手</option><option>数据分析助手</option></select></label>
-              <label class="select-field"><span>推理模式</span><select><option>RDFS + 简单 OWL</option><option>仅 SPARQL</option><option>业务规则推理</option></select></label>
+              <label class="select-field"><span>推理策略</span><select><option>标准关系推理</option><option>仅模型查询</option><option>业务规则推理</option></select></label>
               <div>
                 <h3>数据范围</h3>
                 <div class="permission-list">
