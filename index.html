@@ -3,50 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>本体智能平台 UI 静态原型</title>
+    <title>轻量本体平台 · 工作台</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="app-shell">
+    <div class="prototype-shell">
       <aside class="sidebar">
-        <div class="brand">
+        <a class="brand" href="index.html">
           <span class="brand-mark">O</span>
           <div>
-            <strong>OntologyHub</strong>
-            <small>本体智能平台</small>
+            <strong>OntoLite</strong>
+            <span>轻量本体平台</span>
           </div>
-        </div>
-
-        <nav class="side-nav" aria-label="主导航">
-          <a class="active" href="#workspace">工作台</a>
-          <a href="#data">数据连接</a>
-          <a href="#modeling">本体建模</a>
-          <a href="#visualization">本体可视化</a>
-          <a href="#marketplace">能力广场</a>
-          <a href="#chat">对话中心</a>
-          <a href="#admin">系统管理</a>
+        </a>
+        <nav class="nav-group" aria-label="主导航">
+          <a class="active" href="index.html">工作台 <small>Home</small></a>
+          <a href="data.html">数据 <small>Data</small></a>
+          <a href="modeling.html">建模 <small>Build</small></a>
+          <a href="models.html">模型 <small>Models</small></a>
+          <a href="visualization.html">可视化 <small>Graph</small></a>
+          <a href="marketplace.html">广场 <small>Hub</small></a>
+          <a href="chat.html">对话 <small>Chat</small></a>
+          <a href="admin.html">管理 <small>Admin</small></a>
         </nav>
-
-        <div class="sidebar-card">
-          <span class="status-dot"></span>
-          <div>
-            <strong>SSO 已启用</strong>
-            <p>OIDC 企业身份认证</p>
-          </div>
+        <div class="sidebar-note">
+          <strong>原型说明</strong>
+          <p>这是多页面静态原型。点击侧边栏、卡片和按钮可进入对应页面，模拟真实产品路径。</p>
         </div>
       </aside>
 
-      <main class="main-content">
+      <main class="page">
         <header class="topbar">
           <div>
-            <p class="eyebrow">Ontology Platform Prototype</p>
-            <h1>本体智能平台</h1>
+            <p class="kicker">Workspace</p>
+            <h1>轻量本体平台工作台</h1>
           </div>
-          <label class="global-search">
+          <label class="topbar-search">
             <span>搜索</span>
-            <input type="search" placeholder="搜索本体模型、技能、智能体或数据源" />
+            <input type="search" placeholder="搜索数据、本体模型、技能或智能体" />
           </label>
-          <div class="user-chip">
+          <div class="user-pill">
             <span class="avatar">张</span>
             <div>
               <strong>张三</strong>
@@ -55,478 +51,132 @@
           </div>
         </header>
 
-        <section id="workspace" class="hero panel">
-          <div class="hero-copy">
-            <span class="pill">多源数据 · 自动建模 · 本体对话</span>
-            <h2>从数据接入到本体智能应用的一站式工作台</h2>
+        <section class="hero">
+          <div>
+            <p class="kicker">Data to Ontology to AI</p>
+            <h1>把数据、知识结构和智能对话放在一个轻量工作流里。</h1>
             <p>
-              平台支持结构化与非结构化数据接入，提供本体建模、可视化、能力广场和面向本体模型的智能对话能力。
+              OntoLite 面向小团队和业务专家，提供数据接入、本体建模、模型管理、可视化和基于本体的对话能力。
+              页面尽量轻，流程尽量短，降低本体平台的使用门槛。
             </p>
-            <div class="hero-actions">
-              <a class="primary-button" href="#modeling">开始建模</a>
-              <a class="secondary-button" href="#data">连接数据</a>
+            <div class="action-row">
+              <a class="btn primary" href="data-new.html">接入第一份数据</a>
+              <a class="btn secondary" href="modeling.html">创建本体模型</a>
+              <a class="btn ghost" href="chat.html">进入本体对话</a>
             </div>
           </div>
-          <div class="hero-metrics" aria-label="平台概览">
-            <article>
-              <span>12</span>
-              <p>数据源</p>
-            </article>
-            <article>
-              <span>8</span>
-              <p>本体模型</p>
-            </article>
-            <article>
-              <span>25</span>
-              <p>技能</p>
-            </article>
-            <article>
-              <span>4</span>
-              <p>智能体</p>
-            </article>
+          <div class="hero-preview">
+            <div class="metric-card">
+              <strong>6</strong>
+              <span>活跃数据源</span>
+            </div>
+            <div class="metric-card">
+              <strong>4</strong>
+              <span>本体模型</span>
+            </div>
+            <div class="metric-card">
+              <strong>18</strong>
+              <span>可用技能与工具</span>
+            </div>
           </div>
         </section>
 
-        <section class="dashboard-grid">
-          <article class="panel">
-            <div class="section-title">
-              <div>
-                <p class="eyebrow">Recent Tasks</p>
-                <h3>最近建模任务</h3>
-              </div>
-              <a href="#modeling">查看全部</a>
-            </div>
-            <div class="task-list">
-              <div class="task-item">
-                <span class="task-state success">完成</span>
-                <div>
-                  <strong>合同领域本体自动建模</strong>
-                  <p>抽取 18 个概念、42 条关系、12 条约束</p>
-                </div>
-              </div>
-              <div class="task-item">
-                <span class="task-state running">运行中</span>
-                <div>
-                  <strong>产品说明书文件夹解析</strong>
-                  <p>正在处理 Word、PDF 和 Markdown 文档</p>
-                </div>
-              </div>
-              <div class="task-item">
-                <span class="task-state pending">待确认</span>
-                <div>
-                  <strong>企业组织本体版本合并</strong>
-                  <p>等待建模人员确认冲突节点</p>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="panel">
-            <div class="section-title">
-              <div>
-                <p class="eyebrow">Recommended</p>
-                <h3>推荐能力</h3>
-              </div>
-              <a href="#marketplace">进入广场</a>
-            </div>
-            <div class="mini-card-grid">
-              <div class="mini-card">
-                <span>Agent</span>
-                <strong>法务分析智能体</strong>
-                <p>合同审查、风险识别、条款解释</p>
-              </div>
-              <div class="mini-card">
-                <span>Skill</span>
-                <strong>关系推理</strong>
-                <p>基于本体关系完成路径推理</p>
-              </div>
-              <div class="mini-card">
-                <span>Ontology</span>
-                <strong>企业知识本体</strong>
-                <p>组织、客户、产品、订单模型</p>
-              </div>
-            </div>
-          </article>
-        </section>
-
-        <section id="data" class="panel content-section">
-          <div class="section-title">
+        <section class="section">
+          <div class="section-head">
             <div>
-              <p class="eyebrow">Data Connector</p>
-              <h2>数据连接</h2>
-            </div>
-            <button class="primary-button" type="button">新建数据连接</button>
-          </div>
-
-          <div class="connector-layout">
-            <div class="connection-builder">
-              <h3>选择数据来源</h3>
-              <div class="source-tabs" aria-label="数据类型">
-                <button class="active" type="button">结构化数据</button>
-                <button type="button">非结构化数据</button>
-              </div>
-              <div class="source-grid">
-                <span>MySQL</span>
-                <span>PostgreSQL</span>
-                <span>Oracle</span>
-                <span>SQL Server</span>
-                <span>Excel</span>
-                <span>CSV</span>
-                <span>API</span>
-                <span>文件夹导入</span>
-                <span>PDF / Word</span>
-                <span>TXT / Markdown</span>
-                <span>HTML</span>
-                <span>图片 OCR</span>
-              </div>
-              <div class="upload-box">
-                <strong>拖拽上传单个文件或文件夹</strong>
-                <p>支持 PDF、Word、Excel、CSV、Markdown、TXT 和批量目录加载</p>
-                <button class="secondary-button" type="button">选择文件</button>
-              </div>
-            </div>
-
-            <div class="data-table-card">
-              <h3>数据源列表</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>名称</th>
-                    <th>类型</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>企业客户库</td>
-                    <td>MySQL</td>
-                    <td><span class="badge success">已连接</span></td>
-                    <td>查看 / 编辑</td>
-                  </tr>
-                  <tr>
-                    <td>合同文件夹</td>
-                    <td>PDF 目录</td>
-                    <td><span class="badge success">已解析</span></td>
-                    <td>查看 / 重跑</td>
-                  </tr>
-                  <tr>
-                    <td>产品说明书</td>
-                    <td>Word</td>
-                    <td><span class="badge warning">待解析</span></td>
-                    <td>开始解析</td>
-                  </tr>
-                </tbody>
-              </table>
+              <p class="kicker">Quick Start</p>
+              <h2>核心路径</h2>
             </div>
           </div>
-        </section>
-
-        <section id="modeling" class="panel content-section">
-          <div class="section-title">
-            <div>
-              <p class="eyebrow">Ontology Modeling</p>
-              <h2>本体建模</h2>
-            </div>
-            <span class="badge">双模式建模</span>
-          </div>
-
-          <div class="modeling-options">
-            <article class="option-card">
-              <span class="option-index">01</span>
-              <h3>基于已有本体模型建模</h3>
-              <p>选择已有模型进行扩展、编辑、合并和版本管理，支持类、属性、关系和约束维护。</p>
-              <ul>
-                <li>模型版本选择与对比</li>
-                <li>新增类、属性、关系</li>
-                <li>融合外部本体模型</li>
-              </ul>
-              <button class="primary-button" type="button">开始建模</button>
-            </article>
-            <article class="option-card highlighted">
-              <span class="option-index">02</span>
-              <h3>非结构化数据自动建模</h3>
-              <p>上传文档或选择数据源，输入建模要求后自动抽取概念、属性、关系和规则。</p>
-              <ul>
-                <li>自然语言输入建模目标</li>
-                <li>自动抽取并人工确认</li>
-                <li>保存为 OWL / RDF / JSON-LD</li>
-              </ul>
-              <button class="primary-button" type="button">开始自动建模</button>
-            </article>
-          </div>
-
           <div class="workflow">
-            <div>选择数据</div>
-            <span></span>
-            <div>配置要求</div>
-            <span></span>
-            <div>自动抽取</div>
-            <span></span>
-            <div>人工确认</div>
-            <span></span>
-            <div>生成模型</div>
-          </div>
-
-          <div class="auto-modeling">
-            <div class="prompt-panel">
-              <h3>建模要求</h3>
-              <textarea readonly>请从合同文档中抽取甲方、乙方、合同金额、履约期限、违约责任等核心概念，并建立概念关系与约束规则。</textarea>
-              <div class="checkbox-grid">
-                <label><input type="checkbox" checked /> 概念</label>
-                <label><input type="checkbox" checked /> 属性</label>
-                <label><input type="checkbox" checked /> 实体关系</label>
-                <label><input type="checkbox" checked /> 约束规则</label>
-                <label><input type="checkbox" checked /> 同义词</label>
+            <a class="card link-card" href="data.html">
+              <span class="icon">1</span>
+              <div>
+                <h3>连接数据</h3>
+                <p class="muted">连接数据库、上传文件，或批量加载文件夹。</p>
               </div>
-            </div>
-            <div class="result-panel">
-              <h3>抽取结果预览</h3>
-              <div class="extraction-list">
-                <p><strong>概念：</strong>合同、甲方、乙方、合同金额、履约期限、违约责任</p>
-                <p><strong>关系：</strong>合同 hasParty 甲方；合同 hasAmount 合同金额</p>
-                <p><strong>规则：</strong>合同金额必须存在；履约期限必须明确</p>
+            </a>
+            <a class="card link-card" href="modeling.html">
+              <span class="icon">2</span>
+              <div>
+                <h3>构建本体</h3>
+                <p class="muted">从已有模型扩展，或使用非结构化数据自动生成模型草稿。</p>
               </div>
-              <div class="button-row">
-                <button class="secondary-button" type="button">人工编辑</button>
-                <button class="secondary-button" type="button">重新生成</button>
-                <button class="primary-button" type="button">保存模型</button>
+            </a>
+            <a class="card link-card" href="models.html">
+              <span class="icon">3</span>
+              <div>
+                <h3>管理模型</h3>
+                <p class="muted">沉淀版本、领域标签、发布状态和复用关系。</p>
               </div>
-            </div>
+            </a>
+            <a class="card link-card" href="chat.html">
+              <span class="icon">4</span>
+              <div>
+                <h3>本体对话</h3>
+                <p class="muted">选择本体模型和技能，完成问答、抽取、推理和分析。</p>
+              </div>
+            </a>
           </div>
         </section>
 
-        <section id="visualization" class="panel content-section">
-          <div class="section-title">
-            <div>
-              <p class="eyebrow">Visualization</p>
-              <h2>本体模型可视化</h2>
-            </div>
-            <div class="toolbar">
-              <button class="active" type="button">图谱视图</button>
-              <button type="button">树形视图</button>
-              <button type="button">表格视图</button>
-            </div>
-          </div>
-
-          <div class="visual-layout">
-            <aside class="model-tree">
-              <h3>企业知识本体 v1.2</h3>
-              <ul>
-                <li>企业
-                  <ul>
-                    <li class="selected">客户</li>
-                    <li>产品</li>
-                    <li>订单</li>
-                    <li>组织</li>
-                  </ul>
-                </li>
-              </ul>
-            </aside>
-            <div class="graph-canvas" aria-label="本体图谱画布">
-              <div class="node node-main">企业</div>
-              <div class="node node-a">客户</div>
-              <div class="node node-b">产品</div>
-              <div class="node node-c">订单</div>
-              <div class="node node-d">组织</div>
-              <span class="edge edge-1"></span>
-              <span class="edge edge-2"></span>
-              <span class="edge edge-3"></span>
-              <span class="edge edge-4"></span>
-            </div>
-            <aside class="detail-panel">
-              <h3>节点详情</h3>
-              <dl>
-                <dt>名称</dt>
-                <dd>客户</dd>
-                <dt>类型</dt>
-                <dd>Class</dd>
-                <dt>属性</dt>
-                <dd>客户名称、客户等级、所属行业</dd>
-                <dt>关系</dt>
-                <dd>购买产品、创建订单、归属组织</dd>
-              </dl>
-              <button class="secondary-button" type="button">导出 OWL/RDF</button>
-            </aside>
-          </div>
-        </section>
-
-        <section id="marketplace" class="panel content-section">
-          <div class="section-title">
-            <div>
-              <p class="eyebrow">Marketplace</p>
-              <h2>能力广场</h2>
-            </div>
-            <label class="market-search">
-              <input type="search" placeholder="搜索智能体、工具、技能、本体模型" />
-            </label>
-          </div>
-
-          <div class="category-tabs">
-            <button class="active" type="button">全部</button>
-            <button type="button">智能体</button>
-            <button type="button">工具</button>
-            <button type="button">技能</button>
-            <button type="button">本体模型</button>
-          </div>
-
-          <div class="market-grid">
-            <article class="market-card">
-              <span class="type-tag agent">智能体</span>
-              <h3>合同分析智能体</h3>
-              <p>面向法务场景，支持合同审查、风险提示和条款解释。</p>
-              <div class="meta">金融 · 法务 · 4.8 分 · 使用 2.3k</div>
-              <button class="secondary-button" type="button">使用</button>
-            </article>
-            <article class="market-card">
-              <span class="type-tag tool">工具</span>
-              <h3>文档抽取工具</h3>
-              <p>从 PDF、Word、图片中抽取文本、表格和关键字段。</p>
-              <div class="meta">OCR · NLP · 4.7 分 · 使用 5.1k</div>
-              <button class="secondary-button" type="button">安装</button>
-            </article>
-            <article class="market-card">
-              <span class="type-tag skill">技能</span>
-              <h3>本体关系推理</h3>
-              <p>根据类层级、属性约束与关系路径完成推理问答。</p>
-              <div class="meta">推理 · 问答 · 4.9 分 · 使用 1.8k</div>
-              <button class="secondary-button" type="button">启用</button>
-            </article>
-            <article class="market-card">
-              <span class="type-tag ontology">本体模型</span>
-              <h3>企业组织本体</h3>
-              <p>覆盖部门、岗位、人员、权限和组织关系。</p>
-              <div class="meta">企业 · 官方 · 4.6 分 · 引用 860</div>
-              <button class="secondary-button" type="button">引用</button>
-            </article>
-          </div>
-        </section>
-
-        <section id="chat" class="panel content-section chat-section">
-          <div class="section-title">
-            <div>
-              <p class="eyebrow">Ontology Chat</p>
-              <h2>对话中心</h2>
-            </div>
-            <span class="badge success">已选择合同领域本体</span>
-          </div>
-
-          <div class="chat-layout">
-            <aside class="history-list">
-              <h3>历史会话</h3>
-              <a class="active" href="#">合同风险分析</a>
-              <a href="#">企业客户查询</a>
-              <a href="#">产品知识问答</a>
-            </aside>
-            <div class="conversation">
-              <div class="system-context">
-                当前使用：合同领域本体 · 合同风险识别技能 · 法务分析智能体
+        <section class="section grid two">
+          <article class="table-panel">
+            <div class="section-head">
+              <div>
+                <p class="kicker">Recent</p>
+                <h2>最近工作</h2>
               </div>
-              <div class="message user-message">
-                <strong>用户</strong>
-                <p>请分析这份合同中有哪些违约风险？</p>
-              </div>
-              <div class="message ai-message">
-                <strong>AI</strong>
-                <p>根据合同领域本体模型，识别到以下风险：履约期限不明确、违约责任条款缺失、付款条件存在歧义。</p>
-              </div>
-              <label class="chat-input">
-                <input type="text" placeholder="输入问题，系统将结合本体模型和技能回答" />
-                <button class="primary-button" type="button">发送</button>
-              </label>
+              <a class="btn secondary" href="models.html">查看模型</a>
             </div>
-            <aside class="config-panel">
-              <h3>对话配置</h3>
-              <label>
-                本体模型
-                <select>
-                  <option>合同领域本体</option>
-                  <option>企业知识本体</option>
-                </select>
-              </label>
-              <label>
-                技能
-                <select>
-                  <option>合同风险识别</option>
-                  <option>条款抽取</option>
-                  <option>关系推理</option>
-                </select>
-              </label>
-              <label>
-                智能体
-                <select>
-                  <option>法务分析智能体</option>
-                  <option>知识问答智能体</option>
-                </select>
-              </label>
-              <div class="checkbox-grid single">
-                <label><input type="checkbox" checked /> 合同文件夹</label>
-                <label><input type="checkbox" checked /> 企业知识库</label>
-              </div>
-            </aside>
-          </div>
-        </section>
+            <table>
+              <thead>
+                <tr>
+                  <th>任务</th>
+                  <th>类型</th>
+                  <th>状态</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>合同文档自动建模</td>
+                  <td>自动建模</td>
+                  <td><span class="status ok">已完成</span></td>
+                </tr>
+                <tr>
+                  <td>客户数据库同步</td>
+                  <td>数据连接</td>
+                  <td><span class="status run">同步中</span></td>
+                </tr>
+                <tr>
+                  <td>企业本体 v1.2 发布</td>
+                  <td>模型发布</td>
+                  <td><span class="status warn">待确认</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
 
-        <section id="admin" class="panel content-section">
-          <div class="section-title">
-            <div>
-              <p class="eyebrow">SSO & Users</p>
-              <h2>单点登录与用户管理</h2>
+          <article class="card">
+            <p class="kicker">Recommended</p>
+            <h2>推荐能力</h2>
+            <div class="grid two">
+              <a class="card link-card" href="marketplace.html">
+                <span class="type agent">智能体</span>
+                <div>
+                  <h3>合同分析助手</h3>
+                  <p class="muted">适合法务文档抽取和风险识别。</p>
+                </div>
+              </a>
+              <a class="card link-card" href="visualization.html">
+                <span class="type model">模型</span>
+                <div>
+                  <h3>企业知识本体</h3>
+                  <p class="muted">覆盖组织、客户、产品和订单。</p>
+                </div>
+              </a>
             </div>
-            <button class="secondary-button" type="button">同步 SSO 用户</button>
-          </div>
-
-          <div class="admin-grid">
-            <article class="settings-card">
-              <h3>单点登录配置</h3>
-              <div class="radio-list">
-                <label><input type="radio" name="sso" /> 本地账号</label>
-                <label><input type="radio" name="sso" checked /> OIDC</label>
-                <label><input type="radio" name="sso" /> SAML</label>
-                <label><input type="radio" name="sso" /> LDAP / AD</label>
-              </div>
-              <div class="form-grid">
-                <label>Client ID<input type="text" value="ontology-hub" readonly /></label>
-                <label>Issuer URL<input type="text" value="https://sso.example.com" readonly /></label>
-                <label>Redirect URI<input type="text" value="https://platform.example.com/callback" readonly /></label>
-              </div>
-              <button class="primary-button" type="button">测试连接</button>
-            </article>
-
-            <article class="data-table-card">
-              <h3>用户管理</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>用户</th>
-                    <th>角色</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>张三</td>
-                    <td>超级管理员</td>
-                    <td><span class="badge success">启用</span></td>
-                    <td>编辑</td>
-                  </tr>
-                  <tr>
-                    <td>李四</td>
-                    <td>本体建模人员</td>
-                    <td><span class="badge success">启用</span></td>
-                    <td>编辑</td>
-                  </tr>
-                  <tr>
-                    <td>王五</td>
-                    <td>普通用户</td>
-                    <td><span class="badge muted">禁用</span></td>
-                    <td>编辑</td>
-                  </tr>
-                </tbody>
-              </table>
-            </article>
-          </div>
+          </article>
         </section>
       </main>
     </div>

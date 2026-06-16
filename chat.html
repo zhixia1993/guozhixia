@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轻量本体平台 · 对话</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"><span class="brand-mark">O</span><div><strong>OntoLite</strong><span>轻量本体平台</span></div></a>
+        <nav class="nav-group" aria-label="主导航">
+          <a href="index.html">工作台 <small>Home</small></a>
+          <a href="data.html">数据 <small>Data</small></a>
+          <a href="modeling.html">建模 <small>Build</small></a>
+          <a href="models.html">模型 <small>Models</small></a>
+          <a href="visualization.html">可视化 <small>Graph</small></a>
+          <a href="marketplace.html">广场 <small>Hub</small></a>
+          <a class="active" href="chat.html">对话 <small>Chat</small></a>
+          <a href="admin.html">管理 <small>Admin</small></a>
+        </nav>
+        <div class="sidebar-note"><strong>本体对话</strong><p>对话页强调“先选模型与技能，再提问”，让回答具备明确知识边界。</p></div>
+      </aside>
+
+      <main class="page">
+        <header class="topbar">
+          <div><p class="kicker">Chat</p><h1>对话中心</h1></div>
+          <label class="topbar-search"><span>当前</span><input type="search" value="合同领域本体 + 合同风险识别" readonly /></label>
+          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>普通用户</small></div></div>
+        </header>
+
+        <section class="chat-panel">
+          <div class="chat-layout">
+            <aside class="session-list">
+              <h3>历史会话</h3>
+              <a class="active" href="#">合同风险分析</a>
+              <a href="#">企业客户查询</a>
+              <a href="#">产品知识问答</a>
+              <a href="#">订单影响分析</a>
+              <div class="action-row"><a class="btn secondary" href="marketplace.html">选择能力</a></div>
+            </aside>
+
+            <section class="conversation">
+              <div class="context-strip">当前配置：合同领域本体 · 合同风险识别技能 · 合同分析助手 · 合同文件夹</div>
+              <div class="message user"><strong>用户</strong><p>请分析这份合同中有哪些违约风险？</p></div>
+              <div class="message ai"><strong>AI</strong><p>根据合同领域本体，识别到 3 类风险：履约期限表述不明确、违约责任条款缺少赔偿上限、付款条件与验收节点存在依赖但未定义触发条件。</p></div>
+              <div class="message user"><strong>用户</strong><p>这些风险分别关联哪些本体概念？</p></div>
+              <div class="message ai"><strong>AI</strong><p>关联概念包括：合同、履约期限、付款节点、验收条件、违约责任。可在可视化页面查看这些概念之间的关系。</p></div>
+              <label class="chat-composer">
+                <input type="text" placeholder="输入问题，例如：找出付款条款的风险依据" />
+                <a class="btn primary" href="#">发送</a>
+              </label>
+            </section>
+
+            <aside class="chat-config">
+              <h3>对话配置</h3>
+              <label class="select-field"><span>本体模型</span><select><option>合同领域本体</option><option>企业知识本体</option><option>产品知识本体</option></select></label>
+              <label class="select-field"><span>技能</span><select><option>合同风险识别</option><option>关系路径推理</option><option>条款抽取</option></select></label>
+              <label class="select-field"><span>智能体</span><select><option>合同分析助手</option><option>知识问答助手</option><option>数据分析助手</option></select></label>
+              <div>
+                <h3>数据范围</h3>
+                <div class="permission-list">
+                  <label><input type="checkbox" checked /> 合同文件夹</label>
+                  <label><input type="checkbox" checked /> 企业知识库</label>
+                  <label><input type="checkbox" /> 外部 API</label>
+                </div>
+              </div>
+              <div class="action-row">
+                <a class="btn secondary" href="visualization.html">查看模型</a>
+                <a class="btn primary" href="#">保存配置</a>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轻量本体平台 · 可视化</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"><span class="brand-mark">O</span><div><strong>OntoLite</strong><span>轻量本体平台</span></div></a>
+        <nav class="nav-group" aria-label="主导航">
+          <a href="index.html">工作台 <small>Home</small></a>
+          <a href="data.html">数据 <small>Data</small></a>
+          <a href="modeling.html">建模 <small>Build</small></a>
+          <a href="models.html">模型 <small>Models</small></a>
+          <a class="active" href="visualization.html">可视化 <small>Graph</small></a>
+          <a href="marketplace.html">广场 <small>Hub</small></a>
+          <a href="chat.html">对话 <small>Chat</small></a>
+          <a href="admin.html">管理 <small>Admin</small></a>
+        </nav>
+        <div class="sidebar-note"><strong>可视化</strong><p>轻量图谱页用于理解模型结构，不追求复杂编辑器，优先支持查看、筛选和快速跳转到对话。</p></div>
+      </aside>
+
+      <main class="page">
+        <header class="topbar">
+          <div><p class="kicker">Graph</p><h1>本体模型可视化</h1></div>
+          <label class="topbar-search"><span>模型</span><input type="search" value="企业知识本体 v1.2" readonly /></label>
+          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>建模人员</small></div></div>
+        </header>
+
+        <section class="section-head">
+          <div class="tabs">
+            <a class="active" href="#">图谱视图</a>
+            <a href="#">树形视图</a>
+            <a href="#">表格视图</a>
+            <a href="#">版本对比</a>
+          </div>
+          <div class="action-row">
+            <a class="btn secondary" href="models.html">返回模型库</a>
+            <a class="btn primary" href="chat.html">用该模型对话</a>
+          </div>
+        </section>
+
+        <section class="graph-panel">
+          <div class="graph-layout">
+            <aside class="tree">
+              <h3>模型结构</h3>
+              <ul>
+                <li>企业
+                  <ul>
+                    <li class="active">客户</li>
+                    <li>产品</li>
+                    <li>订单</li>
+                    <li>组织</li>
+                    <li>业务事件</li>
+                  </ul>
+                </li>
+              </ul>
+            </aside>
+
+            <div class="graph-canvas" aria-label="本体图谱画布">
+              <span class="edge one"></span>
+              <span class="edge two"></span>
+              <span class="edge three"></span>
+              <span class="edge four"></span>
+              <div class="node main">企业</div>
+              <div class="node a">客户</div>
+              <div class="node b">产品</div>
+              <div class="node c">订单</div>
+              <div class="node d">组织</div>
+            </div>
+
+            <aside class="inspector">
+              <h3>节点详情</h3>
+              <p class="kicker">Class</p>
+              <h2>客户</h2>
+              <p class="muted">表示企业服务、销售或合作的客户主体。</p>
+              <div class="section">
+                <h3>属性</h3>
+                <p class="muted">客户名称、客户等级、所属行业、联系人、客户状态。</p>
+              </div>
+              <div class="section">
+                <h3>关系</h3>
+                <p class="muted">创建订单、购买产品、归属组织、触发业务事件。</p>
+              </div>
+              <div class="action-row">
+                <a class="btn secondary" href="modeling.html">编辑结构</a>
+                <a class="btn ghost" href="chat.html">围绕客户提问</a>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="section grid three">
+          <article class="card"><span class="tag">质量</span><h3>结构完整度 82%</h3><p class="muted">建议补充订单到客户的反向关系定义。</p></article>
+          <article class="card"><span class="tag teal">复用</span><h3>被 3 个对话配置使用</h3><p class="muted">企业客户查询、产品推荐、订单追踪。</p></article>
+          <article class="card"><span class="tag purple">导出</span><h3>OWL / RDF / JSON-LD</h3><p class="muted">用于系统集成和模型迁移。</p></article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

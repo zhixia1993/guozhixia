@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轻量本体平台 · 管理</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"><span class="brand-mark">O</span><div><strong>OntoLite</strong><span>轻量本体平台</span></div></a>
+        <nav class="nav-group" aria-label="主导航">
+          <a href="index.html">工作台 <small>Home</small></a>
+          <a href="data.html">数据 <small>Data</small></a>
+          <a href="modeling.html">建模 <small>Build</small></a>
+          <a href="models.html">模型 <small>Models</small></a>
+          <a href="visualization.html">可视化 <small>Graph</small></a>
+          <a href="marketplace.html">广场 <small>Hub</small></a>
+          <a href="chat.html">对话 <small>Chat</small></a>
+          <a class="active" href="admin.html">管理 <small>Admin</small></a>
+        </nav>
+        <div class="sidebar-note"><strong>轻量管理</strong><p>仅保留登录、用户、角色和基础审计入口，避免把原型做成复杂后台。</p></div>
+      </aside>
+
+      <main class="page">
+        <header class="topbar">
+          <div><p class="kicker">Admin</p><h1>单点登录与用户管理</h1></div>
+          <label class="topbar-search"><span>搜索</span><input type="search" placeholder="搜索用户、角色或登录配置" /></label>
+          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>超级管理员</small></div></div>
+        </header>
+
+        <section class="section grid three">
+          <article class="card"><span class="tag">SSO</span><h3>OIDC 已启用</h3><p class="muted">统一身份认证，支持企业账号登录。</p></article>
+          <article class="card"><span class="tag teal">Users</span><h3>12 个用户</h3><p class="muted">4 个建模人员，6 个普通用户，2 个管理员。</p></article>
+          <article class="card"><span class="tag purple">Roles</span><h3>5 个角色</h3><p class="muted">按数据、模型、广场、对话权限授权。</p></article>
+        </section>
+
+        <section class="section admin-layout">
+          <article class="card">
+            <div class="section-head"><div><p class="kicker">Single Sign-On</p><h2>单点登录配置</h2></div><span class="status ok">已启用</span></div>
+            <div class="form-grid">
+              <label class="select-field"><span>登录方式</span><select><option>OIDC</option><option>SAML</option><option>LDAP / AD</option><option>本地账号</option></select></label>
+              <label class="field"><span>Client ID</span><input type="text" value="ontolite-platform" /></label>
+              <label class="field"><span>Issuer URL</span><input type="text" value="https://sso.example.com" /></label>
+              <label class="field"><span>Redirect URI</span><input type="text" value="https://ontolite.example.com/callback" /></label>
+            </div>
+            <div class="action-row">
+              <a class="btn secondary" href="#">测试连接</a>
+              <a class="btn primary" href="#">保存配置</a>
+            </div>
+          </article>
+
+          <article class="table-panel">
+            <div class="section-head">
+              <div><p class="kicker">Users</p><h2>用户列表</h2></div>
+              <div class="action-row"><a class="btn secondary" href="#">同步 SSO 用户</a><a class="btn primary" href="#">新增用户</a></div>
+            </div>
+            <table>
+              <thead><tr><th>用户</th><th>邮箱</th><th>角色</th><th>状态</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr><td>张三</td><td>zhang@example.com</td><td>超级管理员</td><td><span class="status ok">启用</span></td><td>编辑</td></tr>
+                <tr><td>李四</td><td>li@example.com</td><td>本体建模人员</td><td><span class="status ok">启用</span></td><td>编辑</td></tr>
+                <tr><td>王五</td><td>wang@example.com</td><td>普通用户</td><td><span class="status">禁用</span></td><td>编辑</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </section>
+
+        <section class="section grid two">
+          <article class="card">
+            <p class="kicker">Roles</p>
+            <h2>推荐角色</h2>
+            <div class="permission-list">
+              <label><input type="checkbox" checked /> 超级管理员：全部权限</label>
+              <label><input type="checkbox" checked /> 数据管理员：数据连接与解析</label>
+              <label><input type="checkbox" checked /> 本体建模人员：模型草稿与发布</label>
+              <label><input type="checkbox" checked /> 普通用户：对话和查看模型</label>
+            </div>
+          </article>
+          <article class="card">
+            <p class="kicker">Audit</p>
+            <h2>最近审计</h2>
+            <table>
+              <tbody>
+                <tr><td>张三发布企业知识本体 v1.2</td><td>今天</td></tr>
+                <tr><td>李四创建合同领域本体草稿</td><td>今天</td></tr>
+                <tr><td>SSO 同步 3 个新用户</td><td>昨天</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轻量本体平台 · 数据</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">O</span>
+          <div><strong>OntoLite</strong><span>轻量本体平台</span></div>
+        </a>
+        <nav class="nav-group" aria-label="主导航">
+          <a href="index.html">工作台 <small>Home</small></a>
+          <a class="active" href="data.html">数据 <small>Data</small></a>
+          <a href="modeling.html">建模 <small>Build</small></a>
+          <a href="models.html">模型 <small>Models</small></a>
+          <a href="visualization.html">可视化 <small>Graph</small></a>
+          <a href="marketplace.html">广场 <small>Hub</small></a>
+          <a href="chat.html">对话 <small>Chat</small></a>
+          <a href="admin.html">管理 <small>Admin</small></a>
+        </nav>
+        <div class="sidebar-note">
+          <strong>数据设计</strong>
+          <p>轻量平台只保留“接入、解析、可用于建模”三个核心状态，避免复杂数据治理后台。</p>
+        </div>
+      </aside>
+
+      <main class="page">
+        <header class="topbar">
+          <div>
+            <p class="kicker">Data</p>
+            <h1>数据连接</h1>
+          </div>
+          <label class="topbar-search">
+            <span>搜索</span>
+            <input type="search" placeholder="搜索数据源、文件夹或表名" />
+          </label>
+          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>数据管理员</small></div></div>
+        </header>
+
+        <section class="hero">
+          <div>
+            <p class="kicker">Connect Once, Reuse Everywhere</p>
+            <h1>接入结构化和非结构化数据，作为建模与对话的知识底座。</h1>
+            <p>支持数据库、API、单个文件、文件夹批量导入。每个数据源都可以标记是否参与自动建模、检索问答或模型验证。</p>
+            <div class="action-row">
+              <a class="btn primary" href="data-new.html">新建数据连接</a>
+              <a class="btn secondary" href="modeling.html">用数据创建模型</a>
+            </div>
+          </div>
+          <div class="hero-preview">
+            <div class="metric-card"><strong>3</strong><span>结构化数据源</span></div>
+            <div class="metric-card"><strong>12</strong><span>非结构化文件</span></div>
+            <div class="metric-card"><strong>86%</strong><span>解析完成率</span></div>
+          </div>
+        </section>
+
+        <section class="section grid four">
+          <a class="card link-card" href="data-new.html">
+            <span class="tag">数据库</span>
+            <div><h3>MySQL / PostgreSQL</h3><p class="muted">连接业务库，选择表和字段参与建模。</p></div>
+          </a>
+          <a class="card link-card" href="data-new.html">
+            <span class="tag teal">文件上传</span>
+            <div><h3>PDF / Word / Excel</h3><p class="muted">单文件上传，自动解析文本和表格。</p></div>
+          </a>
+          <a class="card link-card" href="data-new.html">
+            <span class="tag purple">文件夹</span>
+            <div><h3>批量目录加载</h3><p class="muted">适合合同库、说明书库和知识文档库。</p></div>
+          </a>
+          <a class="card link-card" href="data-new.html">
+            <span class="tag amber">API</span>
+            <div><h3>接口数据</h3><p class="muted">接入第三方结构化响应作为补充数据。</p></div>
+          </a>
+        </section>
+
+        <section class="section table-panel">
+          <div class="section-head">
+            <div><p class="kicker">Sources</p><h2>数据源列表</h2></div>
+            <div class="tabs">
+              <a class="active" href="#">全部</a>
+              <a href="#">可建模</a>
+              <a href="#">待解析</a>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>名称</th>
+                <th>来源</th>
+                <th>用途</th>
+                <th>状态</th>
+                <th>下一步</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>客户业务库</td>
+                <td>PostgreSQL</td>
+                <td>建模、问答</td>
+                <td><span class="status ok">已连接</span></td>
+                <td><a href="modeling.html">创建模型</a></td>
+              </tr>
+              <tr>
+                <td>合同文件夹</td>
+                <td>PDF 目录</td>
+                <td>自动建模</td>
+                <td><span class="status ok">已解析</span></td>
+                <td><a href="auto-model.html">自动建模</a></td>
+              </tr>
+              <tr>
+                <td>产品说明书</td>
+                <td>Word / Markdown</td>
+                <td>检索问答</td>
+                <td><span class="status warn">待解析</span></td>
+                <td><a href="data-new.html">继续配置</a></td>
+              </tr>
+              <tr>
+                <td>组织架构 API</td>
+                <td>REST API</td>
+                <td>模型验证</td>
+                <td><span class="status run">测试中</span></td>
+                <td><a href="models.html">关联模型</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

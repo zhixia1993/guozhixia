@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轻量本体平台 · 广场</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"><span class="brand-mark">O</span><div><strong>OntoLite</strong><span>轻量本体平台</span></div></a>
+        <nav class="nav-group" aria-label="主导航">
+          <a href="index.html">工作台 <small>Home</small></a>
+          <a href="data.html">数据 <small>Data</small></a>
+          <a href="modeling.html">建模 <small>Build</small></a>
+          <a href="models.html">模型 <small>Models</small></a>
+          <a href="visualization.html">可视化 <small>Graph</small></a>
+          <a class="active" href="marketplace.html">广场 <small>Hub</small></a>
+          <a href="chat.html">对话 <small>Chat</small></a>
+          <a href="admin.html">管理 <small>Admin</small></a>
+        </nav>
+        <div class="sidebar-note"><strong>能力广场</strong><p>广场用于复用轻量能力：智能体、工具、技能和本体模型都以卡片方式呈现。</p></div>
+      </aside>
+
+      <main class="page">
+        <header class="topbar">
+          <div><p class="kicker">Marketplace</p><h1>能力广场</h1></div>
+          <label class="topbar-search"><span>搜索</span><input type="search" placeholder="搜索智能体、工具、技能、本体模型" /></label>
+          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>平台管理员</small></div></div>
+        </header>
+
+        <section class="hero">
+          <div>
+            <p class="kicker">Reusable Capabilities</p>
+            <h1>把可复用能力做成轻量组件，需要时一键引用。</h1>
+            <p>广场不只是展示插件，也承担“业务专家快速组装应用”的入口：选模型、选技能、选智能体，然后进入对话或建模。</p>
+            <div class="action-row">
+              <a class="btn primary" href="chat.html">选择能力开始对话</a>
+              <a class="btn secondary" href="models.html">查看本体模型</a>
+            </div>
+          </div>
+          <div class="hero-preview">
+            <div class="metric-card"><strong>4</strong><span>智能体</span></div>
+            <div class="metric-card"><strong>9</strong><span>技能</span></div>
+            <div class="metric-card"><strong>5</strong><span>工具</span></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div class="tabs">
+              <a class="active" href="#">全部</a>
+              <a href="#">智能体</a>
+              <a href="#">工具</a>
+              <a href="#">技能</a>
+              <a href="#">本体模型</a>
+            </div>
+            <div class="filter-row">
+              <span class="active">官方</span>
+              <span>热门</span>
+              <span>金融</span>
+              <span>工业</span>
+              <span>政务</span>
+            </div>
+          </div>
+
+          <div class="grid four">
+            <article class="card model-card">
+              <span class="type agent">智能体</span>
+              <div><h2>合同分析助手</h2><p class="muted">合同审查、风险识别、条款解释，适合搭配合同领域本体。</p></div>
+              <p class="muted">评分 4.8 · 使用 2.3k</p>
+              <a class="btn secondary" href="chat.html">使用</a>
+            </article>
+            <article class="card model-card">
+              <span class="type tool">工具</span>
+              <div><h2>文档解析工具</h2><p class="muted">支持 PDF、Word、图片 OCR 和表格抽取。</p></div>
+              <p class="muted">评分 4.7 · 使用 5.1k</p>
+              <a class="btn secondary" href="data-new.html">接入</a>
+            </article>
+            <article class="card model-card">
+              <span class="type skill">技能</span>
+              <div><h2>关系路径推理</h2><p class="muted">基于本体关系完成路径查找、影响分析和推荐。</p></div>
+              <p class="muted">评分 4.9 · 使用 1.8k</p>
+              <a class="btn secondary" href="chat.html">启用</a>
+            </article>
+            <article class="card model-card">
+              <span class="type model">本体模型</span>
+              <div><h2>企业组织本体</h2><p class="muted">包含部门、岗位、人员、权限和组织关系。</p></div>
+              <p class="muted">官方 · 引用 860</p>
+              <a class="btn secondary" href="models.html">引用</a>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

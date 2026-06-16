@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轻量本体平台 · 模型库</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"><span class="brand-mark">O</span><div><strong>OntoLite</strong><span>轻量本体平台</span></div></a>
+        <nav class="nav-group" aria-label="主导航">
+          <a href="index.html">工作台 <small>Home</small></a>
+          <a href="data.html">数据 <small>Data</small></a>
+          <a href="modeling.html">建模 <small>Build</small></a>
+          <a class="active" href="models.html">模型 <small>Models</small></a>
+          <a href="visualization.html">可视化 <small>Graph</small></a>
+          <a href="marketplace.html">广场 <small>Hub</small></a>
+          <a href="chat.html">对话 <small>Chat</small></a>
+          <a href="admin.html">管理 <small>Admin</small></a>
+        </nav>
+        <div class="sidebar-note"><strong>模型库</strong><p>模型库把本体当成轻量资产管理：版本、状态、用途和可复用能力一目了然。</p></div>
+      </aside>
+
+      <main class="page">
+        <header class="topbar">
+          <div><p class="kicker">Models</p><h1>本体模型库</h1></div>
+          <label class="topbar-search"><span>搜索</span><input type="search" placeholder="搜索领域、模型、版本或概念" /></label>
+          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>模型管理员</small></div></div>
+        </header>
+
+        <section class="section-head">
+          <div class="tabs">
+            <a class="active" href="#">全部模型</a>
+            <a href="#">我的草稿</a>
+            <a href="#">已发布</a>
+            <a href="#">广场引用</a>
+          </div>
+          <div class="action-row">
+            <a class="btn secondary" href="modeling.html">新建模型</a>
+            <a class="btn primary" href="visualization.html">打开可视化</a>
+          </div>
+        </section>
+
+        <section class="section grid three">
+          <article class="card model-card">
+            <div class="section-head"><span class="type model">已发布</span><span class="status ok">v1.2</span></div>
+            <div><h2>企业知识本体</h2><p class="muted">组织、客户、产品、订单和业务事件的统一语义模型。</p></div>
+            <div class="model-stats">
+              <div><strong>38</strong><span>概念</span></div>
+              <div><strong>72</strong><span>关系</span></div>
+              <div><strong>124</strong><span>属性</span></div>
+            </div>
+            <div class="action-row">
+              <a class="btn secondary" href="visualization.html">查看图谱</a>
+              <a class="btn ghost" href="chat.html">用于对话</a>
+            </div>
+          </article>
+
+          <article class="card model-card">
+            <div class="section-head"><span class="type">草稿</span><span class="status warn">待确认</span></div>
+            <div><h2>合同领域本体</h2><p class="muted">从合同文件夹自动抽取，适合法务风险识别和条款问答。</p></div>
+            <div class="model-stats">
+              <div><strong>18</strong><span>概念</span></div>
+              <div><strong>42</strong><span>关系</span></div>
+              <div><strong>12</strong><span>约束</span></div>
+            </div>
+            <div class="action-row">
+              <a class="btn secondary" href="auto-model.html">继续确认</a>
+              <a class="btn ghost" href="visualization.html">预览</a>
+            </div>
+          </article>
+
+          <article class="card model-card">
+            <div class="section-head"><span class="type skill">引用</span><span class="status ok">官方</span></div>
+            <div><h2>产品知识本体</h2><p class="muted">描述产品、规格、部件、故障和解决方案。</p></div>
+            <div class="model-stats">
+              <div><strong>26</strong><span>概念</span></div>
+              <div><strong>58</strong><span>关系</span></div>
+              <div><strong>80</strong><span>属性</span></div>
+            </div>
+            <div class="action-row">
+              <a class="btn secondary" href="marketplace.html">来源广场</a>
+              <a class="btn ghost" href="chat.html">问答</a>
+            </div>
+          </article>
+        </section>
+
+        <section class="section table-panel">
+          <div class="section-head"><div><p class="kicker">Versions</p><h2>版本与发布</h2></div></div>
+          <table>
+            <thead><tr><th>模型</th><th>当前版本</th><th>发布范围</th><th>最近更新</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td>企业知识本体</td><td>v1.2</td><td>团队内</td><td>今天</td><td><a href="visualization.html">对比版本</a></td></tr>
+              <tr><td>合同领域本体</td><td>草稿 v0.3</td><td>仅自己</td><td>今天</td><td><a href="auto-model.html">继续编辑</a></td></tr>
+              <tr><td>产品知识本体</td><td>v2.1</td><td>广场引用</td><td>昨天</td><td><a href="marketplace.html">查看来源</a></td></tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

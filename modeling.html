@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轻量本体平台 · 建模</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"><span class="brand-mark">O</span><div><strong>OntoLite</strong><span>轻量本体平台</span></div></a>
+        <nav class="nav-group" aria-label="主导航">
+          <a href="index.html">工作台 <small>Home</small></a>
+          <a href="data.html">数据 <small>Data</small></a>
+          <a class="active" href="modeling.html">建模 <small>Build</small></a>
+          <a href="models.html">模型 <small>Models</small></a>
+          <a href="visualization.html">可视化 <small>Graph</small></a>
+          <a href="marketplace.html">广场 <small>Hub</small></a>
+          <a href="chat.html">对话 <small>Chat</small></a>
+          <a href="admin.html">管理 <small>Admin</small></a>
+        </nav>
+        <div class="sidebar-note"><strong>建模原则</strong><p>轻量版本强调“快速得到可用模型草稿”，再通过人工确认逐步完善。</p></div>
+      </aside>
+
+      <main class="page">
+        <header class="topbar">
+          <div><p class="kicker">Modeling</p><h1>本体建模</h1></div>
+          <label class="topbar-search"><span>搜索</span><input type="search" placeholder="搜索模型、概念、属性或数据源" /></label>
+          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>建模人员</small></div></div>
+        </header>
+
+        <section class="hero">
+          <div>
+            <p class="kicker">Two Ways to Build</p>
+            <h1>从已有模型扩展，或让系统先生成一个可编辑草稿。</h1>
+            <p>建模流程面向业务专家，保留概念、属性、关系、约束和同义词这些核心结构，不强迫用户理解复杂的本体工程细节。</p>
+            <div class="action-row">
+              <a class="btn primary" href="auto-model.html">用非结构化数据自动建模</a>
+              <a class="btn secondary" href="models.html">选择已有模型扩展</a>
+            </div>
+          </div>
+          <div class="hero-preview">
+            <div class="metric-card"><strong>18</strong><span>待确认概念</span></div>
+            <div class="metric-card"><strong>42</strong><span>抽取关系</span></div>
+            <div class="metric-card"><strong>5</strong><span>版本草稿</span></div>
+          </div>
+        </section>
+
+        <section class="section grid two">
+          <a class="card link-card" href="models.html">
+            <span class="icon">A</span>
+            <div>
+              <h2>基于已有本体模型建模</h2>
+              <p class="muted">选择企业本体、合同本体或行业模型，在现有类、属性和关系基础上进行增量扩展。</p>
+              <ul class="steps">
+                <li><span class="step-no">1</span><div><strong>选择模型</strong><p class="muted">按领域、版本和发布状态筛选。</p></div></li>
+                <li><span class="step-no">2</span><div><strong>编辑结构</strong><p class="muted">新增概念、属性、关系和约束。</p></div></li>
+                <li><span class="step-no">3</span><div><strong>发布版本</strong><p class="muted">保存草稿或发布到广场复用。</p></div></li>
+              </ul>
+            </div>
+          </a>
+
+          <a class="card link-card" href="auto-model.html">
+            <span class="icon">B</span>
+            <div>
+              <h2>非结构化数据自动建模</h2>
+              <p class="muted">选择文档或文件夹，输入建模目标，让系统抽取概念、关系、属性和约束，生成可编辑模型。</p>
+              <ul class="steps">
+                <li><span class="step-no">1</span><div><strong>选择数据</strong><p class="muted">从数据源列表选择文件或目录。</p></div></li>
+                <li><span class="step-no">2</span><div><strong>输入要求</strong><p class="muted">用自然语言描述建模范围。</p></div></li>
+                <li><span class="step-no">3</span><div><strong>确认草稿</strong><p class="muted">人工确认后保存为模型。</p></div></li>
+              </ul>
+            </div>
+          </a>
+        </section>
+
+        <section class="section table-panel">
+          <div class="section-head">
+            <div><p class="kicker">Drafts</p><h2>建模草稿</h2></div>
+            <a class="btn secondary" href="auto-model.html">继续草稿</a>
+          </div>
+          <table>
+            <thead><tr><th>草稿</th><th>来源</th><th>抽取内容</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td>合同领域本体草稿</td><td>合同文件夹</td><td>概念、关系、约束</td><td><span class="status warn">待确认</span></td><td><a href="auto-model.html">查看</a></td></tr>
+              <tr><td>产品知识本体草稿</td><td>产品说明书</td><td>概念、属性</td><td><span class="status run">生成中</span></td><td><a href="visualization.html">预览</a></td></tr>
+              <tr><td>客户域扩展草稿</td><td>客户业务库</td><td>字段映射、关系</td><td><span class="status ok">可发布</span></td><td><a href="models.html">发布</a></td></tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轻量本体平台 · 新建数据连接</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"><span class="brand-mark">O</span><div><strong>OntoLite</strong><span>轻量本体平台</span></div></a>
+        <nav class="nav-group" aria-label="主导航">
+          <a href="index.html">工作台 <small>Home</small></a>
+          <a class="active" href="data.html">数据 <small>Data</small></a>
+          <a href="modeling.html">建模 <small>Build</small></a>
+          <a href="models.html">模型 <small>Models</small></a>
+          <a href="visualization.html">可视化 <small>Graph</small></a>
+          <a href="marketplace.html">广场 <small>Hub</small></a>
+          <a href="chat.html">对话 <small>Chat</small></a>
+          <a href="admin.html">管理 <small>Admin</small></a>
+        </nav>
+        <div class="sidebar-note"><strong>向导页</strong><p>这个页面模拟轻量数据连接表单，点击“保存并用于建模”进入建模页。</p></div>
+      </aside>
+
+      <main class="page">
+        <header class="topbar">
+          <div><p class="kicker">Data Wizard</p><h1>新建数据连接</h1></div>
+          <label class="topbar-search"><span>步骤</span><input type="search" value="选择来源 / 配置参数 / 设置用途" readonly /></label>
+          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>数据管理员</small></div></div>
+        </header>
+
+        <section class="section grid three">
+          <article class="card">
+            <span class="tag">Step 1</span>
+            <h3>选择来源</h3>
+            <p class="muted">数据库、文件、文件夹或 API。</p>
+          </article>
+          <article class="card">
+            <span class="tag teal">Step 2</span>
+            <h3>配置解析</h3>
+            <p class="muted">选择字段、文件类型、OCR 和切分策略。</p>
+          </article>
+          <article class="card">
+            <span class="tag purple">Step 3</span>
+            <h3>设置用途</h3>
+            <p class="muted">用于自动建模、检索问答或模型校验。</p>
+          </article>
+        </section>
+
+        <section class="section split">
+          <article class="wizard-panel">
+            <div class="section-head">
+              <div><p class="kicker">Source Type</p><h2>数据来源</h2></div>
+            </div>
+            <div class="grid two">
+              <a class="card link-card" href="#">
+                <span class="type">结构化</span>
+                <div><h3>数据库连接</h3><p class="muted">MySQL、PostgreSQL、Oracle、SQL Server。</p></div>
+              </a>
+              <a class="card link-card" href="#">
+                <span class="type tool">非结构化</span>
+                <div><h3>文件或文件夹</h3><p class="muted">PDF、Word、TXT、Markdown、HTML、图片 OCR。</p></div>
+              </a>
+            </div>
+            <div class="upload-zone section">
+              <div>
+                <h3>拖拽上传文件或文件夹</h3>
+                <p>支持单文件、压缩包和目录批量加载。解析后可直接进入自动建模。</p>
+                <a class="btn secondary" href="#">选择文件</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="wizard-panel">
+            <div class="section-head">
+              <div><p class="kicker">Configuration</p><h2>连接配置</h2></div>
+            </div>
+            <div class="form-grid">
+              <label class="field"><span>连接名称</span><input type="text" value="合同文件夹" /></label>
+              <label class="select-field"><span>数据类型</span><select><option>非结构化文件夹</option><option>PostgreSQL</option><option>REST API</option></select></label>
+              <label class="field"><span>命名空间</span><input type="text" value="contract_source" /></label>
+              <label class="select-field"><span>解析策略</span><select><option>自动识别文本和表格</option><option>仅文本</option><option>OCR 优先</option></select></label>
+            </div>
+            <div class="section">
+              <h3>用于哪些能力？</h3>
+              <div class="permission-list">
+                <label><input type="checkbox" checked /> 自动本体建模</label>
+                <label><input type="checkbox" checked /> 本体对话检索</label>
+                <label><input type="checkbox" /> 模型质量校验</label>
+              </div>
+            </div>
+            <div class="action-row">
+              <a class="btn secondary" href="data.html">取消</a>
+              <a class="btn primary" href="modeling.html">保存并用于建模</a>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
