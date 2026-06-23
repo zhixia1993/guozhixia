@@ -38,7 +38,7 @@
           </div>
 
           <div class="modeling-choice-grid">
-            <a class="modeling-choice blue" href="models.html">
+            <a class="modeling-choice blue" href="#model-selector">
               <span class="large-icon">✎</span>
               <h2>基于现有模型编辑</h2>
               <p>从现有的本体模型开始，进行修改和完善</p>
@@ -51,6 +51,42 @@
               <span class="btn success">开始建模</span>
             </a>
           </div>
+
+          <section id="model-selector" class="panel-card model-selector-panel">
+            <div class="panel-title with-action">
+              <h2>选择已有模型</h2>
+              <label class="selector-search">
+                <input type="search" placeholder="搜索模型名称、领域或创建人" />
+                <span>⌕</span>
+              </label>
+            </div>
+            <div class="selectable-model-list">
+              <a class="selectable-model active" href="visualization.html">
+                <span class="summary-icon blue">图</span>
+                <div>
+                  <strong>产品知识图谱</strong>
+                  <p>产品、规格、供应商等实体关系 · 最近更新 2024-01-15</p>
+                </div>
+                <b>选择并编辑</b>
+              </a>
+              <a class="selectable-model" href="visualization.html">
+                <span class="summary-icon green">客</span>
+                <div>
+                  <strong>客户关系网络</strong>
+                  <p>客户、联系人、交易记录关系网络 · 最近更新 2024-01-14</p>
+                </div>
+                <b>选择并编辑</b>
+              </a>
+              <a class="selectable-model" href="visualization.html">
+                <span class="summary-icon purple">链</span>
+                <div>
+                  <strong>供应链图谱</strong>
+                  <p>供应商、产品、物流等供应链环节 · 最近更新 2024-01-13</p>
+                </div>
+                <b>选择并编辑</b>
+              </a>
+            </div>
+          </section>
 
           <section class="panel-card">
             <div class="panel-title">

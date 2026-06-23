@@ -7,104 +7,62 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="prototype-shell">
-      <aside class="sidebar">
-        <a class="brand" href="index.html"><span class="brand-mark">O</span><div><strong>OntoHub</strong><span>本体平台</span></div></a>
-        <nav class="nav-group" aria-label="主导航">
-          <a href="index.html">工作台 <small>Home</small></a>
-          <a class="active" href="data.html">数据 <small>Data</small></a>
-          <a href="modeling.html">建模 <small>Build</small></a>
-          <a href="models.html">模型 <small>Models</small></a>
-          <a href="visualization.html">可视化 <small>Graph</small></a>
-          <a href="marketplace.html">广场 <small>Hub</small></a>
-          <a href="chat.html">对话 <small>Chat</small></a>
-          <a href="admin.html">管理 <small>Admin</small></a>
-        </nav>
-        <div class="sidebar-note"><strong>向导页</strong><p>这个页面模拟清晰的数据连接表单，点击“保存并用于建模”进入建模页。</p></div>
-      </aside>
+    <main class="data-type-page">
+      <header class="wizard-top">
+        <a class="back-link" href="data.html">‹ 返回</a>
+        <strong>新建数据连接</strong>
+        <div class="wizard-steps">
+          <span class="active">1</span>
+          <b>选择连接类型</b>
+          <i>»</i>
+          <span>2</span>
+          <b class="muted-label">完成详细配置</b>
+        </div>
+      </header>
 
-      <main class="page">
-        <header class="topbar">
-          <div><p class="kicker">Data Wizard</p><h1>新建数据连接</h1></div>
-          <label class="topbar-search"><span>步骤</span><input type="search" value="选择来源 / 元数据探查 / 接口生成 / 设置用途" readonly /></label>
-          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>数据管理员</small></div></div>
-        </header>
+      <section class="data-type-content">
+        <div class="data-type-head">
+          <h1>数据连接类型</h1>
+          <label class="data-type-search">
+            <input type="search" placeholder="搜索类型名称" />
+            <span>⌕</span>
+          </label>
+        </div>
 
-        <section class="section grid three">
-          <article class="card">
-            <span class="tag">Step 1</span>
-            <h3>选择来源</h3>
-            <p class="muted">数据库、文件、文件夹或 API。</p>
-          </article>
-          <article class="card">
-            <span class="tag teal">Step 2</span>
-            <h3>探查与解析</h3>
-            <p class="muted">结构化探查元数据，非结构化解析文本、表格和证据。</p>
-          </article>
-          <article class="card">
-            <span class="tag purple">Step 3</span>
-            <h3>生成接口</h3>
-            <p class="muted">为结构化数据生成安全的只读查询接口，供技能调用。</p>
-          </article>
-        </section>
+        <div class="data-type-tabs">
+          <button class="active" type="button">全部</button>
+          <button type="button">结构化数据</button>
+          <button type="button">非结构化数据</button>
+          <button type="button">其他</button>
+        </div>
 
-        <section class="section split">
-          <article class="wizard-panel">
-            <div class="section-head">
-              <div><p class="kicker">Source Type</p><h2>数据来源</h2></div>
-            </div>
-            <div class="grid two">
-              <a class="card link-card" href="#">
-                <span class="type">结构化</span>
-                <div><h3>数据库连接</h3><p class="muted">MySQL、PostgreSQL、Oracle、SQL Server；支持元数据主动探查。</p></div>
-              </a>
-              <a class="card link-card" href="#">
-                <span class="type tool">非结构化</span>
-                <div><h3>文件或文件夹</h3><p class="muted">PDF、Word、TXT、Markdown、HTML、图片 OCR；支持批量解析。</p></div>
-              </a>
-            </div>
-            <div class="upload-zone section">
-              <div>
-                <h3>拖拽上传文件或文件夹</h3>
-                <p>支持单文件、压缩包和目录批量加载。解析后可直接进入自动建模。</p>
-                <a class="btn secondary" href="#">选择文件</a>
-              </div>
-            </div>
-          </article>
+        <div class="connector-grid">
+          <a class="connector-card selected" href="#"><span class="db-logo mysql">MySQL</span><strong>MySQL</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo">MariaDB</span><strong>MariaDB</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo oracle">ORACLE</span><strong>Oracle</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo postgres">PG</span><strong>PostgreSQL</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo">SQL Server</span><strong>SQL Server</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo doris">DORIS</span><strong>Apache Doris</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo holo">▦</span><strong>Hologres</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo">openGauss</span><strong>OpenGauss</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo dameng">◐</span><strong>Dameng</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo">GaussDB</span><strong>GaussDB</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo mongo">⬢</span><strong>MongoDB</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo hive">HIVE</span><strong>Apache Hive</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo click">▥</span><strong>ClickHouse</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo">TDH</span><strong>TDH Inceptor</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo max">M</span><strong>MaxCompute</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo excel">X</span><strong>Excel</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo any">AS</span><strong>AnyShare 7.0</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo cloud">☁</span><strong>听云</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo search">◔</span><strong>OpenSearch</strong></a>
+        </div>
+      </section>
 
-          <article class="wizard-panel">
-            <div class="section-head">
-              <div><p class="kicker">Configuration</p><h2>连接配置</h2></div>
-            </div>
-            <div class="form-grid">
-              <label class="field"><span>连接名称</span><input type="text" value="合同文件夹" /></label>
-              <label class="select-field"><span>数据类型</span><select><option>非结构化文件夹</option><option>PostgreSQL</option><option>REST API</option></select></label>
-              <label class="field"><span>命名空间</span><input type="text" value="contract_source" /></label>
-              <label class="select-field"><span>探查/解析策略</span><select><option>自动探查元数据并识别文本表格</option><option>仅元数据探查</option><option>OCR 优先</option></select></label>
-            </div>
-            <div class="section">
-              <h3>自动接口与探查范围</h3>
-              <div class="permission-list">
-                <label><input type="checkbox" checked /> 主动探查库表、字段、样例和主外键</label>
-                <label><input type="checkbox" checked /> 为选中表生成只读查询接口</label>
-                <label><input type="checkbox" checked /> 记录接口权限、限流和审计</label>
-              </div>
-            </div>
-            <div class="section">
-              <h3>用于哪些能力？</h3>
-              <div class="permission-list">
-                <label><input type="checkbox" checked /> 自动本体建模</label>
-                <label><input type="checkbox" checked /> 本体对话检索</label>
-                <label><input type="checkbox" /> 模型质量校验</label>
-              </div>
-            </div>
-            <div class="action-row">
-              <a class="btn secondary" href="data.html">取消</a>
-              <a class="btn primary" href="modeling.html">保存并用于建模</a>
-            </div>
-          </article>
-        </section>
-      </main>
-    </div>
+      <footer class="wizard-footer">
+        <a class="btn primary" href="data.html">下一步</a>
+        <a class="btn secondary" href="data.html">取消</a>
+      </footer>
+    </main>
   </body>
 </html>
