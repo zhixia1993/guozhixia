@@ -9,174 +9,155 @@
   <body>
     <div class="prototype-shell">
       <aside class="sidebar">
-        <a class="brand" href="index.html">
-          <span class="brand-mark">O</span>
-          <div>
-            <strong>OntoHub</strong>
-            <span>本体平台</span>
-          </div>
-        </a>
-        <nav class="nav-group" aria-label="主导航">
-          <a class="active" href="index.html">工作台 <small>Home</small></a>
-          <a href="data.html">数据 <small>Data</small></a>
-          <a href="modeling.html">建模 <small>Build</small></a>
-          <a href="models.html">模型 <small>Models</small></a>
-          <a href="visualization.html">可视化 <small>Graph</small></a>
-          <a href="marketplace.html">广场 <small>Hub</small></a>
-          <a href="chat.html">对话 <small>Chat</small></a>
-          <a href="admin.html">管理 <small>Admin</small></a>
+        <a class="brand text-brand" href="index.html">logo</a>
+        <nav class="nav-group icon-nav" aria-label="主导航">
+          <a class="active" href="index.html"><span class="nav-icon">◆</span>工作台</a>
+          <a href="data.html"><span class="nav-icon">●</span>数据链接</a>
+          <a href="modeling.html"><span class="nav-icon">⬡</span>本体建模</a>
+          <a href="visualization.html"><span class="nav-icon">◇</span>模型可视化</a>
+          <a href="marketplace.html"><span class="nav-icon">■</span>资产广场</a>
+          <a href="chat.html"><span class="nav-icon">●</span>智能对话</a>
+          <a href="admin.html"><span class="nav-icon">⚙</span>系统管理</a>
         </nav>
-        <div class="sidebar-note">
-          <strong>原型说明</strong>
-          <p>这是多页面静态原型。点击侧边栏、卡片和按钮可进入对应页面，模拟真实产品路径。</p>
+        <div class="user-card">
+          <span class="avatar">张</span>
+          <div>
+            <strong>张伟</strong>
+            <small>管理员</small>
+          </div>
         </div>
       </aside>
 
-      <main class="page">
-        <header class="topbar">
+      <main class="page dashboard-page">
+        <header class="app-topbar">
           <div>
-            <p class="kicker">Workspace</p>
-            <h1>本体平台工作台</h1>
+            <h1>工作台</h1>
+            <p>欢迎使用本体平台</p>
           </div>
-          <label class="topbar-search">
-            <span>搜索</span>
-            <input type="search" placeholder="搜索数据、本体模型、技能或智能体" />
-          </label>
-          <div class="user-pill">
-            <span class="avatar">张</span>
-            <div>
-              <strong>张三</strong>
-              <small>平台管理员</small>
-            </div>
+          <div class="topbar-actions">
+            <label class="topbar-search">
+              <span>⌕</span>
+              <input type="search" placeholder="搜索..." />
+            </label>
+            <button class="icon-button" type="button">●</button>
           </div>
         </header>
 
-        <section class="hero">
-          <div>
-            <p class="kicker">Data to Ontology to AI</p>
-            <h1>把数据、知识结构和智能对话放在一个清晰工作流里。</h1>
-            <p>
-              OntoHub 面向业务专家、数据工程师和建模人员，提供数据接入、本体建模、模型管理、应用测试和能力分享。
-              页面保持简洁，流程聚焦核心任务，降低本体平台的使用门槛。
-            </p>
-            <div class="action-row">
-              <a class="btn primary" href="data-new.html">接入第一份数据</a>
-              <a class="btn secondary" href="modeling.html">创建本体模型</a>
-              <a class="btn ghost" href="chat.html">进入应用测试</a>
-            </div>
-          </div>
-          <div class="hero-preview">
-            <div class="metric-card">
-              <strong>6</strong>
-              <span>活跃数据源</span>
-            </div>
-            <div class="metric-card">
-              <strong>4</strong>
-              <span>本体模型</span>
-            </div>
-            <div class="metric-card">
-              <strong>18</strong>
-              <span>可用技能与工具</span>
-            </div>
-          </div>
-        </section>
-
-        <section class="section">
-          <div class="section-head">
+        <section class="metric-grid">
+          <article class="summary-card">
+            <span class="summary-icon blue">▣</span>
             <div>
-              <p class="kicker">Quick Start</p>
-              <h2>核心路径</h2>
+              <p>数据源连接</p>
+              <strong>12</strong>
             </div>
-          </div>
-          <div class="workflow">
-            <a class="card link-card" href="data.html">
-              <span class="icon">1</span>
-              <div>
-                <h3>连接数据</h3>
-                <p class="muted">连接数据库、上传文件，自动探查元数据并生成查询接口。</p>
-              </div>
-            </a>
-            <a class="card link-card" href="modeling.html">
-              <span class="icon">2</span>
-              <div>
-                <h3>构建本体</h3>
-                <p class="muted">从已有模型扩展，或使用非结构化数据自动生成可标注草稿。</p>
-              </div>
-            </a>
-            <a class="card link-card" href="models.html">
-              <span class="icon">3</span>
-              <div>
-                <h3>管理模型</h3>
-                <p class="muted">沉淀版本、审批状态、模型能力和复用关系。</p>
-              </div>
-            </a>
-            <a class="card link-card" href="chat.html">
-              <span class="icon">4</span>
-              <div>
-                <h3>应用测试</h3>
-                <p class="muted">选择本体模型和技能，测试问答效果、证据和调用链。</p>
-              </div>
-            </a>
-          </div>
+          </article>
+          <article class="summary-card">
+            <span class="summary-icon green">⌁</span>
+            <div>
+              <p>本体模型</p>
+              <strong>8</strong>
+            </div>
+          </article>
+          <article class="summary-card">
+            <span class="summary-icon purple">▦</span>
+            <div>
+              <p>智能体数量</p>
+              <strong>5</strong>
+            </div>
+          </article>
+          <article class="summary-card">
+            <span class="summary-icon orange">●</span>
+            <div>
+              <p>活跃用户</p>
+              <strong>24</strong>
+            </div>
+          </article>
         </section>
 
-        <section class="section grid two">
-          <article class="table-panel">
-            <div class="section-head">
-              <div>
-                <p class="kicker">Recent</p>
-                <h2>最近工作</h2>
-              </div>
-              <a class="btn secondary" href="models.html">查看模型</a>
+        <section class="dashboard-grid-balanced">
+          <article class="panel-card">
+            <div class="panel-title">
+              <h2>最近活动</h2>
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>任务</th>
-                  <th>类型</th>
-                  <th>状态</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>合同文档自动建模</td>
-                  <td>自动建模</td>
-                  <td><span class="status ok">已完成</span></td>
-                </tr>
-                <tr>
-                  <td>客户数据库同步</td>
-                  <td>数据连接</td>
-                  <td><span class="status run">同步中</span></td>
-                </tr>
-                <tr>
-                  <td>企业本体 v1.2 发布</td>
-                  <td>模型发布</td>
-                  <td><span class="status warn">待确认</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="activity-list">
+              <div class="activity-item">
+                <span class="dot blue"></span>
+                <div>
+                  <strong>李明 创建了新的本体模型 产品知识图谱</strong>
+                  <p>2 分钟前</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="dot green"></span>
+                <div>
+                  <strong>王芳 连接了 MySQL 数据库 客户管理系统</strong>
+                  <p>15 分钟前</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="dot purple"></span>
+                <div>
+                  <strong>陈涛 更新了智能体 客服助手 的技能</strong>
+                  <p>1 小时前</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="dot orange"></span>
+                <div>
+                  <strong>刘丽 完成了数据清洗任务 销售数据整理</strong>
+                  <p>2 小时前</p>
+                </div>
+              </div>
+            </div>
           </article>
 
-          <article class="card">
-            <p class="kicker">Recommended</p>
-            <h2>推荐能力</h2>
-            <div class="grid two">
-              <a class="card link-card" href="marketplace.html">
-                <span class="type agent">智能体</span>
-                <div>
-                  <h3>合同分析助手</h3>
-                  <p class="muted">适合法务文档抽取和风险识别。</p>
-                </div>
-              </a>
-              <a class="card link-card" href="visualization.html">
-                <span class="type model">模型</span>
-                <div>
-                  <h3>企业知识本体</h3>
-                  <p class="muted">覆盖组织、客户、产品和订单。</p>
-                </div>
-              </a>
+          <article class="panel-card">
+            <div class="panel-title">
+              <h2>数据源类型分布</h2>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div><span>关系型数据库</span><strong>42%</strong></div>
+                <i><b style="width: 42%"></b></i>
+              </div>
+              <div class="progress-item">
+                <div><span>文档数据库</span><strong>28%</strong></div>
+                <i><b class="green" style="width: 28%"></b></i>
+              </div>
+              <div class="progress-item">
+                <div><span>文件系统</span><strong>20%</strong></div>
+                <i><b class="purple" style="width: 20%"></b></i>
+              </div>
+              <div class="progress-item">
+                <div><span>API 接口</span><strong>10%</strong></div>
+                <i><b class="orange" style="width: 10%"></b></i>
+              </div>
             </div>
           </article>
+        </section>
+
+        <section class="panel-card latest-models">
+          <div class="panel-title with-action">
+            <h2>最新本体模型</h2>
+            <a class="btn primary" href="modeling.html">+ 新建模型</a>
+          </div>
+          <div class="model-tile-grid">
+            <a class="model-tile blue" href="visualization.html">
+              <span class="status run">活跃</span>
+              <h3>产品知识图谱</h3>
+              <p>涵盖产品、规格、供应商等实体关系的完整知识图谱</p>
+            </a>
+            <a class="model-tile green" href="visualization.html">
+              <span class="status ok">在线</span>
+              <h3>客户关系网络</h3>
+              <p>客户、联系人、交易记录之间的复杂关系网络</p>
+            </a>
+            <a class="model-tile purple" href="visualization.html">
+              <span class="status">维护中</span>
+              <h3>供应链图谱</h3>
+              <p>供应商、产品、物流等供应链环节的知识建模</p>
+            </a>
+          </div>
         </section>
       </main>
     </div>
