@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>本体平台 · 本体建模</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand text-brand" href="index.html"><span class="brand-badge">O</span><span>OntoHub</span></a>
+        <nav class="nav-group icon-nav" aria-label="主导航">
+          <a href="index.html"><span class="nav-icon">◆</span>工作台</a>
+          <a href="data.html"><span class="nav-icon">●</span>数据链接</a>
+          <a class="active" href="modeling.html"><span class="nav-icon">⬡</span>本体建模</a>
+          <a href="visualization.html"><span class="nav-icon">◇</span>模型可视化</a>
+          <a href="marketplace.html"><span class="nav-icon">■</span>资产广场</a>
+          <a href="chat.html"><span class="nav-icon">●</span>智能对话</a>
+          <a href="admin.html"><span class="nav-icon">⚙</span>系统管理</a>
+        </nav>
+      </aside>
+
+      <main class="module-shell">
+        <aside class="module-nav">
+          <h2>建模工具</h2>
+          <a class="active" href="modeling.html">模型编辑器</a>
+          <a href="auto-model.html">自动建模</a>
+          <a href="models.html">我的模型</a>
+        </aside>
+
+        <section class="module-content">
+          <div class="module-head">
+            <div>
+              <h1>本体建模</h1>
+              <p>创建和编辑本体模型</p>
+            </div>
+          </div>
+
+          <div class="modeling-choice-grid">
+            <a class="modeling-choice blue" href="#model-selector">
+              <span class="large-icon">✎</span>
+              <h2>基于现有模型编辑</h2>
+              <p>从现有的本体模型开始，进行修改和完善</p>
+              <span class="btn primary">选择模型</span>
+            </a>
+            <a class="modeling-choice green" href="auto-model.html">
+              <span class="large-icon">▰</span>
+              <h2>自动建模</h2>
+              <p>通过分析非结构化数据，自动生成本体模型</p>
+              <span class="btn success">开始建模</span>
+            </a>
+          </div>
+
+          <section id="model-selector" class="panel-card model-selector-panel">
+            <div class="panel-title with-action">
+              <h2>选择已有模型</h2>
+              <label class="selector-search">
+                <input type="search" placeholder="搜索模型名称、领域或创建人" />
+                <span>⌕</span>
+              </label>
+            </div>
+            <div class="selectable-model-list">
+              <a class="selectable-model active" href="visualization.html">
+                <span class="summary-icon blue">图</span>
+                <div>
+                  <strong>产品知识图谱</strong>
+                  <p>产品、规格、供应商等实体关系 · 最近更新 2024-01-15</p>
+                </div>
+                <b>选择并编辑</b>
+              </a>
+              <a class="selectable-model" href="visualization.html">
+                <span class="summary-icon green">客</span>
+                <div>
+                  <strong>客户关系网络</strong>
+                  <p>客户、联系人、交易记录关系网络 · 最近更新 2024-01-14</p>
+                </div>
+                <b>选择并编辑</b>
+              </a>
+              <a class="selectable-model" href="visualization.html">
+                <span class="summary-icon purple">链</span>
+                <div>
+                  <strong>供应链图谱</strong>
+                  <p>供应商、产品、物流等供应链环节 · 最近更新 2024-01-13</p>
+                </div>
+                <b>选择并编辑</b>
+              </a>
+            </div>
+          </section>
+
+          <section class="panel-card">
+            <div class="panel-title">
+              <h2>我的模型</h2>
+            </div>
+            <div class="compact-model-grid">
+              <article class="compact-model-card">
+                <h3>产品知识图谱</h3>
+                <p>涵盖产品、规格、供应商等实体关系</p>
+                <small>最后更新：2024-01-15</small>
+                <div class="mini-actions"><a href="visualization.html">编辑</a><a href="marketplace.html">发布</a><button type="button">删除</button></div>
+              </article>
+              <article class="compact-model-card">
+                <h3>客户关系网络</h3>
+                <p>客户、联系人、交易记录关系网络</p>
+                <small>最后更新：2024-01-14</small>
+                <div class="mini-actions"><a href="visualization.html">编辑</a><a href="marketplace.html">发布</a><button type="button">删除</button></div>
+              </article>
+              <article class="compact-model-card">
+                <h3>供应链图谱</h3>
+                <p>供应商、产品、物流等供应链环节</p>
+                <small>最后更新：2024-01-13</small>
+                <div class="mini-actions"><a href="visualization.html">编辑</a><a href="marketplace.html">发布</a><button type="button">删除</button></div>
+              </article>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

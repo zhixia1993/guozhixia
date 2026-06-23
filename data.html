@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>本体平台 · 数据链接</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand text-brand" href="index.html"><span class="brand-badge">O</span><span>OntoHub</span></a>
+        <nav class="nav-group icon-nav" aria-label="主导航">
+          <a href="index.html"><span class="nav-icon">◆</span>工作台</a>
+          <a class="active" href="data.html"><span class="nav-icon">●</span>数据链接</a>
+          <a href="modeling.html"><span class="nav-icon">⬡</span>本体建模</a>
+          <a href="visualization.html"><span class="nav-icon">◇</span>模型可视化</a>
+          <a href="marketplace.html"><span class="nav-icon">■</span>资产广场</a>
+          <a href="chat.html"><span class="nav-icon">●</span>智能对话</a>
+          <a href="admin.html"><span class="nav-icon">⚙</span>系统管理</a>
+        </nav>
+      </aside>
+
+      <main class="module-shell">
+        <aside class="module-nav">
+          <h2>数据源管理</h2>
+          <a class="active" href="data.html">数据链接</a>
+        </aside>
+
+        <section class="module-content">
+          <div class="connection-tabs">
+            <a class="active" href="data.html">连接管理</a>
+            <a href="#">数据资产</a>
+          </div>
+
+          <div class="connection-actions">
+            <a class="btn primary" href="data-new.html">+ 新建</a>
+            <div class="connection-tool-buttons">
+              <button type="button">筛选</button>
+              <button type="button">列设置</button>
+            </div>
+          </div>
+
+          <div class="connection-filterbar">
+            <label class="connection-search">
+              <span>⌕</span>
+              <input type="search" placeholder="搜索连接名称、连接地址" />
+            </label>
+            <label class="connection-type-filter">
+              <span>连接类型</span>
+              <select>
+                <option>全部</option>
+                <option>关系型数据库</option>
+                <option>文件系统</option>
+                <option>API 接口</option>
+              </select>
+            </label>
+            <button type="button">×</button>
+          </div>
+
+          <section class="connection-table-card">
+            <table class="connection-table">
+              <thead>
+                <tr>
+                  <th>名称</th>
+                  <th>操作</th>
+                  <th>连接类型</th>
+                  <th>连接地址</th>
+                  <th>操作人</th>
+                  <th>更新时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>索引库</td>
+                  <td>...</td>
+                  <td>Index Base</td>
+                  <td>mdl-index-base-svc</td>
+                  <td>--</td>
+                  <td>2026-04-14 05:00:55</td>
+                </tr>
+                <tr>
+                  <td>客户管理系统</td>
+                  <td>...</td>
+                  <td>MySQL</td>
+                  <td>customer-db.internal</td>
+                  <td>张伟</td>
+                  <td>2026-04-12 14:21:08</td>
+                </tr>
+                <tr>
+                  <td>产品资料库</td>
+                  <td>...</td>
+                  <td>File System</td>
+                  <td>/data/product-docs</td>
+                  <td>李明</td>
+                  <td>2026-04-10 09:18:31</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="table-scrollbar"><span></span></div>
+            <div class="table-pagination">
+              <span>共 3 条</span>
+              <button type="button">‹</button>
+              <strong>1</strong>
+              <button type="button">›</button>
+              <select>
+                <option>20 条/页</option>
+              </select>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>本体平台 · 新建数据连接</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="data-type-page">
+      <header class="wizard-top">
+        <a class="back-link" href="data.html">‹ 返回</a>
+        <strong>新建数据连接</strong>
+        <div class="wizard-steps">
+          <span class="active">1</span>
+          <b>选择连接类型</b>
+          <i>»</i>
+          <span>2</span>
+          <b class="muted-label">完成详细配置</b>
+        </div>
+      </header>
+
+      <section class="data-type-content">
+        <div class="data-type-head">
+          <h1>数据连接类型</h1>
+          <label class="data-type-search">
+            <input type="search" placeholder="搜索类型名称" />
+            <span>⌕</span>
+          </label>
+        </div>
+
+        <div class="data-type-tabs">
+          <button class="active" type="button">全部</button>
+          <button type="button">结构化数据</button>
+          <button type="button">非结构化数据</button>
+          <button type="button">其他</button>
+        </div>
+
+        <div class="connector-grid">
+          <a class="connector-card selected" href="#"><span class="db-logo mysql">MySQL</span><strong>MySQL</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo">MariaDB</span><strong>MariaDB</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo oracle">ORACLE</span><strong>Oracle</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo postgres">PG</span><strong>PostgreSQL</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo">SQL Server</span><strong>SQL Server</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo doris">DORIS</span><strong>Apache Doris</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo holo">▦</span><strong>Hologres</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo">openGauss</span><strong>OpenGauss</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo dameng">◐</span><strong>Dameng</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo">GaussDB</span><strong>GaussDB</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo mongo">⬢</span><strong>MongoDB</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo hive">HIVE</span><strong>Apache Hive</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo click">▥</span><strong>ClickHouse</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo">TDH</span><strong>TDH Inceptor</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo max">M</span><strong>MaxCompute</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo excel">X</span><strong>Excel</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo any">AS</span><strong>AnyShare 7.0</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo cloud">☁</span><strong>听云</strong></a>
+          <a class="connector-card" href="#"><span class="db-logo search">◔</span><strong>OpenSearch</strong></a>
+        </div>
+      </section>
+
+      <footer class="wizard-footer">
+        <a class="btn primary" href="data.html">下一步</a>
+        <a class="btn secondary" href="data.html">取消</a>
+      </footer>
+    </main>
+  </body>
+</html>

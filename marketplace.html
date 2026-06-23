@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>本体平台 · 资产广场</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand text-brand" href="index.html"><span class="brand-badge">O</span><span>OntoHub</span></a>
+        <nav class="nav-group icon-nav" aria-label="主导航">
+          <a href="index.html"><span class="nav-icon">◆</span>工作台</a>
+          <a href="data.html"><span class="nav-icon">●</span>数据链接</a>
+          <a href="modeling.html"><span class="nav-icon">⬡</span>本体建模</a>
+          <a href="visualization.html"><span class="nav-icon">◇</span>模型可视化</a>
+          <a class="active" href="marketplace.html"><span class="nav-icon">■</span>资产广场</a>
+          <a href="chat.html"><span class="nav-icon">●</span>智能对话</a>
+          <a href="admin.html"><span class="nav-icon">⚙</span>系统管理</a>
+        </nav>
+      </aside>
+
+      <main class="module-shell">
+        <aside class="module-nav">
+          <h2>资源分类</h2>
+          <a class="active" href="#agents">智能体</a>
+          <a href="#tools">工具</a>
+          <a href="#skills">技能</a>
+          <a href="#ontologies">本体模型</a>
+        </aside>
+
+        <section class="module-content">
+          <div class="module-head">
+            <div>
+              <h1>资源广场</h1>
+              <p>发现和使用各种智能资源</p>
+            </div>
+            <a class="btn primary" href="#">上传资源</a>
+          </div>
+
+          <div class="market-toolbar">
+            <label class="topbar-search">
+              <span>⌕</span>
+              <input type="search" placeholder="搜索资源..." />
+            </label>
+            <div class="filter-row">
+              <span>最新</span>
+              <span class="active">热门</span>
+              <span>评分</span>
+            </div>
+          </div>
+
+          <div id="agents" class="market-section-title">
+            <h2>智能体</h2>
+            <p>面向业务场景的可复用智能助手</p>
+          </div>
+          <div class="resource-grid">
+            <article class="resource-card">
+              <span class="resource-icon blue">▣</span>
+              <h3>客服助手</h3>
+              <p>智能客服机器人，支持多轮对话和问题解答</p>
+              <div class="resource-foot"><span>★ 4.8</span><a class="btn primary" href="chat.html">使用</a></div>
+            </article>
+            <article class="resource-card">
+              <span class="resource-icon orange">法</span>
+              <h3>合同分析助手</h3>
+              <p>围绕合同领域本体识别条款风险和履约问题</p>
+              <div class="resource-foot"><span>★ 4.8</span><a class="btn primary" href="chat.html">使用</a></div>
+            </article>
+          </div>
+
+          <div id="tools" class="market-section-title">
+            <h2>工具</h2>
+            <p>数据处理、文档解析和外部服务连接能力</p>
+          </div>
+          <div class="resource-grid">
+            <article class="resource-card">
+              <span class="resource-icon green">⌘</span>
+              <h3>数据清洗工具</h3>
+              <p>自动化数据清洗和标准化处理工具</p>
+              <div class="resource-foot"><span>★ 4.6</span><a class="btn primary" href="data.html">使用</a></div>
+            </article>
+            <article class="resource-card">
+              <span class="resource-icon blue">文</span>
+              <h3>文档解析工具</h3>
+              <p>解析 PDF、Word、Excel 和图片中的文本与表格</p>
+              <div class="resource-foot"><span>★ 4.7</span><a class="btn primary" href="data-new.html">使用</a></div>
+            </article>
+            <article class="resource-card">
+              <span class="resource-icon purple">API</span>
+              <h3>接口调用工具</h3>
+              <p>封装外部 API，供技能和智能体安全调用</p>
+              <div class="resource-foot"><span>★ 4.5</span><a class="btn primary" href="data.html">使用</a></div>
+            </article>
+          </div>
+
+          <div id="skills" class="market-section-title">
+            <h2>技能</h2>
+            <p>可被智能体和应用测试组合调用的标准能力</p>
+          </div>
+          <div class="resource-grid">
+            <article class="resource-card">
+              <span class="resource-icon purple">◐</span>
+              <h3>命名实体识别</h3>
+              <p>从文本中提取人名、地名、组织机构等实体</p>
+              <div class="resource-foot"><span>★ 4.9</span><a class="btn primary" href="modeling.html">使用</a></div>
+            </article>
+            <article class="resource-card">
+              <span class="resource-icon green">查</span>
+              <h3>数据查询技能</h3>
+              <p>调用已生成的数据查询接口并返回结构化结果</p>
+              <div class="resource-foot"><span>★ 4.8</span><a class="btn primary" href="chat.html">使用</a></div>
+            </article>
+            <article class="resource-card">
+              <span class="resource-icon orange">推</span>
+              <h3>关系推理技能</h3>
+              <p>基于本体关系路径完成影响分析和推荐</p>
+              <div class="resource-foot"><span>★ 4.9</span><a class="btn primary" href="chat.html">使用</a></div>
+            </article>
+          </div>
+
+          <div id="ontologies" class="market-section-title">
+            <h2>本体模型</h2>
+            <p>可直接引用或扩展的领域本体模型</p>
+          </div>
+          <div class="resource-grid">
+            <article class="resource-card">
+              <span class="resource-icon orange">⬢</span>
+              <h3>企业知识图谱</h3>
+              <p>通用企业知识图谱模型，包含组织架构等</p>
+              <div class="resource-foot"><span>★ 4.7</span><a class="btn primary" href="models.html">使用</a></div>
+            </article>
+            <article class="resource-card">
+              <span class="resource-icon blue">产</span>
+              <h3>产品知识图谱</h3>
+              <p>覆盖产品、规格、供应商和售后知识关系</p>
+              <div class="resource-foot"><span>★ 4.8</span><a class="btn primary" href="visualization.html">使用</a></div>
+            </article>
+            <article class="resource-card">
+              <span class="resource-icon green">客</span>
+              <h3>客户关系网络</h3>
+              <p>用于客户画像、交易关系和服务记录建模</p>
+              <div class="resource-foot"><span>★ 4.6</span><a class="btn primary" href="visualization.html">使用</a></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

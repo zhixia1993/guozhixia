@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>本体平台 · 模型管理</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand text-brand" href="index.html"><span class="brand-badge">O</span><span>OntoHub</span></a>
+        <nav class="nav-group icon-nav" aria-label="主导航">
+          <a href="index.html"><span class="nav-icon">◆</span>工作台</a>
+          <a href="data.html"><span class="nav-icon">●</span>数据链接</a>
+          <a href="modeling.html"><span class="nav-icon">⬡</span>本体建模</a>
+          <a class="active" href="models.html"><span class="nav-icon">⬢</span>模型管理</a>
+          <a href="visualization.html"><span class="nav-icon">◇</span>模型可视化</a>
+          <a href="marketplace.html"><span class="nav-icon">■</span>资产广场</a>
+          <a href="chat.html"><span class="nav-icon">●</span>智能对话</a>
+          <a href="admin.html"><span class="nav-icon">⚙</span>系统管理</a>
+        </nav>
+      </aside>
+
+      <main class="module-shell">
+        <aside class="module-nav">
+          <h2>模型管理</h2>
+          <a class="active" href="models.html">本体模型</a>
+          <a href="modeling.html">模型编辑器</a>
+          <a href="auto-model.html">自动建模任务</a>
+          <a href="marketplace.html">资产广场发布</a>
+        </aside>
+
+        <section class="module-content model-management-page">
+          <div class="module-head compact-head">
+            <div>
+              <h1>本体模型</h1>
+              <p>管理已创建模型，支持预览、测试和发布到资产广场</p>
+            </div>
+            <div class="head-actions">
+              <a class="btn secondary" href="modeling.html">新建模型</a>
+              <a class="btn primary" href="marketplace.html">发布到资产广场</a>
+            </div>
+          </div>
+
+          <section class="model-overview-row">
+            <article class="mini-stat-card">
+              <span class="summary-icon blue">模</span>
+              <div><strong>8</strong><p>全部模型</p></div>
+            </article>
+            <article class="mini-stat-card">
+              <span class="summary-icon green">发</span>
+              <div><strong>5</strong><p>已发布</p></div>
+            </article>
+            <article class="mini-stat-card">
+              <span class="summary-icon orange">审</span>
+              <div><strong>2</strong><p>待审批</p></div>
+            </article>
+            <article class="mini-stat-card">
+              <span class="summary-icon purple">广</span>
+              <div><strong>3</strong><p>已上架广场</p></div>
+            </article>
+          </section>
+
+          <section class="model-workbench-grid">
+            <article class="panel-card model-table-panel">
+              <div class="panel-title with-action compact-panel-title">
+                <div>
+                  <h2>模型列表</h2>
+                  <p>创建好的模型可发布到资产广场供团队复用</p>
+                </div>
+                <label class="selector-search">
+                  <input type="search" placeholder="搜索模型名称、领域" />
+                  <span>⌕</span>
+                </label>
+              </div>
+              <table class="connection-table model-management-table">
+                <thead>
+                  <tr>
+                    <th>模型名称</th>
+                    <th>版本</th>
+                    <th>状态</th>
+                    <th>广场状态</th>
+                    <th>更新时间</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>企业知识本体</strong><span>组织、客户、产品、订单</span></td>
+                    <td>v1.2</td>
+                    <td><span class="status ok">已发布</span></td>
+                    <td><span class="status ok">已上架</span></td>
+                    <td>2026-06-20</td>
+                    <td><a href="visualization.html">查看</a><a href="marketplace.html">更新广场</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>合同领域本体</strong><span>合同条款、风险、履约节点</span></td>
+                    <td>v0.3</td>
+                    <td><span class="status warn">待审批</span></td>
+                    <td><span class="status">未上架</span></td>
+                    <td>2026-06-19</td>
+                    <td><a href="auto-model.html">继续编辑</a><a href="#">提交审批</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>产品知识图谱</strong><span>产品、规格、供应商、售后</span></td>
+                    <td>v2.1</td>
+                    <td><span class="status ok">已发布</span></td>
+                    <td><span class="status">未上架</span></td>
+                    <td>2026-06-18</td>
+                    <td><a href="visualization.html">查看</a><a href="marketplace.html">发布到广场</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>供应链图谱</strong><span>供应商、物流、库存、采购</span></td>
+                    <td>v1.0</td>
+                    <td><span class="status ok">已发布</span></td>
+                    <td><span class="status">未上架</span></td>
+                    <td>2026-06-16</td>
+                    <td><a href="visualization.html">查看</a><a href="marketplace.html">发布到广场</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </article>
+
+            <aside class="panel-card publish-side-card">
+              <div class="panel-title">
+                <h2>发布到资产广场</h2>
+              </div>
+              <div class="publish-flow">
+                <div><span>1</span><strong>选择模型</strong><p>仅已发布或审批通过模型可上架</p></div>
+                <div><span>2</span><strong>填写资产信息</strong><p>补充简介、领域标签和使用说明</p></div>
+                <div><span>3</span><strong>提交审核</strong><p>审核通过后展示在资产广场</p></div>
+              </div>
+              <a class="btn primary full-width" href="marketplace.html">去广场发布</a>
+            </aside>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

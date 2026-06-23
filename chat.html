@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>本体平台 · 智能对话</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand text-brand" href="index.html"><span class="brand-badge">O</span><span>OntoHub</span></a>
+        <nav class="nav-group icon-nav" aria-label="主导航">
+          <a href="index.html"><span class="nav-icon">◆</span>工作台</a>
+          <a href="data.html"><span class="nav-icon">●</span>数据链接</a>
+          <a href="modeling.html"><span class="nav-icon">⬡</span>本体建模</a>
+          <a href="visualization.html"><span class="nav-icon">◇</span>模型可视化</a>
+          <a href="marketplace.html"><span class="nav-icon">■</span>资产广场</a>
+          <a class="active" href="chat.html"><span class="nav-icon">●</span>智能对话</a>
+          <a href="admin.html"><span class="nav-icon">⚙</span>系统管理</a>
+        </nav>
+      </aside>
+
+      <main class="module-shell">
+        <aside class="module-nav">
+          <h2>对话应用</h2>
+          <a class="active" href="chat.html">应用测试</a>
+          <a href="#">历史会话</a>
+        </aside>
+
+        <section class="module-content chat-module-content">
+          <div class="module-head">
+            <div>
+              <h1>智能对话</h1>
+              <p>选择本体模型和技能，测试模型问答效果</p>
+            </div>
+            <a class="btn primary" href="marketplace.html">发布到广场</a>
+          </div>
+
+          <div class="chat-app-layout">
+            <aside class="panel-card chat-history-card">
+              <div class="panel-title">
+                <h2>测试记录</h2>
+              </div>
+              <a class="history-item active" href="#">
+                <strong>合同风险分析</strong>
+                <span>合同领域本体 · 今天</span>
+              </a>
+              <a class="history-item" href="#">
+                <strong>企业客户查询</strong>
+                <span>企业知识本体 · 昨天</span>
+              </a>
+              <a class="history-item" href="#">
+                <strong>产品知识问答</strong>
+                <span>产品知识本体 · 2 天前</span>
+              </a>
+            </aside>
+
+            <section class="panel-card chat-workbench">
+              <div class="chat-context-bar">
+                当前测试应用：合同领域本体 · 合同风险识别技能 · 推理开启 · 合同文件夹
+              </div>
+              <div class="chat-message user">
+                <strong>用户</strong>
+                <p>请分析这份合同中有哪些违约风险？</p>
+              </div>
+              <div class="chat-message ai">
+                <strong>AI</strong>
+                <p>根据合同领域本体，识别到 3 类风险：履约期限表述不明确、违约责任条款缺少赔偿上限、付款条件与验收节点存在依赖但未定义触发条件。</p>
+              </div>
+              <div class="chat-message user">
+                <strong>用户</strong>
+                <p>这些风险分别关联哪些本体概念？</p>
+              </div>
+              <div class="chat-message ai">
+                <strong>AI</strong>
+                <p>关联概念包括：合同、履约期限、付款节点、验收条件、违约责任。调用过程：先查询模型关系，再读取相关数据，最后通过关系推理补充风险路径。</p>
+              </div>
+              <label class="chat-input-bar">
+                <input type="text" placeholder="输入问题，例如：找出付款条款的风险依据" />
+                <button class="btn primary" type="button">发送</button>
+              </label>
+            </section>
+
+            <aside class="panel-card chat-config-card">
+              <div class="panel-title">
+                <h2>测试配置</h2>
+              </div>
+              <label class="plain-select">本体模型<select><option>合同领域本体</option><option>企业知识本体</option><option>产品知识本体</option></select></label>
+              <label class="plain-select">技能<select><option>合同风险识别</option><option>关系路径推理</option><option>条款抽取</option></select></label>
+              <label class="plain-select">智能体<select><option>合同分析助手</option><option>知识问答助手</option><option>数据分析助手</option></select></label>
+              <label class="plain-select">推理策略<select><option>标准关系推理</option><option>仅模型查询</option><option>业务规则推理</option></select></label>
+              <div class="config-checks">
+                <h3>数据范围</h3>
+                <label><input type="checkbox" checked /> 合同文件夹</label>
+                <label><input type="checkbox" checked /> 企业知识库</label>
+                <label><input type="checkbox" /> 外部 API</label>
+              </div>
+              <div class="config-actions">
+                <a class="btn secondary" href="visualization.html">查看模型</a>
+                <a class="btn ghost" href="#">调用过程</a>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

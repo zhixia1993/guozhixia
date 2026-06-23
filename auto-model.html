@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>本体平台 · 自动建模</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand text-brand" href="index.html"><span class="brand-badge">O</span><span>OntoHub</span></a>
+        <nav class="nav-group icon-nav" aria-label="主导航">
+          <a href="index.html"><span class="nav-icon">◆</span>工作台</a>
+          <a href="data.html"><span class="nav-icon">●</span>数据链接</a>
+          <a class="active" href="modeling.html"><span class="nav-icon">⬡</span>本体建模</a>
+          <a href="visualization.html"><span class="nav-icon">◇</span>模型可视化</a>
+          <a href="marketplace.html"><span class="nav-icon">■</span>资产广场</a>
+          <a href="chat.html"><span class="nav-icon">●</span>智能对话</a>
+          <a href="admin.html"><span class="nav-icon">⚙</span>系统管理</a>
+        </nav>
+        <div class="sidebar-note"><strong>自动建模</strong><p>核心任务页展示从文档到本体草稿，再到证据标注、审批和发布的完整闭环。</p></div>
+      </aside>
+
+      <main class="page">
+        <header class="topbar">
+          <div><p class="kicker">Auto Modeling</p><h1>非结构化数据自动建模</h1></div>
+          <label class="topbar-search"><span>任务</span><input type="search" value="合同领域本体生成任务" readonly /></label>
+          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>建模人员</small></div></div>
+        </header>
+
+        <section class="section grid four">
+          <article class="card"><span class="tag">1</span><h3>选择数据</h3><p class="muted">合同文件夹 / 已解析</p></article>
+          <article class="card"><span class="tag teal">2</span><h3>输入要求</h3><p class="muted">指定抽取范围和领域语言。</p></article>
+          <article class="card"><span class="tag purple">3</span><h3>生成草稿</h3><p class="muted">概念、关系、属性和证据自动抽取。</p></article>
+          <article class="card"><span class="tag amber">4</span><h3>标注审批</h3><p class="muted">在线标注确认后提交审批，审批通过后发布为模型。</p></article>
+        </section>
+
+        <section class="section split">
+          <article class="wizard-panel">
+            <div class="section-head"><div><p class="kicker">Prompt</p><h2>建模要求</h2></div></div>
+            <div class="form-grid">
+              <label class="select-field"><span>数据源</span><select><option>合同文件夹</option><option>产品说明书</option><option>客户业务库</option></select></label>
+              <label class="field"><span>模型名称</span><input type="text" value="合同领域本体" /></label>
+            </div>
+            <div class="section">
+              <textarea>请从合同文档中抽取甲方、乙方、合同标的、合同金额、履约期限、付款条件、违约责任、争议解决方式等核心概念，并建立概念之间的关系、属性和约束规则。请同时抽取同义词和常见字段映射。</textarea>
+            </div>
+            <div class="permission-list">
+              <label><input type="checkbox" checked /> 抽取概念</label>
+              <label><input type="checkbox" checked /> 抽取属性</label>
+              <label><input type="checkbox" checked /> 抽取关系</label>
+              <label><input type="checkbox" checked /> 抽取约束规则</label>
+              <label><input type="checkbox" checked /> 抽取同义词</label>
+              <label><input type="checkbox" checked /> 保留证据来源</label>
+            </div>
+            <div class="action-row">
+              <a class="btn secondary" href="modeling.html">返回建模</a>
+              <a class="btn primary" href="#result">生成模型草稿</a>
+            </div>
+          </article>
+
+          <article id="result" class="wizard-panel">
+            <div class="section-head"><div><p class="kicker">Generated Draft</p><h2>抽取结果预览</h2></div><span class="status warn">待确认</span></div>
+            <div class="grid two">
+              <article class="card">
+                <h3>概念</h3>
+                <p class="muted">合同、甲方、乙方、合同金额、付款节点、履约期限、违约责任、争议解决。</p>
+              </article>
+              <article class="card">
+                <h3>关系</h3>
+                <p class="muted">合同 hasParty 甲方；合同 hasAmount 合同金额；合同 hasTerm 履约期限。</p>
+              </article>
+              <article class="card">
+                <h3>属性</h3>
+                <p class="muted">名称、编号、金额、币种、生效日期、截止日期、责任描述。</p>
+              </article>
+              <article class="card">
+                <h3>约束</h3>
+                <p class="muted">合同金额必须存在；履约期限必须明确；付款节点不可晚于截止日期。</p>
+              </article>
+            </div>
+            <div class="section table-panel">
+              <table>
+                <thead><tr><th>候选项</th><th>类型</th><th>证据来源</th><th>置信度</th><th>标注/审批</th></tr></thead>
+                <tbody>
+                  <tr><td>付款条件</td><td>概念</td><td>合同第 4.2 条</td><td>0.92</td><td><span class="status ok">已标注</span></td></tr>
+                  <tr><td>争议解决</td><td>关系</td><td>合同第 9 条</td><td>0.84</td><td><span class="status warn">待确认</span></td></tr>
+                  <tr><td>违约责任说明</td><td>属性</td><td>合同第 7.1 条</td><td>0.78</td><td><span class="status warn">待审批</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="action-row">
+              <a class="btn secondary" href="visualization.html">图谱预览</a>
+              <a class="btn ghost" href="#">在线标注</a>
+              <a class="btn primary" href="models.html">提交审批并保存</a>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

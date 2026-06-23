@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>本体平台 · 模型可视化</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="prototype-shell">
+      <aside class="sidebar">
+        <a class="brand text-brand" href="index.html"><span class="brand-badge">O</span><span>OntoHub</span></a>
+        <nav class="nav-group icon-nav" aria-label="主导航">
+          <a href="index.html"><span class="nav-icon">◆</span>工作台</a>
+          <a href="data.html"><span class="nav-icon">●</span>数据链接</a>
+          <a href="modeling.html"><span class="nav-icon">⬡</span>本体建模</a>
+          <a class="active" href="visualization.html"><span class="nav-icon">◇</span>模型可视化</a>
+          <a href="marketplace.html"><span class="nav-icon">■</span>资产广场</a>
+          <a href="chat.html"><span class="nav-icon">●</span>智能对话</a>
+          <a href="admin.html"><span class="nav-icon">⚙</span>系统管理</a>
+        </nav>
+      </aside>
+
+      <main class="graph-workspace">
+        <aside class="graph-control">
+          <section>
+            <h2>图谱控制</h2>
+          </section>
+          <section>
+            <h3>图例</h3>
+            <div class="legend-row"><span class="legend-dot blue"></span>对象</div>
+            <div class="legend-row"><span class="legend-dot green"></span>关系</div>
+            <div class="legend-row"><span class="legend-dot purple"></span>属性</div>
+          </section>
+          <section>
+            <h3>筛选条件</h3>
+            <label class="plain-select">节点类型<select><option>全部</option><option>对象</option><option>属性</option></select></label>
+            <label class="plain-select">关系类型<select><option>全部</option><option>包含</option><option>关联</option></select></label>
+          </section>
+          <section>
+            <h3>节点详情</h3>
+            <div class="detail-box">
+              <strong>产品 A001</strong>
+              <p>类型：电子产品</p>
+              <p>规格：128GB 存储</p>
+              <p>价格：¥2999</p>
+              <p>供应商：电子科技有限公司</p>
+            </div>
+          </section>
+        </aside>
+
+        <section class="graph-stage">
+          <div class="empty-graph">
+            <span>⬡</span>
+            <p>选择模型开始可视化</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
