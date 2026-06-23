@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>本体平台 · 模型库</title>
+    <title>本体平台 · 模型管理</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -20,83 +20,120 @@
           <a href="chat.html"><span class="nav-icon">●</span>智能对话</a>
           <a href="admin.html"><span class="nav-icon">⚙</span>系统管理</a>
         </nav>
-        <div class="sidebar-note"><strong>模型库</strong><p>模型库管理模型版本、审批状态、使用范围和可复用能力，方便团队统一使用。</p></div>
       </aside>
 
-      <main class="page">
-        <header class="topbar">
-          <div><p class="kicker">Models</p><h1>本体模型库</h1></div>
-          <label class="topbar-search"><span>搜索</span><input type="search" placeholder="搜索领域、模型、版本或概念" /></label>
-          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>模型管理员</small></div></div>
-        </header>
+      <main class="module-shell">
+        <aside class="module-nav">
+          <h2>模型管理</h2>
+          <a class="active" href="models.html">本体模型</a>
+          <a href="modeling.html">模型编辑器</a>
+          <a href="auto-model.html">自动建模任务</a>
+          <a href="marketplace.html">资产广场发布</a>
+        </aside>
 
-        <section class="section-head">
-          <div class="tabs">
-            <a class="active" href="#">全部模型</a>
-            <a href="#">我的草稿</a>
-            <a href="#">已发布</a>
-            <a href="#">广场引用</a>
+        <section class="module-content model-management-page">
+          <div class="module-head compact-head">
+            <div>
+              <h1>本体模型</h1>
+              <p>管理已创建模型，支持预览、测试和发布到资产广场</p>
+            </div>
+            <div class="head-actions">
+              <a class="btn secondary" href="modeling.html">新建模型</a>
+              <a class="btn primary" href="marketplace.html">发布到资产广场</a>
+            </div>
           </div>
-          <div class="action-row">
-            <a class="btn secondary" href="modeling.html">新建模型</a>
-            <a class="btn primary" href="visualization.html">打开图谱</a>
-          </div>
-        </section>
 
-        <section class="section grid three">
-          <article class="card model-card">
-            <div class="section-head"><span class="type model">已发布</span><span class="status ok">v1.2</span></div>
-            <div><h2>企业知识本体</h2><p class="muted">组织、客户、产品、订单和业务事件的统一语义模型，已发布给团队使用。</p></div>
-            <div class="model-stats">
-              <div><strong>38</strong><span>概念</span></div>
-              <div><strong>72</strong><span>关系</span></div>
-              <div><strong>124</strong><span>属性</span></div>
-            </div>
-            <div class="action-row">
-              <a class="btn secondary" href="visualization.html">查看图谱</a>
-              <a class="btn ghost" href="chat.html">推理测试</a>
-            </div>
-          </article>
+          <section class="model-overview-row">
+            <article class="mini-stat-card">
+              <span class="summary-icon blue">模</span>
+              <div><strong>8</strong><p>全部模型</p></div>
+            </article>
+            <article class="mini-stat-card">
+              <span class="summary-icon green">发</span>
+              <div><strong>5</strong><p>已发布</p></div>
+            </article>
+            <article class="mini-stat-card">
+              <span class="summary-icon orange">审</span>
+              <div><strong>2</strong><p>待审批</p></div>
+            </article>
+            <article class="mini-stat-card">
+              <span class="summary-icon purple">广</span>
+              <div><strong>3</strong><p>已上架广场</p></div>
+            </article>
+          </section>
 
-          <article class="card model-card">
-            <div class="section-head"><span class="type">草稿</span><span class="status warn">待确认</span></div>
-            <div><h2>合同领域本体</h2><p class="muted">从合同文件夹自动抽取，正在标注审批，适合法务风险识别和条款问答。</p></div>
-            <div class="model-stats">
-              <div><strong>18</strong><span>概念</span></div>
-              <div><strong>42</strong><span>关系</span></div>
-              <div><strong>12</strong><span>约束</span></div>
-            </div>
-            <div class="action-row">
-              <a class="btn secondary" href="auto-model.html">继续标注</a>
-              <a class="btn ghost" href="visualization.html">预览</a>
-            </div>
-          </article>
+          <section class="model-workbench-grid">
+            <article class="panel-card model-table-panel">
+              <div class="panel-title with-action compact-panel-title">
+                <div>
+                  <h2>模型列表</h2>
+                  <p>创建好的模型可发布到资产广场供团队复用</p>
+                </div>
+                <label class="selector-search">
+                  <input type="search" placeholder="搜索模型名称、领域" />
+                  <span>⌕</span>
+                </label>
+              </div>
+              <table class="connection-table model-management-table">
+                <thead>
+                  <tr>
+                    <th>模型名称</th>
+                    <th>版本</th>
+                    <th>状态</th>
+                    <th>广场状态</th>
+                    <th>更新时间</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>企业知识本体</strong><span>组织、客户、产品、订单</span></td>
+                    <td>v1.2</td>
+                    <td><span class="status ok">已发布</span></td>
+                    <td><span class="status ok">已上架</span></td>
+                    <td>2026-06-20</td>
+                    <td><a href="visualization.html">查看</a><a href="marketplace.html">更新广场</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>合同领域本体</strong><span>合同条款、风险、履约节点</span></td>
+                    <td>v0.3</td>
+                    <td><span class="status warn">待审批</span></td>
+                    <td><span class="status">未上架</span></td>
+                    <td>2026-06-19</td>
+                    <td><a href="auto-model.html">继续编辑</a><a href="#">提交审批</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>产品知识图谱</strong><span>产品、规格、供应商、售后</span></td>
+                    <td>v2.1</td>
+                    <td><span class="status ok">已发布</span></td>
+                    <td><span class="status">未上架</span></td>
+                    <td>2026-06-18</td>
+                    <td><a href="visualization.html">查看</a><a href="marketplace.html">发布到广场</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>供应链图谱</strong><span>供应商、物流、库存、采购</span></td>
+                    <td>v1.0</td>
+                    <td><span class="status ok">已发布</span></td>
+                    <td><span class="status">未上架</span></td>
+                    <td>2026-06-16</td>
+                    <td><a href="visualization.html">查看</a><a href="marketplace.html">发布到广场</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </article>
 
-          <article class="card model-card">
-            <div class="section-head"><span class="type skill">引用</span><span class="status ok">官方</span></div>
-            <div><h2>产品知识本体</h2><p class="muted">描述产品、规格、部件、故障和解决方案。</p></div>
-            <div class="model-stats">
-              <div><strong>26</strong><span>概念</span></div>
-              <div><strong>58</strong><span>关系</span></div>
-              <div><strong>80</strong><span>属性</span></div>
-            </div>
-            <div class="action-row">
-              <a class="btn secondary" href="marketplace.html">来源广场</a>
-              <a class="btn ghost" href="chat.html">问答</a>
-            </div>
-          </article>
-        </section>
-
-        <section class="section table-panel">
-          <div class="section-head"><div><p class="kicker">Versions</p><h2>版本与模型能力</h2></div></div>
-          <table>
-            <thead><tr><th>模型</th><th>当前版本</th><th>发布状态</th><th>可用能力</th><th>操作</th></tr></thead>
-            <tbody>
-              <tr><td>企业知识本体</td><td>v1.2</td><td>团队内可用</td><td>模型查询、关系推理</td><td><a href="visualization.html">查看详情</a></td></tr>
-              <tr><td>合同领域本体</td><td>草稿 v0.3</td><td>未发布</td><td>待审批</td><td><a href="auto-model.html">继续编辑</a></td></tr>
-              <tr><td>产品知识本体</td><td>v2.1</td><td>广场引用</td><td>模型查询、关系推理</td><td><a href="marketplace.html">查看来源</a></td></tr>
-            </tbody>
-          </table>
+            <aside class="panel-card publish-side-card">
+              <div class="panel-title">
+                <h2>发布到资产广场</h2>
+              </div>
+              <div class="publish-flow">
+                <div><span>1</span><strong>选择模型</strong><p>仅已发布或审批通过模型可上架</p></div>
+                <div><span>2</span><strong>填写资产信息</strong><p>补充简介、领域标签和使用说明</p></div>
+                <div><span>3</span><strong>提交审核</strong><p>审核通过后展示在资产广场</p></div>
+              </div>
+              <a class="btn primary full-width" href="marketplace.html">去广场发布</a>
+            </aside>
+          </section>
         </section>
       </main>
     </div>
