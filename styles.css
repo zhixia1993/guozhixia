@@ -1602,6 +1602,161 @@ textarea {
   font-size: 13px;
 }
 
+.connection-tabs {
+  display: flex;
+  gap: 24px;
+  height: 44px;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--line);
+}
+
+.connection-tabs a {
+  padding: 0 0 10px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.connection-tabs a.active {
+  border-bottom: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.connection-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0 12px;
+}
+
+.connection-tool-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.connection-tool-buttons button,
+.connection-filterbar button {
+  min-width: 32px;
+  min-height: 32px;
+  border: 0;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.connection-filterbar {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) auto auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 48px;
+  padding: 8px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.connection-search {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 34px;
+  color: #cbd5e1;
+}
+
+.connection-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #334155;
+}
+
+.connection-type-filter {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #334155;
+  font-size: 13px;
+}
+
+.connection-type-filter select {
+  min-width: 150px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+.connection-table-card {
+  background: #ffffff;
+}
+
+.connection-table {
+  min-width: 820px;
+}
+
+.connection-table th,
+.connection-table td {
+  height: 44px;
+  padding: 0 10px;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.connection-table th {
+  background: #ffffff;
+  color: #64748b;
+}
+
+.connection-table td {
+  color: #334155;
+}
+
+.table-scrollbar {
+  height: 12px;
+  margin-top: 2px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.table-scrollbar span {
+  display: block;
+  width: 82%;
+  height: 100%;
+  border-radius: inherit;
+  background: #c4c4c4;
+}
+
+.table-pagination {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  align-items: center;
+  padding: 18px 0;
+  color: #334155;
+  font-size: 13px;
+}
+
+.table-pagination button,
+.table-pagination strong,
+.table-pagination select {
+  min-width: 28px;
+  height: 28px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.table-pagination strong {
+  display: grid;
+  place-items: center;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
 @media (max-width: 1200px) {
   .metric-grid,
   .resource-grid {
