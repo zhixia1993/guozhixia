@@ -1602,6 +1602,172 @@ textarea {
   font-size: 13px;
 }
 
+.chat-module-content {
+  min-width: 0;
+}
+
+.chat-app-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(360px, 1fr) 280px;
+  gap: 16px;
+}
+
+.chat-history-card,
+.chat-config-card {
+  align-self: start;
+}
+
+.history-item {
+  display: grid;
+  gap: 4px;
+  margin: 10px 12px;
+  padding: 12px;
+  border-radius: 8px;
+  color: #334155;
+}
+
+.history-item.active,
+.history-item:hover {
+  background: #eaf2ff;
+  color: var(--primary);
+}
+
+.history-item strong {
+  font-size: 14px;
+}
+
+.history-item span {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.chat-workbench {
+  display: grid;
+  gap: 14px;
+  min-height: 560px;
+  padding: 16px;
+}
+
+.chat-context-bar {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 13px;
+}
+
+.chat-message {
+  max-width: 78%;
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+.chat-message strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.chat-message p {
+  margin: 0;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.chat-message.user {
+  justify-self: end;
+  background: #eaf2ff;
+}
+
+.chat-message.ai {
+  justify-self: start;
+  background: #f8fafc;
+}
+
+.chat-input-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-self: end;
+  margin-top: auto;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.chat-input-bar input {
+  border: 0;
+  outline: 0;
+  padding: 0 8px;
+}
+
+.chat-config-card {
+  padding-bottom: 16px;
+}
+
+.chat-config-card > .plain-select,
+.admin-side-panel > .plain-select,
+.admin-field {
+  margin: 14px 16px;
+}
+
+.config-checks {
+  display: grid;
+  gap: 10px;
+  margin: 16px;
+}
+
+.config-checks h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.config-checks label {
+  color: #334155;
+  font-size: 13px;
+}
+
+.config-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px;
+}
+
+.admin-metric-grid {
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+.admin-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 16px;
+}
+
+.admin-side-panel {
+  align-self: start;
+}
+
+.admin-field {
+  display: grid;
+  gap: 8px;
+  color: #334155;
+  font-size: 13px;
+}
+
+.admin-field input {
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.admin-audit-card {
+  margin-top: 16px;
+}
+
 .connection-tabs {
   display: flex;
   gap: 24px;
@@ -1767,7 +1933,9 @@ textarea {
   .source-choice-grid,
   .modeling-choice-grid,
   .compact-model-grid,
-  .model-tile-grid {
+  .model-tile-grid,
+  .chat-app-layout,
+  .admin-content-grid {
     grid-template-columns: 1fr;
   }
 }

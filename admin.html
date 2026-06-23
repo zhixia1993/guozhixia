@@ -3,92 +3,143 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>本体平台 · 管理</title>
+    <title>本体平台 · 系统管理</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="prototype-shell">
       <aside class="sidebar">
-        <a class="brand" href="index.html"><span class="brand-mark">O</span><div><strong>OntoHub</strong><span>本体平台</span></div></a>
-        <nav class="nav-group" aria-label="主导航">
-          <a href="index.html">工作台 <small>Home</small></a>
-          <a href="data.html">数据 <small>Data</small></a>
-          <a href="modeling.html">建模 <small>Build</small></a>
-          <a href="models.html">模型 <small>Models</small></a>
-          <a href="visualization.html">可视化 <small>Graph</small></a>
-          <a href="marketplace.html">广场 <small>Hub</small></a>
-          <a href="chat.html">对话 <small>Chat</small></a>
-          <a class="active" href="admin.html">管理 <small>Admin</small></a>
+        <a class="brand text-brand" href="index.html">logo</a>
+        <nav class="nav-group icon-nav" aria-label="主导航">
+          <a href="index.html"><span class="nav-icon">◆</span>工作台</a>
+          <a href="data.html"><span class="nav-icon">●</span>数据链接</a>
+          <a href="modeling.html"><span class="nav-icon">⬡</span>本体建模</a>
+          <a href="visualization.html"><span class="nav-icon">◇</span>模型可视化</a>
+          <a href="marketplace.html"><span class="nav-icon">■</span>资产广场</a>
+          <a href="chat.html"><span class="nav-icon">●</span>智能对话</a>
+          <a class="active" href="admin.html"><span class="nav-icon">⚙</span>系统管理</a>
         </nav>
-        <div class="sidebar-note"><strong>系统管理</strong><p>仅保留登录、用户、角色和基础审计入口，避免把原型做成复杂后台。</p></div>
       </aside>
 
-      <main class="page">
-        <header class="topbar">
-          <div><p class="kicker">Admin</p><h1>单点登录与用户管理</h1></div>
-          <label class="topbar-search"><span>搜索</span><input type="search" placeholder="搜索用户、角色或登录配置" /></label>
-          <div class="user-pill"><span class="avatar">张</span><div><strong>张三</strong><small>超级管理员</small></div></div>
-        </header>
+      <main class="module-shell">
+        <aside class="module-nav">
+          <h2>系统管理</h2>
+          <a class="active" href="admin.html">用户管理</a>
+          <a href="#">角色权限</a>
+          <a href="#">单点登录</a>
+          <a href="#">审计日志</a>
+        </aside>
 
-        <section class="section grid three">
-          <article class="card"><span class="tag">SSO</span><h3>OIDC 已启用</h3><p class="muted">统一身份认证，支持企业账号登录。</p></article>
-          <article class="card"><span class="tag teal">Users</span><h3>12 个用户</h3><p class="muted">4 个建模人员，6 个普通用户，2 个管理员。</p></article>
-          <article class="card"><span class="tag purple">Roles</span><h3>5 个角色</h3><p class="muted">按数据、模型、广场、对话权限授权。</p></article>
-        </section>
+        <section class="module-content">
+          <div class="module-head">
+            <div>
+              <h1>系统管理</h1>
+              <p>管理用户、角色、登录方式和平台审计</p>
+            </div>
+            <a class="btn primary" href="#">新增用户</a>
+          </div>
 
-        <section class="section admin-layout">
-          <article class="card">
-            <div class="section-head"><div><p class="kicker">Single Sign-On</p><h2>单点登录配置</h2></div><span class="status ok">已启用</span></div>
-            <div class="form-grid">
-              <label class="select-field"><span>登录方式</span><select><option>OIDC</option><option>SAML</option><option>LDAP / AD</option><option>本地账号</option></select></label>
-              <label class="field"><span>Client ID</span><input type="text" value="ontolite-platform" /></label>
-              <label class="field"><span>Issuer URL</span><input type="text" value="https://sso.example.com" /></label>
-              <label class="field"><span>Redirect URI</span><input type="text" value="https://ontolite.example.com/callback" /></label>
-            </div>
-            <div class="action-row">
-              <a class="btn secondary" href="#">测试连接</a>
-              <a class="btn primary" href="#">保存配置</a>
-            </div>
-          </article>
+          <section class="metric-grid admin-metric-grid">
+            <article class="summary-card">
+              <span class="summary-icon blue">●</span>
+              <div>
+                <p>用户总数</p>
+                <strong>12</strong>
+              </div>
+            </article>
+            <article class="summary-card">
+              <span class="summary-icon green">◆</span>
+              <div>
+                <p>启用用户</p>
+                <strong>9</strong>
+              </div>
+            </article>
+            <article class="summary-card">
+              <span class="summary-icon purple">⚙</span>
+              <div>
+                <p>角色数量</p>
+                <strong>5</strong>
+              </div>
+            </article>
+            <article class="summary-card">
+              <span class="summary-icon orange">▣</span>
+              <div>
+                <p>SSO 状态</p>
+                <strong>开启</strong>
+              </div>
+            </article>
+          </section>
 
-          <article class="table-panel">
-            <div class="section-head">
-              <div><p class="kicker">Users</p><h2>用户列表</h2></div>
-              <div class="action-row"><a class="btn secondary" href="#">同步 SSO 用户</a><a class="btn primary" href="#">新增用户</a></div>
-            </div>
-            <table>
-              <thead><tr><th>用户</th><th>邮箱</th><th>角色</th><th>状态</th><th>操作</th></tr></thead>
-              <tbody>
-                <tr><td>张三</td><td>zhang@example.com</td><td>超级管理员</td><td><span class="status ok">启用</span></td><td>编辑</td></tr>
-                <tr><td>李四</td><td>li@example.com</td><td>本体建模人员</td><td><span class="status ok">启用</span></td><td>编辑</td></tr>
-                <tr><td>王五</td><td>wang@example.com</td><td>普通用户</td><td><span class="status">禁用</span></td><td>编辑</td></tr>
-              </tbody>
-            </table>
-          </article>
-        </section>
+          <section class="admin-content-grid">
+            <article class="panel-card">
+              <div class="panel-title with-action">
+                <h2>用户列表</h2>
+                <div class="connection-tool-buttons">
+                  <button type="button">同步</button>
+                  <button type="button">筛选</button>
+                </div>
+              </div>
+              <table class="connection-table">
+                <thead>
+                  <tr>
+                    <th>用户</th>
+                    <th>邮箱</th>
+                    <th>角色</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>张三</td>
+                    <td>zhang@example.com</td>
+                    <td>超级管理员</td>
+                    <td><span class="status ok">启用</span></td>
+                    <td>编辑</td>
+                  </tr>
+                  <tr>
+                    <td>李四</td>
+                    <td>li@example.com</td>
+                    <td>本体建模人员</td>
+                    <td><span class="status ok">启用</span></td>
+                    <td>编辑</td>
+                  </tr>
+                  <tr>
+                    <td>王五</td>
+                    <td>wang@example.com</td>
+                    <td>普通用户</td>
+                    <td><span class="status">禁用</span></td>
+                    <td>编辑</td>
+                  </tr>
+                </tbody>
+              </table>
+            </article>
 
-        <section class="section grid two">
-          <article class="card">
-            <p class="kicker">Roles</p>
-            <h2>推荐角色</h2>
-            <div class="permission-list">
-              <label><input type="checkbox" checked /> 超级管理员：全部权限</label>
-              <label><input type="checkbox" checked /> 数据管理员：数据连接与解析</label>
-              <label><input type="checkbox" checked /> 本体建模人员：模型草稿与发布</label>
-              <label><input type="checkbox" checked /> 普通用户：对话和查看模型</label>
+            <aside class="panel-card admin-side-panel">
+              <div class="panel-title">
+                <h2>单点登录配置</h2>
+              </div>
+              <label class="plain-select">登录方式<select><option>OIDC</option><option>SAML</option><option>LDAP / AD</option><option>本地账号</option></select></label>
+              <label class="admin-field">Client ID<input type="text" value="ontohub-platform" /></label>
+              <label class="admin-field">Issuer URL<input type="text" value="https://sso.example.com" /></label>
+              <label class="admin-field">Redirect URI<input type="text" value="https://ontohub.example.com/callback" /></label>
+              <div class="config-actions">
+                <a class="btn secondary" href="#">测试连接</a>
+                <a class="btn primary" href="#">保存配置</a>
+              </div>
+            </aside>
+          </section>
+
+          <section class="panel-card admin-audit-card">
+            <div class="panel-title">
+              <h2>最近审计</h2>
             </div>
-          </article>
-          <article class="card">
-            <p class="kicker">Audit</p>
-            <h2>最近审计</h2>
-            <table>
-              <tbody>
-                <tr><td>张三发布企业知识本体 v1.2</td><td>今天</td></tr>
-                <tr><td>李四创建合同领域本体草稿</td><td>今天</td></tr>
-                <tr><td>SSO 同步 3 个新用户</td><td>昨天</td></tr>
-              </tbody>
-            </table>
-          </article>
+            <div class="activity-list">
+              <div class="activity-item"><span class="dot blue"></span><div><strong>张三发布企业知识本体 v1.2</strong><p>今天</p></div></div>
+              <div class="activity-item"><span class="dot green"></span><div><strong>李四创建合同领域本体草稿</strong><p>今天</p></div></div>
+              <div class="activity-item"><span class="dot purple"></span><div><strong>SSO 同步 3 个新用户</strong><p>昨天</p></div></div>
+            </div>
+          </section>
         </section>
       </main>
     </div>
