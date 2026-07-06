@@ -14,6 +14,7 @@ import {
   ObjectSidebar,
   type OntologyObject,
 } from '../components/ObjectDetailPanel'
+import { cardDisposalDataMapping } from '../components/ObjectDataTab'
 import { cn } from '../lib/utils'
 
 const cardDisposalProps = [
@@ -55,6 +56,7 @@ const initialObjects: OntologyObject[] = [
     dataProperties: cardDisposalProps,
     relations: [],
     actions: [],
+    dataMapping: cardDisposalDataMapping,
   },
   {
     name: '基站',

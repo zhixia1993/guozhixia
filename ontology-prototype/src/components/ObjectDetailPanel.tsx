@@ -5,6 +5,7 @@ import {
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { AddActionModal, type ObjectAction } from './AddActionModal'
+import { ObjectDataTab, type VirtualDataMapping } from './ObjectDataTab'
 
 export interface DataProperty {
   id: string
@@ -30,6 +31,7 @@ export interface OntologyObject {
   dataProperties: DataProperty[]
   relations: ObjectRelation[]
   actions: ObjectAction[]
+  dataMapping?: VirtualDataMapping
 }
 
 interface ObjectDetailPanelProps {
@@ -348,9 +350,11 @@ export function ObjectDetailPanel({ object, onUpdate }: ObjectDetailPanelProps) 
         )}
 
         {tab === 'data' && (
-          <div className="flex h-full items-center justify-center text-sm text-slate-400">
-            数据实例预览与接入数据映射
-          </div>
+          <ObjectDataTab
+            mapping={object.dataMapping}
+            onChangeMapping={() => {}}
+            onUnbind={() => onUpdate?.({ ...object, dataMapping: undefined })}
+          />
         )}
       </div>
 
