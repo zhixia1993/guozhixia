@@ -14,6 +14,7 @@ import {
   ObjectSidebar,
   type OntologyObject,
 } from '../components/ObjectDetailPanel'
+import { type CreatePropertyData } from '../components/CreatePropertyModal'
 import { cardDisposalDataMapping } from '../components/ObjectDataTab'
 import { cn } from '../lib/utils'
 
@@ -185,6 +186,30 @@ export function ManualModeling() {
     setObjects((prev) => prev.map((o) => (o.key === updated.key ? updated : o)))
   }
 
+  const handleCreateProperty = (data: CreatePropertyData) => {
+    const targetObj = objects.find((o) => o.name === data.domain)
+    if (!targetObj) return
+    const newProp = {
+      id: `prop-${Date.now()}`,
+      name: data.name,
+      desc: data.comment,
+      type: data.type,
+    }
+    setObjects((prev) =>
+      prev.map((o) =>
+        o.key === targetObj.key
+          ? { ...o, dataProperties: [...o.dataProperties, newProp] }
+          : o
+      )
+    )
+    if (targetObj.key === selectedObjectKey) {
+      // refresh view
+    } else {
+      setSelectedObjectKey(targetObj.key)
+      setViewMode('detail')
+    }
+  }
+
   const handleCreateRelation = (data: { name: string; domain: string; range: string }) => {
     const domainObj = objects.find((o) => o.name === data.domain)
     if (!domainObj) return
@@ -266,7 +291,12 @@ export function ManualModeling() {
         {viewMode === 'detail' ? (
           <div className="flex-1 overflow-hidden">
             {selectedObject && (
-              <ObjectDetailPanel object={selectedObject} onUpdate={handleUpdateObject} />
+              <ObjectDetailPanel
+                object={selectedObject}
+                objectOptions={objectNames}
+                onUpdate={handleUpdateObject}
+                onCreateProperty={handleCreateProperty}
+              />
             )}
           </div>
         ) : (

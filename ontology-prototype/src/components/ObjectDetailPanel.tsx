@@ -6,6 +6,7 @@ import {
 import { cn } from '../lib/utils'
 import { AddActionModal, type ObjectAction } from './AddActionModal'
 import { ObjectDataTab, type VirtualDataMapping } from './ObjectDataTab'
+import { CreatePropertyModal, type CreatePropertyData } from './CreatePropertyModal'
 
 export interface DataProperty {
   id: string
@@ -36,14 +37,17 @@ export interface OntologyObject {
 
 interface ObjectDetailPanelProps {
   object: OntologyObject
+  objectOptions?: string[]
   onUpdate?: (object: OntologyObject) => void
+  onCreateProperty?: (data: CreatePropertyData) => void
 }
 
 type TabKey = 'structure' | 'actions' | 'data'
 
-export function ObjectDetailPanel({ object, onUpdate }: ObjectDetailPanelProps) {
+export function ObjectDetailPanel({ object, objectOptions = [], onUpdate, onCreateProperty }: ObjectDetailPanelProps) {
   const [tab, setTab] = useState<TabKey>('structure')
   const [showAddAction, setShowAddAction] = useState(false)
+  const [showCreateProperty, setShowCreateProperty] = useState(false)
   const [editingComment, setEditingComment] = useState(false)
   const [editingLlm, setEditingLlm] = useState(false)
   const [comment, setComment] = useState(object.comment ?? '')
@@ -184,7 +188,10 @@ export function ObjectDetailPanel({ object, onUpdate }: ObjectDetailPanelProps) 
                   <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-semibold text-indigo-700">
                     {object.dataProperties.length}
                   </span>
-                  <button className="flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-600 hover:bg-slate-50">
+                  <button
+                    onClick={() => setShowCreateProperty(true)}
+                    className="flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                  >
                     <Plus className="h-3.5 w-3.5" /> 添加
                   </button>
                 </div>
@@ -363,6 +370,13 @@ export function ObjectDetailPanel({ object, onUpdate }: ObjectDetailPanelProps) 
         onClose={() => setShowAddAction(false)}
         onAdd={handleAddActions}
         objectName={object.name}
+      />
+      <CreatePropertyModal
+        open={showCreateProperty}
+        onClose={() => setShowCreateProperty(false)}
+        onCreate={onCreateProperty}
+        objectOptions={objectOptions.length > 0 ? objectOptions : [object.name]}
+        defaultDomain={object.name}
       />
     </div>
   )
