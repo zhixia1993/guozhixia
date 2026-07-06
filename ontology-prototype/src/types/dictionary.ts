@@ -1,6 +1,8 @@
 export interface DictionaryEntry {
   code: string
   displayName: string
+  label?: string
+  comment?: string
 }
 
 export interface DictionaryInfo {

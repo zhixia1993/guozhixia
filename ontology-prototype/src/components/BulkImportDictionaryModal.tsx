@@ -12,13 +12,8 @@ interface BulkImportDictionaryModalProps {
 const TEMPLATE_FIELDS = 'dictType, dictTypeLabel, codeValue, displayName, label, comment'
 
 const CSV_TEMPLATE = `dictType,dictTypeLabel,codeValue,displayName,label,comment
-STATUS,用户状态,0,正常,正常,用户状态枚举码表
-STATUS,用户状态,1,欠费,欠费,用户状态枚举码表
-STATUS,用户状态,2,停机,停机,用户状态枚举码表
-ACCT_ITEM_TYPE,帐目类型,01,语音通话费,语音通话费,电信经分帐目类型码表
-ACCT_ITEM_TYPE,帐目类型,02,短信费,短信费,电信经分帐目类型码表
-DISPOSAL_TYPE,处置类型,STOP,关停,关停,号码处置类型码表
-DISPOSAL_TYPE,处置类型,RESUME,复开,复开,号码处置类型码表`
+contract_status,合同状态,INVALID,失效,失效,合同已失效
+contract_status,合同状态,TERMINATED,终止,终止,合同已终止`
 
 const MAX_FILES = 3
 const MAX_FILE_SIZE = 10 * 1024 * 1024
@@ -77,19 +72,20 @@ export function parseDictionaryCsv(text: string): CreateDictionaryData[] {
       map.set(dictType, {
         name: dictTypeLabel || dictType,
         code: dictType,
-        desc: comment,
+        desc: '',
         entries: [],
       })
     }
 
     const existing = map.get(dictType)!
-    if (!existing.desc && comment) existing.desc = comment
-    if (dictTypeLabel && existing.name === dictType) existing.name = dictTypeLabel
+    if (dictTypeLabel) existing.name = dictTypeLabel
 
     const entries = existing.entries ?? []
     entries.push({
       code: codeValue,
       displayName: displayName || label || codeValue,
+      label: label || undefined,
+      comment: comment || undefined,
     })
     existing.entries = entries
   }

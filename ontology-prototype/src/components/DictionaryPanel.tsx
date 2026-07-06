@@ -217,9 +217,18 @@ export function DictionaryPanel({ dictionaries, onCreate, onBulkImport, onDelete
               </button>
             )}
           </div>
-          <div className="grid grid-cols-2 gap-2 border-b border-slate-100 bg-slate-50/80 px-6 py-2 text-xs font-medium text-slate-500">
-            <span>码值</span>
-            <span>展示名</span>
+          <div className={cn(
+            'grid gap-2 border-b border-slate-100 bg-slate-50/80 px-6 py-2 text-xs font-medium text-slate-500',
+            selected.entries.some((e) => e.comment) ? 'grid-cols-4' : 'grid-cols-2'
+          )}>
+            <span>码值 (codeValue)</span>
+            <span>展示名 (displayName)</span>
+            {selected.entries.some((e) => e.comment) && (
+              <>
+                <span>标签 (label)</span>
+                <span>说明 (comment)</span>
+              </>
+            )}
           </div>
           <div className="flex-1 overflow-y-auto">
             {selected.entries.length === 0 ? (
@@ -229,11 +238,17 @@ export function DictionaryPanel({ dictionaries, onCreate, onBulkImport, onDelete
               </div>
             ) : (
               selected.entries.map((entry) => (
-                <div key={entry.code} className="group grid grid-cols-2 gap-2 border-b border-slate-50 px-6 py-3 hover:bg-slate-50/50">
+                <div
+                  key={entry.code}
+                  className={cn(
+                    'group grid gap-2 border-b border-slate-50 px-6 py-3 hover:bg-slate-50/50',
+                    entry.comment ? 'grid-cols-4' : 'grid-cols-2'
+                  )}
+                >
                   <span className="font-mono text-sm text-slate-800">{entry.code}</span>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-slate-600">{entry.displayName}</span>
-                    {onUpdate && (
+                    {onUpdate && !entry.comment && (
                       <button
                         onClick={() => handleRemoveEntry(entry.code)}
                         className="rounded p-1 text-slate-300 opacity-0 hover:bg-red-50 hover:text-red-500 group-hover:opacity-100"
@@ -242,6 +257,22 @@ export function DictionaryPanel({ dictionaries, onCreate, onBulkImport, onDelete
                       </button>
                     )}
                   </div>
+                  {entry.comment && (
+                    <>
+                      <span className="text-sm text-slate-600">{entry.label ?? entry.displayName}</span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-slate-500">{entry.comment}</span>
+                        {onUpdate && (
+                          <button
+                            onClick={() => handleRemoveEntry(entry.code)}
+                            className="rounded p-1 text-slate-300 opacity-0 hover:bg-red-50 hover:text-red-500 group-hover:opacity-100"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               ))
             )}
