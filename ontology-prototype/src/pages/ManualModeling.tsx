@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import {
   Plus, ChevronRight, ChevronDown, Save, Send, Share2,
   ZoomIn, ZoomOut, Maximize2, Trash2,
@@ -28,6 +28,7 @@ const graphEdges = [
 ]
 
 export function ManualModeling() {
+  const { id } = useParams<{ id: string }>()
   const [selectedNode, setSelectedNode] = useState('user')
   const [showAuditModal, setShowAuditModal] = useState(false)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({ object: true, relation: true, attribute: false })
@@ -36,9 +37,10 @@ export function ManualModeling() {
     <div className="flex h-full flex-col">
       <div className="flex items-center justify-between border-b border-slate-200 bg-white px-5 py-3">
         <div className="flex items-center gap-3">
-          <Link to="/modeling" className="text-sm text-slate-400 hover:text-slate-600">本体建模</Link>
+          <Link to="/modeling/manual/create" className="text-sm text-slate-400 hover:text-slate-600">创建空白本体</Link>
           <ChevronRight className="h-4 w-4 text-slate-300" />
           <span className="text-sm font-medium text-slate-900">专家自主建模</span>
+          {id && <span className="rounded bg-violet-50 px-2 py-0.5 font-mono text-xs text-violet-600">ontology_{id}</span>}
           <StatusBadge status="draft" />
         </div>
         <div className="flex items-center gap-2">

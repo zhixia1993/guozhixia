@@ -21,7 +21,8 @@ npm run dev
 | 数据接入 | `/modeling/data-access` | 选择 API / 数据库接入类型 |
 | API 接入配置 | `/modeling/data-access/api` | 新建 API 接口：左配置右测试双栏布局，支持鉴权/参数/探测/Schema |
 | 数据库接入配置 | `/modeling/data-access/database` | 配置数据库：左选类型右填连接，测试后下一步选资源 |
-| 专家自主建模 | `/modeling/manual/new` | 三栏布局：对象树 + 图画布 + 属性面板 |
+| 创建空白本体 | `/modeling/manual/create` | 配置名称/KEY/命名空间/标签，创建后进入设计器 |
+| 专家自主建模 | `/modeling/manual/:id` | 三栏布局：对象树 + 图画布 + 属性面板 |
 | 智能辅助建模 | `/modeling/assist` | 四步向导：基本信息 → 上传 → AI构建 → 确认 |
 | 现有模型演进 | `/modeling/evolve` | 选择基础模型 + 差异对比 |
 | 规则建模 | `/modeling/rule` | 本体 + Skill + 自然语言 |

@@ -58,7 +58,7 @@ export function ModelLibrary() {
     return true
   })
 
-  const createPath = modelType === 'ontology' ? '/modeling/manual/new' : modelType === 'rule' ? '/modeling/rule' : '/modeling/logic'
+  const createPath = modelType === 'ontology' ? '/modeling/manual/create' : modelType === 'rule' ? '/modeling/rule' : '/modeling/logic'
 
   return (
     <div className="p-6 lg:p-8">

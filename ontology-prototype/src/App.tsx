@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { Dashboard, ModelingHome } from './pages/Dashboard'
 import { ManualModeling } from './pages/ManualModeling'
+import { CreateOntology } from './pages/CreateOntology'
 import { AssistModeling } from './pages/AssistModeling'
 import { EvolveModeling } from './pages/EvolveModeling'
 import { RuleModeling } from './pages/RuleModeling'
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/modeling/data-access" element={<DataAccess />} />
           <Route path="/modeling/data-access/api" element={<DataAccessApi />} />
           <Route path="/modeling/data-access/database" element={<DataAccessDatabase />} />
+          <Route path="/modeling/manual/create" element={<CreateOntology />} />
           <Route path="/modeling/manual/:id" element={<ManualModeling />} />
           <Route path="/modeling/assist" element={<AssistModeling />} />
           <Route path="/modeling/evolve" element={<EvolveModeling />} />
