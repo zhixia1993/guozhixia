@@ -72,6 +72,15 @@ const initialObjects: OntologyObject[] = [
     key: 'call_event',
     parent: 'Thing (Root)',
     dataProperties: [
+      {
+        id: 'acct_item_type_a',
+        name: '费用1帐目类型',
+        key: 'acct_item_type_a',
+        parent: 'topDataProperty',
+        desc: '费用1帐目类型',
+        type: 'int',
+        constraints: { mandatory: false },
+      },
       { id: 'ce1', name: '通话时长', desc: '通话持续秒数', type: 'int' },
       { id: 'ce2', name: '主叫号码', desc: '主叫方号码', type: 'string' },
     ],
@@ -190,10 +199,13 @@ export function ManualModeling() {
     const targetObj = objects.find((o) => o.name === data.domain)
     if (!targetObj) return
     const newProp = {
-      id: `prop-${Date.now()}`,
+      id: data.key || `prop-${Date.now()}`,
       name: data.name,
+      key: data.key,
+      parent: 'topDataProperty',
       desc: data.comment,
       type: data.type,
+      constraints: { mandatory: false },
     }
     setObjects((prev) =>
       prev.map((o) =>

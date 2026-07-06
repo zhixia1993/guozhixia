@@ -1,18 +1,37 @@
 import { useState } from 'react'
 import {
-  Box, FileText, Bot, Plus, Pencil, Trash2, Link2, Search,
+  Box, FileText, Bot, Plus, Pencil, Trash2, Link2, Search, BookOpen,
   Send, Database, Globe, Plug,
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { AddActionModal, type ObjectAction } from './AddActionModal'
 import { ObjectDataTab, type VirtualDataMapping } from './ObjectDataTab'
 import { CreatePropertyModal, type CreatePropertyData } from './CreatePropertyModal'
+import { PropertyDetailPanel } from './PropertyDetailPanel'
+
+export interface DictionaryMapping {
+  dictId: string
+  dictName: string
+  dictCode: string
+  entries: { code: string; displayName: string }[]
+}
+
+export interface PropertyConstraints {
+  mandatory: boolean
+  minLength?: number
+  maxLength?: number
+  regexPattern?: string
+}
 
 export interface DataProperty {
   id: string
   name: string
+  key?: string
+  parent?: string
   desc: string
   type: string
+  dictionary?: DictionaryMapping
+  constraints?: PropertyConstraints
 }
 
 export interface ObjectRelation {
@@ -48,6 +67,7 @@ export function ObjectDetailPanel({ object, objectOptions = [], onUpdate, onCrea
   const [tab, setTab] = useState<TabKey>('structure')
   const [showAddAction, setShowAddAction] = useState(false)
   const [showCreateProperty, setShowCreateProperty] = useState(false)
+  const [selectedPropertyId, setSelectedPropertyId] = useState<string | null>(null)
   const [editingComment, setEditingComment] = useState(false)
   const [editingLlm, setEditingLlm] = useState(false)
   const [comment, setComment] = useState(object.comment ?? '')
@@ -72,6 +92,26 @@ export function ObjectDetailPanel({ object, objectOptions = [], onUpdate, onCrea
     { key: 'actions', label: '动作' },
     { key: 'data', label: '数据' },
   ]
+
+  const selectedProperty = object.dataProperties.find((p) => p.id === selectedPropertyId)
+
+  const handleUpdateProperty = (updated: DataProperty) => {
+    onUpdate?.({
+      ...object,
+      dataProperties: object.dataProperties.map((p) => (p.id === updated.id ? updated : p)),
+    })
+  }
+
+  if (selectedProperty && tab === 'structure') {
+    return (
+      <PropertyDetailPanel
+        property={selectedProperty}
+        object={object}
+        onBack={() => setSelectedPropertyId(null)}
+        onUpdate={handleUpdateProperty}
+      />
+    )
+  }
 
   return (
     <div className="flex h-full flex-col bg-white">
@@ -202,7 +242,11 @@ export function ObjectDetailPanel({ object, objectOptions = [], onUpdate, onCrea
                 ) : (
                   <div className="divide-y divide-slate-50">
                     {object.dataProperties.map((prop) => (
-                      <div key={prop.id} className="group flex items-start gap-3 px-5 py-3.5 hover:bg-slate-50/80">
+                      <button
+                        key={prop.id}
+                        onClick={() => setSelectedPropertyId(prop.id)}
+                        className="group flex w-full items-start gap-3 px-5 py-3.5 text-left hover:bg-slate-50/80"
+                      >
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-slate-900">{prop.name}</p>
                           {prop.desc && <p className="mt-0.5 text-xs text-slate-400 line-clamp-1">{prop.desc}</p>}
@@ -210,15 +254,10 @@ export function ObjectDetailPanel({ object, objectOptions = [], onUpdate, onCrea
                         <span className="shrink-0 rounded bg-slate-100 px-2 py-0.5 font-mono text-[11px] text-slate-500">
                           {prop.type}
                         </span>
-                        <div className="flex shrink-0 gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
-                          <button className="rounded p-1 text-slate-400 hover:bg-slate-200 hover:text-slate-600">
-                            <Pencil className="h-3.5 w-3.5" />
-                          </button>
-                          <button className="rounded p-1 text-slate-400 hover:bg-red-50 hover:text-red-500">
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </button>
-                        </div>
-                      </div>
+                        {prop.dictionary && (
+                          <BookOpen className="h-3.5 w-3.5 shrink-0 text-indigo-400" />
+                        )}
+                      </button>
                     ))}
                   </div>
                 )}
