@@ -16,5 +16,5 @@ export interface CreateDictionaryData {
   name: string
   code: string
   desc: string
-  entries: DictionaryEntry[]
+  entries?: DictionaryEntry[]
 }

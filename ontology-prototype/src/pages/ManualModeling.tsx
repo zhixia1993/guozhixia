@@ -24,13 +24,14 @@ import { cn } from '../lib/utils'
 type DesignSection = 'objects' | 'dictionaries'
 
 function toDictionaryInfo(data: CreateDictionaryData, id?: string): DictionaryInfo {
+  const entries = data.entries ?? []
   return {
     id: id ?? `dict-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     name: data.name,
     code: data.code,
     desc: data.desc,
-    entryCount: data.entries.length,
-    entries: data.entries,
+    entryCount: entries.length,
+    entries,
   }
 }
 
@@ -282,6 +283,27 @@ export function ManualModeling() {
     )
   }
 
+  const handleUpdateDictionary = (updated: DictionaryInfo) => {
+    setDictionaries((prev) => prev.map((d) => (d.id === updated.id ? updated : d)))
+    setObjects((prev) =>
+      prev.map((obj) => ({
+        ...obj,
+        dataProperties: obj.dataProperties.map((p) => {
+          if (p.dictionary?.dictId !== updated.id) return p
+          return {
+            ...p,
+            dictionary: {
+              dictId: updated.id,
+              dictName: updated.name,
+              dictCode: updated.code,
+              entries: updated.entries,
+            },
+          }
+        }),
+      }))
+    )
+  }
+
   return (
     <div className="flex h-full flex-col">
       {/* Top bar */}
@@ -361,6 +383,7 @@ export function ManualModeling() {
               onCreate={handleCreateDictionary}
               onBulkImport={handleBulkImportDictionaries}
               onDelete={handleDeleteDictionary}
+              onUpdate={handleUpdateDictionary}
             />
           </div>
         ) : (

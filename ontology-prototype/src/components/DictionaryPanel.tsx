@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { BookOpen, Plus, ChevronDown, Search, Trash2 } from 'lucide-react'
 import { cn } from '../lib/utils'
-import type { DictionaryInfo, CreateDictionaryData } from '../types/dictionary'
+import type { DictionaryInfo, CreateDictionaryData, DictionaryEntry } from '../types/dictionary'
 import { CreateDictionaryModal } from './CreateDictionaryModal'
 import { BulkImportDictionaryModal } from './BulkImportDictionaryModal'
 
@@ -10,15 +10,19 @@ interface DictionaryPanelProps {
   onCreate: (data: CreateDictionaryData) => void
   onBulkImport: (items: CreateDictionaryData[]) => void
   onDelete?: (dictId: string) => void
+  onUpdate?: (dict: DictionaryInfo) => void
 }
 
-export function DictionaryPanel({ dictionaries, onCreate, onBulkImport, onDelete }: DictionaryPanelProps) {
+export function DictionaryPanel({ dictionaries, onCreate, onBulkImport, onDelete, onUpdate }: DictionaryPanelProps) {
   const [showCreateMenu, setShowCreateMenu] = useState(false)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [showImportModal, setShowImportModal] = useState(false)
   const [search, setSearch] = useState('')
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [newEntryCode, setNewEntryCode] = useState('')
+  const [newEntryName, setNewEntryName] = useState('')
   const menuRef = useRef<HTMLDivElement>(null)
+  const prevDictCount = useRef(dictionaries.length)
 
   const filtered = dictionaries.filter(
     (d) => !search || d.name.includes(search) || d.code.includes(search)
@@ -35,6 +39,29 @@ export function DictionaryPanel({ dictionaries, onCreate, onBulkImport, onDelete
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
+
+  useEffect(() => {
+    if (dictionaries.length > prevDictCount.current) {
+      setSelectedId(dictionaries[dictionaries.length - 1].id)
+    }
+    prevDictCount.current = dictionaries.length
+  }, [dictionaries])
+
+  const handleAddEntry = () => {
+    if (!selected || !onUpdate || !newEntryCode.trim() || !newEntryName.trim()) return
+    const entry: DictionaryEntry = { code: newEntryCode.trim(), displayName: newEntryName.trim() }
+    if (selected.entries.some((e) => e.code === entry.code)) return
+    const entries = [...selected.entries, entry]
+    onUpdate({ ...selected, entries, entryCount: entries.length })
+    setNewEntryCode('')
+    setNewEntryName('')
+  }
+
+  const handleRemoveEntry = (code: string) => {
+    if (!selected || !onUpdate) return
+    const entries = selected.entries.filter((e) => e.code !== code)
+    onUpdate({ ...selected, entries, entryCount: entries.length })
+  }
 
   if (dictionaries.length === 0) {
     return (
@@ -67,7 +94,7 @@ export function DictionaryPanel({ dictionaries, onCreate, onBulkImport, onDelete
                   }}
                   className="flex w-full flex-col px-4 py-3 text-left hover:bg-slate-50"
                 >
-                  <span className="text-sm font-semibold text-slate-900">新建字典</span>
+                  <span className="text-sm font-semibold text-slate-900">新建字典类型</span>
                   <span className="mt-0.5 text-xs text-slate-400">使用弹窗创建单个字典</span>
                 </button>
                 <button
@@ -120,7 +147,7 @@ export function DictionaryPanel({ dictionaries, onCreate, onBulkImport, onDelete
                     onClick={() => { setShowCreateMenu(false); setShowCreateModal(true) }}
                     className="flex w-full flex-col px-4 py-2.5 text-left hover:bg-slate-50"
                   >
-                    <span className="text-sm font-semibold text-slate-900">新建字典</span>
+                    <span className="text-sm font-semibold text-slate-900">新建字典类型</span>
                     <span className="text-xs text-slate-400">使用弹窗创建单个字典</span>
                   </button>
                   <button
@@ -195,13 +222,57 @@ export function DictionaryPanel({ dictionaries, onCreate, onBulkImport, onDelete
             <span>展示名</span>
           </div>
           <div className="flex-1 overflow-y-auto">
-            {selected.entries.map((entry) => (
-              <div key={entry.code} className="grid grid-cols-2 gap-2 border-b border-slate-50 px-6 py-3 hover:bg-slate-50/50">
-                <span className="font-mono text-sm text-slate-800">{entry.code}</span>
-                <span className="text-sm text-slate-600">{entry.displayName}</span>
+            {selected.entries.length === 0 ? (
+              <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
+                <p className="text-sm text-slate-500">暂无码值，请添加键值对</p>
+                <p className="mt-1 text-xs text-slate-400">创建字典类型后，在此维护码值与展示名</p>
               </div>
-            ))}
+            ) : (
+              selected.entries.map((entry) => (
+                <div key={entry.code} className="group grid grid-cols-2 gap-2 border-b border-slate-50 px-6 py-3 hover:bg-slate-50/50">
+                  <span className="font-mono text-sm text-slate-800">{entry.code}</span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-slate-600">{entry.displayName}</span>
+                    {onUpdate && (
+                      <button
+                        onClick={() => handleRemoveEntry(entry.code)}
+                        className="rounded p-1 text-slate-300 opacity-0 hover:bg-red-50 hover:text-red-500 group-hover:opacity-100"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))
+            )}
           </div>
+          {onUpdate && (
+            <div className="border-t border-slate-100 px-6 py-4">
+              <p className="mb-2 text-xs font-medium text-slate-500">添加码值</p>
+              <div className="flex gap-2">
+                <input
+                  value={newEntryCode}
+                  onChange={(e) => setNewEntryCode(e.target.value)}
+                  placeholder="码值"
+                  className="w-28 rounded-lg border border-slate-200 px-3 py-2 font-mono text-sm outline-none focus:border-violet-400"
+                />
+                <input
+                  value={newEntryName}
+                  onChange={(e) => setNewEntryName(e.target.value)}
+                  placeholder="展示名"
+                  className="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-violet-400"
+                  onKeyDown={(e) => e.key === 'Enter' && handleAddEntry()}
+                />
+                <button
+                  onClick={handleAddEntry}
+                  disabled={!newEntryCode.trim() || !newEntryName.trim()}
+                  className="flex items-center gap-1 rounded-lg bg-violet-600 px-3 py-2 text-sm font-medium text-white hover:bg-violet-700 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
+                >
+                  <Plus className="h-4 w-4" /> 添加
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
 

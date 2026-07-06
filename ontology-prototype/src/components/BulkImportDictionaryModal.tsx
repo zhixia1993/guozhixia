@@ -29,7 +29,12 @@ function parseCsv(text: string): CreateDictionaryData[] {
     if (!map.has(key)) {
       map.set(key, { name: dictName, code: dictCode, desc: dictDesc, entries: [] })
     }
-    map.get(key)!.entries.push({ code: entryCode, displayName: entryName })
+    const existing = map.get(key)
+    if (existing) {
+      const entries = existing.entries ?? []
+      entries.push({ code: entryCode, displayName: entryName })
+      existing.entries = entries
+    }
   }
 
   return Array.from(map.values())
