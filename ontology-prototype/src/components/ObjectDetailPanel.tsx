@@ -6,6 +6,8 @@ import {
 import { cn } from '../lib/utils'
 import { AddActionModal, type ObjectAction } from './AddActionModal'
 import { ObjectDataTab, type VirtualDataMapping } from './ObjectDataTab'
+import { ConfigureVirtualMappingModal } from './ConfigureVirtualMappingModal'
+import { Modal } from './Modal'
 import { CreatePropertyModal, type CreatePropertyData } from './CreatePropertyModal'
 import { PropertyDetailPanel } from './PropertyDetailPanel'
 import { RelationDetailPanel } from './RelationDetailPanel'
@@ -75,6 +77,8 @@ export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [
   const [tab, setTab] = useState<TabKey>('structure')
   const [showAddAction, setShowAddAction] = useState(false)
   const [showCreateProperty, setShowCreateProperty] = useState(false)
+  const [showMappingModal, setShowMappingModal] = useState(false)
+  const [showPreviewModal, setShowPreviewModal] = useState(false)
   const [selectedPropertyId, setSelectedPropertyId] = useState<string | null>(null)
   const [selectedRelationId, setSelectedRelationId] = useState<string | null>(null)
   const [editingComment, setEditingComment] = useState(false)
@@ -442,11 +446,39 @@ export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [
         {tab === 'data' && (
           <ObjectDataTab
             mapping={object.dataMapping}
-            onChangeMapping={() => {}}
+            onChangeMapping={() => setShowMappingModal(true)}
             onUnbind={() => onUpdate?.({ ...object, dataMapping: undefined })}
+            onPreview={() => setShowPreviewModal(true)}
           />
         )}
       </div>
+
+      <ConfigureVirtualMappingModal
+        open={showMappingModal}
+        onClose={() => setShowMappingModal(false)}
+        objectName={object.name}
+        properties={object.dataProperties}
+        existing={object.dataMapping}
+        onSave={(mapping: VirtualDataMapping) => onUpdate?.({ ...object, dataMapping: mapping })}
+      />
+      <Modal
+        open={showPreviewModal}
+        onClose={() => setShowPreviewModal(false)}
+        title="数据校验与预览"
+        footer={
+          <button onClick={() => setShowPreviewModal(false)} className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">
+            关闭
+          </button>
+        }
+      >
+        <div className="space-y-3 text-sm text-slate-600">
+          <p>已对 <span className="font-medium text-slate-900">{object.dataMapping?.fieldMappings.length ?? 0}</span> 个字段映射执行校验。</p>
+          <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-800">
+            校验通过：来源表字段与目标属性类型匹配，无缺失映射。
+          </div>
+          <p className="text-xs text-slate-400">预览样本：auth_fail_reason=1, change_reason=停机, complaint=0 ...</p>
+        </div>
+      </Modal>
 
       <AddActionModal
         open={showAddAction}
