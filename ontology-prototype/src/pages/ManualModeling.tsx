@@ -54,6 +54,7 @@ const initialObjects: OntologyObject[] = [
     llmComment: '',
     dataProperties: cardDisposalProps,
     relations: [],
+    actions: [],
   },
   {
     name: '基站',
@@ -61,6 +62,7 @@ const initialObjects: OntologyObject[] = [
     parent: 'Thing (Root)',
     dataProperties: [{ id: 'bs1', name: '基站编号', desc: '基站唯一标识', type: 'string' }],
     relations: [],
+    actions: [],
   },
   {
     name: '通话事件',
@@ -71,6 +73,7 @@ const initialObjects: OntologyObject[] = [
       { id: 'ce2', name: '主叫号码', desc: '主叫方号码', type: 'string' },
     ],
     relations: [{ id: 'r1', name: '关联基站', target: '基站' }],
+    actions: [],
   },
   {
     name: '通信事件',
@@ -78,6 +81,7 @@ const initialObjects: OntologyObject[] = [
     parent: 'Thing (Root)',
     dataProperties: [],
     relations: [],
+    actions: [],
   },
   {
     name: '用户/客户',
@@ -90,6 +94,7 @@ const initialObjects: OntologyObject[] = [
       { id: 'cu4', name: '联系电话', desc: '', type: 'string' },
     ],
     relations: [],
+    actions: [],
   },
   {
     name: '手机号码',
@@ -102,6 +107,7 @@ const initialObjects: OntologyObject[] = [
       { id: 'mn4', name: '状态', desc: '正常/停机/销户', type: 'string' },
     ],
     relations: [{ id: 'r2', name: '归属客户', target: '用户/客户' }],
+    actions: [],
   },
   {
     name: '用户',
@@ -114,6 +120,7 @@ const initialObjects: OntologyObject[] = [
       { id: 'u4', name: '欠费天数', desc: '', type: 'int' },
     ],
     relations: [],
+    actions: [],
   },
   {
     name: '账户',
@@ -124,6 +131,7 @@ const initialObjects: OntologyObject[] = [
       { id: 'a2', name: '余额', desc: '', type: 'decimal' },
     ],
     relations: [],
+    actions: [],
   },
 ]
 
@@ -164,6 +172,7 @@ export function ManualModeling() {
       parent: data.parent === 'Thing' ? 'Thing (Root)' : data.parent,
       dataProperties: [],
       relations: [],
+    actions: [],
     }
     setObjects((prev) => [...prev, newObj])
     setSelectedObjectKey(newObj.key)
