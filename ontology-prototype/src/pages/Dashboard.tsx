@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import {
-  PenTool, Bot, GitBranch, FileText, Code2,
+  PenTool, Bot, GitBranch, FileText, Code2, Database,
   ArrowRight, Clock, TrendingUp, CheckCircle2, AlertCircle,
 } from 'lucide-react'
 import { StatusBadge } from '../components/StatusBadge'
 
 const modelingCards = [
+  { title: '数据接入', desc: '接入 API 接口或数据库，绑定本体对象属性', icon: Database, path: '/modeling/data-access', gradient: 'from-cyan-500 to-blue-600' },
   { title: '专家自主建模', desc: '在线手动创建对象、关系、属性', icon: PenTool, path: '/modeling/manual/new', gradient: 'from-blue-500 to-indigo-600' },
   { title: '智能辅助建模', desc: '上传 CSV 与 Word 文档，AI 自动构建', icon: Bot, path: '/modeling/assist', gradient: 'from-violet-500 to-purple-600' },
   { title: '现有模型演进', desc: '基于已有本体模型增量构建', icon: GitBranch, path: '/modeling/evolve', gradient: 'from-emerald-500 to-teal-600' },

@@ -8,6 +8,9 @@ import { RuleModeling } from './pages/RuleModeling'
 import { LogicModeling } from './pages/LogicModeling'
 import { ModelLibrary, ModelDetail } from './pages/ModelLibrary'
 import { AuditCenter, AuditDetail } from './pages/AuditCenter'
+import { DataAccess } from './pages/DataAccess'
+import { DataAccessApi } from './pages/DataAccessApi'
+import { DataAccessDatabase } from './pages/DataAccessDatabase'
 import { PlazaHome, PlazaAssetDetail, PlazaUpload } from './pages/Plaza'
 
 export default function App() {
@@ -17,6 +20,9 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/modeling" element={<ModelingHome />} />
+          <Route path="/modeling/data-access" element={<DataAccess />} />
+          <Route path="/modeling/data-access/api" element={<DataAccessApi />} />
+          <Route path="/modeling/data-access/database" element={<DataAccessDatabase />} />
           <Route path="/modeling/manual/:id" element={<ManualModeling />} />
           <Route path="/modeling/assist" element={<AssistModeling />} />
           <Route path="/modeling/evolve" element={<EvolveModeling />} />
