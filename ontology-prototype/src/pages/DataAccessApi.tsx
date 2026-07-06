@@ -1,214 +1,396 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ChevronRight, Play, CheckCircle2, Loader2, Save, ArrowLeft, ArrowRight } from 'lucide-react'
-import { StepWizard } from '../components/StepWizard'
+import { useState, useEffect, useCallback } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { ArrowLeft, X, Play, Trash2, Plus, Loader2 } from 'lucide-react'
+import { cn } from '../lib/utils'
 
-const steps = [
-  { label: '接口配置' },
-  { label: '认证设置' },
-  { label: '探测测试' },
-  { label: 'Schema 保存' },
-  { label: '绑定本体' },
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
+type AuthType = 'none' | 'bearer' | 'apikey' | 'basic'
+type ParamTab = 'path' | 'query' | 'headers'
+
+interface ParamRow {
+  id: string
+  name: string
+  value: string
+  desc: string
+}
+
+const methods: HttpMethod[] = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+const authOptions: { key: AuthType; label: string }[] = [
+  { key: 'none', label: '无鉴权' },
+  { key: 'bearer', label: 'Bearer' },
+  { key: 'apikey', label: 'API Key' },
+  { key: 'basic', label: 'Basic' },
 ]
 
-const schemaFields = [
-  { name: 'userId', type: 'string', desc: '用户唯一标识' },
-  { name: 'userName', type: 'string', desc: '用户姓名' },
-  { name: 'status', type: 'string', desc: '用户状态' },
-  { name: 'balance', type: 'number', desc: '账户余额' },
-  { name: 'packageId', type: 'string', desc: '套餐编号' },
-]
+const mockResponse = `{
+  "key": "demo-key-001",
+  "valid": true,
+  "expiresAt": "2026-12-31T23:59:59Z",
+  "owner": "admin"
+}`
+
+function parsePathParams(url: string): string[] {
+  const matches = url.match(/\{([^}]+)\}/g)
+  return matches ? matches.map((m) => m.slice(1, -1)) : []
+}
+
+let paramId = 0
+function newParam(name = '', value = '', desc = ''): ParamRow {
+  return { id: `p-${++paramId}`, name, value, desc }
+}
 
 export function DataAccessApi() {
-  const [step, setStep] = useState(0)
-  const [probing, setProbing] = useState(false)
-  const [probeDone, setProbeDone] = useState(false)
+  const navigate = useNavigate()
+  const [name, setName] = useState('')
+  const [method, setMethod] = useState<HttpMethod>('GET')
+  const [url, setUrl] = useState('http://localhost:3001/app/check-key/{key}')
+  const [auth, setAuth] = useState<AuthType>('none')
+  const [paramTab, setParamTab] = useState<ParamTab>('query')
+  const [pathParams, setPathParams] = useState<ParamRow[]>([newParam('key', '', '')])
+  const [queryParams, setQueryParams] = useState<ParamRow[]>([newParam('', '', '')])
+  const [headerParams, setHeaderParams] = useState<ParamRow[]>([newParam('', '', '')])
+  const [sending, setSending] = useState(false)
+  const [response, setResponse] = useState<string | null>(null)
+  const [responseMeta, setResponseMeta] = useState<{ status: number; time: number } | null>(null)
 
-  const runProbe = () => {
-    setProbing(true)
-    setTimeout(() => {
-      setProbing(false)
-      setProbeDone(true)
-    }, 2000)
+  const syncPathParams = useCallback((newUrl: string) => {
+    const names = parsePathParams(newUrl)
+    setPathParams((prev) =>
+      names.map((n) => {
+        const existing = prev.find((p) => p.name === n)
+        return existing ?? newParam(n, '', '')
+      })
+    )
+  }, [])
+
+  useEffect(() => {
+    syncPathParams(url)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleUrlChange = (val: string) => {
+    setUrl(val)
+    syncPathParams(val)
   }
 
+  const handleUrlBlur = () => syncPathParams(url)
+
+  const currentParams = paramTab === 'path' ? pathParams : paramTab === 'query' ? queryParams : headerParams
+  const setCurrentParams = paramTab === 'path' ? setPathParams : paramTab === 'query' ? setQueryParams : setHeaderParams
+
+  const updateParam = (id: string, field: keyof ParamRow, val: string) => {
+    setCurrentParams((prev) => prev.map((p) => (p.id === id ? { ...p, [field]: val } : p)))
+  }
+
+  const removeParam = (id: string) => {
+    setCurrentParams((prev) => prev.filter((p) => p.id !== id))
+  }
+
+  const addParam = () => {
+    setCurrentParams((prev) => [...prev, newParam()])
+  }
+
+  const sendRequest = () => {
+    setSending(true)
+    setResponse(null)
+    setResponseMeta(null)
+    setTimeout(() => {
+      setSending(false)
+      setResponse(mockResponse)
+      setResponseMeta({ status: 200, time: 86 })
+    }, 1200)
+  }
+
+  const paramTabs: { key: ParamTab; label: string; count: number }[] = [
+    { key: 'path', label: 'Path', count: pathParams.length },
+    { key: 'query', label: 'Query', count: queryParams.filter((p) => p.name).length },
+    { key: 'headers', label: 'Headers', count: headerParams.filter((p) => p.name).length },
+  ]
+
   return (
-    <div className="flex h-full flex-col bg-slate-50/80">
-      <div className="border-b border-slate-200 bg-white px-6 py-4">
-        <div className="mb-1 flex items-center gap-2 text-sm text-slate-400">
-          <Link to="/modeling" className="hover:text-slate-600">本体建模</Link>
-          <ChevronRight className="h-4 w-4" />
-          <Link to="/modeling/data-access" className="hover:text-slate-600">数据接入</Link>
-          <ChevronRight className="h-4 w-4" />
-          <span className="text-slate-700">API 接口</span>
+    <div className="fixed inset-0 z-50 flex flex-col bg-white">
+      {/* Header */}
+      <div className="flex items-start justify-between border-b border-slate-200 px-6 py-5">
+        <div className="flex items-start gap-4">
+          <Link
+            to="/modeling/data-access"
+            className="mt-1 flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Link>
+          <div>
+            <h1 className="text-xl font-bold text-slate-900">新建 API 接口</h1>
+            <p className="mt-1 text-sm text-slate-500">
+              填写 API 信息并完成测试，保存 responseSchema 后即可接入
+            </p>
+          </div>
         </div>
-        <h1 className="text-xl font-bold text-slate-900">API 接口接入配置</h1>
+        <button
+          onClick={() => navigate('/modeling/data-access')}
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+        >
+          <X className="h-5 w-5" />
+        </button>
       </div>
 
-      <div className="border-b border-slate-200 bg-white px-6 py-5">
-        <StepWizard steps={steps} current={step} />
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-6">
-        <div className="mx-auto max-w-2xl">
-          {step === 0 && (
-            <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-              <h2 className="mb-6 text-lg font-semibold">接口配置</h2>
-              <div className="space-y-4">
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-slate-700">数据源名称 <span className="text-red-500">*</span></label>
-                  <input defaultValue="用户中心 API" className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-slate-700">请求方式</label>
-                  <select className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-400">
-                    <option>GET</option>
-                    <option>POST</option>
-                    <option>PUT</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-slate-700">接口地址 <span className="text-red-500">*</span></label>
-                  <input defaultValue="https://api.example.com/v1/users/{userId}" className="w-full rounded-lg border border-slate-200 px-3 py-2.5 font-mono text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-slate-700">描述</label>
-                  <textarea rows={2} placeholder="接口用途说明..." className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
-                </div>
-              </div>
+      {/* Body */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Left: Config */}
+        <div className="flex w-[55%] flex-col border-r border-slate-200 overflow-y-auto">
+          <div className="flex-1 p-6 space-y-6">
+            {/* 连接名称 */}
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-700">
+                连接名称 <span className="text-red-500">*</span>
+              </label>
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="例如：健康检查接口"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none transition-colors focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+              />
             </div>
-          )}
 
-          {step === 1 && (
-            <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-              <h2 className="mb-6 text-lg font-semibold">认证设置</h2>
-              <div className="space-y-4">
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-slate-700">认证方式</label>
-                  <select className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-400">
-                    <option>Bearer Token</option>
-                    <option>API Key</option>
-                    <option>Basic Auth</option>
-                    <option>无认证</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-slate-700">Token / API Key</label>
-                  <input type="password" defaultValue="sk-xxxxxxxx" className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-sm font-medium text-slate-700">请求头（可选）</label>
-                  <textarea rows={3} defaultValue={'{\n  "Content-Type": "application/json"\n}'} className="w-full rounded-lg border border-slate-200 px-3 py-2.5 font-mono text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
-                </div>
+            {/* API URL */}
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-700">
+                API URL <span className="text-red-500">*</span>
+              </label>
+              <div className="flex gap-0 overflow-hidden rounded-lg border border-slate-200 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100">
+                <select
+                  value={method}
+                  onChange={(e) => setMethod(e.target.value as HttpMethod)}
+                  className="shrink-0 border-r border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-semibold text-blue-600 outline-none"
+                >
+                  {methods.map((m) => (
+                    <option key={m} value={m}>{m}</option>
+                  ))}
+                </select>
+                <input
+                  value={url}
+                  onChange={(e) => handleUrlChange(e.target.value)}
+                  onBlur={handleUrlBlur}
+                  className="flex-1 px-3 py-2.5 font-mono text-sm outline-none"
+                />
               </div>
+              <p className="mt-2 text-xs text-slate-400">
+                路径中使用 {'{name}'} 定义 Path 参数；粘贴或输入框失焦后自动解析
+              </p>
             </div>
-          )}
 
-          {step === 2 && (
-            <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-              <h2 className="mb-6 text-lg font-semibold">探测测试</h2>
-              <p className="mb-4 text-sm text-slate-500">发送测试请求，验证接口连通性并自动解析响应结构</p>
-              <div className="mb-4 rounded-xl bg-slate-900 p-4 font-mono text-sm text-emerald-400">
-                GET https://api.example.com/v1/users/10001
+            {/* 接口鉴权 */}
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-700">接口鉴权</label>
+              <div className="flex rounded-lg border border-slate-200 bg-slate-50 p-1">
+                {authOptions.map((opt) => (
+                  <button
+                    key={opt.key}
+                    onClick={() => setAuth(opt.key)}
+                    className={cn(
+                      'flex-1 rounded-md py-2 text-sm font-medium transition-all',
+                      auth === opt.key
+                        ? 'bg-white text-slate-900 shadow-sm'
+                        : 'text-slate-500 hover:text-slate-700'
+                    )}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
               </div>
-              <button
-                onClick={runProbe}
-                disabled={probing}
-                className="flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-60"
-              >
-                {probing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
-                {probing ? '探测中...' : '开始探测'}
-              </button>
-              {probeDone && (
-                <div className="mt-6 space-y-3">
-                  <div className="flex items-center gap-2 text-sm text-emerald-600">
-                    <CheckCircle2 className="h-4 w-4" /> 接口连通成功 · 响应时间 128ms · HTTP 200
-                  </div>
-                  <div className="rounded-xl bg-slate-50 p-4">
-                    <p className="mb-2 text-xs font-medium text-slate-500">响应示例</p>
-                    <pre className="overflow-x-auto text-xs text-slate-700">{`{
-  "userId": "10001",
-  "userName": "张三",
-  "status": "正常",
-  "balance": 128.50
-}`}</pre>
-                  </div>
+              {auth === 'bearer' && (
+                <input placeholder="Bearer Token" className="mt-3 w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100" />
+              )}
+              {auth === 'apikey' && (
+                <div className="mt-3 grid grid-cols-2 gap-3">
+                  <input placeholder="Key 名称" className="rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-blue-400" />
+                  <input placeholder="Key 值" className="rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-blue-400" />
+                </div>
+              )}
+              {auth === 'basic' && (
+                <div className="mt-3 grid grid-cols-2 gap-3">
+                  <input placeholder="用户名" className="rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-blue-400" />
+                  <input type="password" placeholder="密码" className="rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-blue-400" />
                 </div>
               )}
             </div>
-          )}
 
-          {step === 3 && (
-            <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <div className="border-b border-slate-100 px-6 py-4">
-                <h2 className="text-lg font-semibold">responseSchema 保存</h2>
-                <p className="mt-1 text-sm text-slate-500">确认自动解析的响应字段结构，可手动调整</p>
+            {/* 参数 Tabs */}
+            <div>
+              <div className="mb-3 flex gap-6 border-b border-slate-200">
+                {paramTabs.map((tab) => (
+                  <button
+                    key={tab.key}
+                    onClick={() => setParamTab(tab.key)}
+                    className={cn(
+                      'pb-2.5 text-sm font-medium transition-colors',
+                      paramTab === tab.key
+                        ? 'border-b-2 border-blue-600 text-blue-600'
+                        : 'text-slate-500 hover:text-slate-700'
+                    )}
+                  >
+                    {tab.label} ({tab.count})
+                  </button>
+                ))}
               </div>
+
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-slate-100 text-left text-xs font-medium text-slate-400">
-                    <th className="px-6 py-3">字段名</th>
-                    <th className="px-6 py-3">类型</th>
-                    <th className="px-6 py-3">说明</th>
+                  <tr className="text-left text-xs font-medium text-slate-400">
+                    <th className="pb-2 pr-3 font-medium">参数名</th>
+                    <th className="pb-2 pr-3 font-medium">值</th>
+                    <th className="pb-2 pr-3 font-medium">描述</th>
+                    <th className="pb-2 w-8" />
                   </tr>
                 </thead>
                 <tbody>
-                  {schemaFields.map((f) => (
-                    <tr key={f.name} className="border-b border-slate-50">
-                      <td className="px-6 py-3 font-mono text-sm text-indigo-700">{f.name}</td>
-                      <td className="px-6 py-3 text-sm text-slate-600">{f.type}</td>
-                      <td className="px-6 py-3 text-sm text-slate-500">{f.desc}</td>
+                  {currentParams.map((param) => (
+                    <tr key={param.id} className="group">
+                      <td className="py-1.5 pr-3">
+                        <input
+                          value={param.name}
+                          onChange={(e) => updateParam(param.id, 'name', e.target.value)}
+                          readOnly={paramTab === 'path'}
+                          placeholder="参数名"
+                          className={cn(
+                            'w-full rounded border border-slate-200 px-2.5 py-1.5 text-sm outline-none focus:border-blue-400',
+                            paramTab === 'path' && 'bg-slate-50 text-slate-600'
+                          )}
+                        />
+                      </td>
+                      <td className="py-1.5 pr-3">
+                        <input
+                          value={param.value}
+                          onChange={(e) => updateParam(param.id, 'value', e.target.value)}
+                          placeholder="值"
+                          className="w-full rounded border border-slate-200 px-2.5 py-1.5 text-sm outline-none focus:border-blue-400"
+                        />
+                      </td>
+                      <td className="py-1.5 pr-3">
+                        <input
+                          value={param.desc}
+                          onChange={(e) => updateParam(param.id, 'desc', e.target.value)}
+                          placeholder="描述"
+                          className="w-full rounded border border-slate-200 px-2.5 py-1.5 text-sm outline-none focus:border-blue-400"
+                        />
+                      </td>
+                      <td className="py-1.5">
+                        {paramTab !== 'path' && (
+                          <button
+                            onClick={() => removeParam(param.id)}
+                            className="rounded p-1 text-slate-300 opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-            </div>
-          )}
 
-          {step === 4 && (
-            <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-              <h2 className="mb-6 text-lg font-semibold">绑定本体对象</h2>
-              <p className="mb-4 text-sm text-slate-500">将 API 响应字段映射到本体模型的对象属性</p>
-              <div className="space-y-3">
-                {[
-                  { field: 'userId', object: '用户', attr: '用户ID' },
-                  { field: 'userName', object: '用户', attr: '姓名' },
-                  { field: 'status', object: '用户', attr: '状态' },
-                  { field: 'balance', object: '账户', attr: '余额' },
-                ].map((m) => (
-                  <div key={m.field} className="flex items-center gap-3 rounded-xl border border-slate-200 p-4">
-                    <span className="w-28 font-mono text-sm text-emerald-700">{m.field}</span>
-                    <span className="text-slate-300">→</span>
-                    <select className="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none">
-                      <option>{m.object}.{m.attr}</option>
-                    </select>
-                  </div>
-                ))}
-              </div>
+              {paramTab !== 'path' && (
+                <button
+                  onClick={addParam}
+                  className="mt-3 flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700"
+                >
+                  <Plus className="h-4 w-4" /> 新增
+                </button>
+              )}
             </div>
-          )}
+          </div>
+        </div>
 
-          <div className="mt-6 flex justify-between">
+        {/* Right: Test */}
+        <div className="flex w-[45%] flex-col bg-slate-50/50">
+          <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+            <div className="flex items-center gap-2">
+              <Play className="h-4 w-4 text-violet-600" />
+              <span className="font-semibold text-slate-900">接口测试</span>
+            </div>
             <button
-              onClick={() => step > 0 ? setStep(step - 1) : undefined}
-              className={`flex items-center gap-2 rounded-lg border border-slate-200 px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-white ${step === 0 ? 'invisible' : ''}`}
+              onClick={sendRequest}
+              disabled={sending}
+              className="flex items-center gap-2 rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-violet-700 disabled:opacity-60"
             >
-              <ArrowLeft className="h-4 w-4" /> 上一步
+              {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
+              发送请求
             </button>
-            {step < steps.length - 1 ? (
-              <button
-                onClick={() => setStep(step + 1)}
-                className="flex items-center gap-2 rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700"
-              >
-                下一步 <ArrowRight className="h-4 w-4" />
-              </button>
-            ) : (
-              <button className="flex items-center gap-2 rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700">
-                <Save className="h-4 w-4" /> 保存并完成接入
-              </button>
+          </div>
+
+          <div className="flex-1 overflow-y-auto p-6">
+            {!response && !sending && (
+              <div className="flex h-full items-center justify-center">
+                <p className="text-sm text-slate-400">发送请求后在此查看响应与字段结构</p>
+              </div>
+            )}
+
+            {sending && (
+              <div className="flex h-full items-center justify-center">
+                <div className="text-center">
+                  <Loader2 className="mx-auto mb-3 h-8 w-8 animate-spin text-violet-500" />
+                  <p className="text-sm text-slate-500">请求发送中...</p>
+                </div>
+              </div>
+            )}
+
+            {response && responseMeta && (
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="rounded bg-emerald-100 px-2 py-0.5 font-medium text-emerald-700">
+                    {responseMeta.status} OK
+                  </span>
+                  <span className="text-slate-400">{responseMeta.time}ms</span>
+                </div>
+
+                <div>
+                  <p className="mb-2 text-xs font-medium text-slate-500">响应体</p>
+                  <pre className="overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm leading-relaxed text-emerald-400">
+                    {response}
+                  </pre>
+                </div>
+
+                <div>
+                  <p className="mb-2 text-xs font-medium text-slate-500">responseSchema（自动解析）</p>
+                  <div className="rounded-xl border border-slate-200 bg-white">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-slate-100 text-left text-xs text-slate-400">
+                          <th className="px-4 py-2.5 font-medium">字段名</th>
+                          <th className="px-4 py-2.5 font-medium">类型</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[
+                          { name: 'key', type: 'string' },
+                          { name: 'valid', type: 'boolean' },
+                          { name: 'expiresAt', type: 'string' },
+                          { name: 'owner', type: 'string' },
+                        ].map((f) => (
+                          <tr key={f.name} className="border-b border-slate-50">
+                            <td className="px-4 py-2 font-mono text-violet-700">{f.name}</td>
+                            <td className="px-4 py-2 text-slate-600">{f.type}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
+      </div>
+
+      {/* Footer */}
+      <div className="flex items-center justify-between border-t border-slate-200 px-6 py-4">
+        <Link
+          to="/modeling/data-access"
+          className="rounded-lg border border-slate-200 px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
+        >
+          上一步
+        </Link>
+        <button className="rounded-lg bg-emerald-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-emerald-700">
+          保存 API
+        </button>
       </div>
     </div>
   )
