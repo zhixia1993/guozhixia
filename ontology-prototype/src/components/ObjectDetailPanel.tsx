@@ -8,6 +8,7 @@ import { AddActionModal, type ObjectAction } from './AddActionModal'
 import { ObjectDataTab, type VirtualDataMapping } from './ObjectDataTab'
 import { CreatePropertyModal, type CreatePropertyData } from './CreatePropertyModal'
 import { PropertyDetailPanel } from './PropertyDetailPanel'
+import type { DictionaryInfo } from '../types/dictionary'
 
 export interface DictionaryMapping {
   dictId: string
@@ -57,13 +58,14 @@ export interface OntologyObject {
 interface ObjectDetailPanelProps {
   object: OntologyObject
   objectOptions?: string[]
+  dictionaries?: DictionaryInfo[]
   onUpdate?: (object: OntologyObject) => void
   onCreateProperty?: (data: CreatePropertyData) => void
 }
 
 type TabKey = 'structure' | 'actions' | 'data'
 
-export function ObjectDetailPanel({ object, objectOptions = [], onUpdate, onCreateProperty }: ObjectDetailPanelProps) {
+export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [], onUpdate, onCreateProperty }: ObjectDetailPanelProps) {
   const [tab, setTab] = useState<TabKey>('structure')
   const [showAddAction, setShowAddAction] = useState(false)
   const [showCreateProperty, setShowCreateProperty] = useState(false)
@@ -107,6 +109,7 @@ export function ObjectDetailPanel({ object, objectOptions = [], onUpdate, onCrea
       <PropertyDetailPanel
         property={selectedProperty}
         object={object}
+        dictionaries={dictionaries}
         onBack={() => setSelectedPropertyId(null)}
         onUpdate={handleUpdateProperty}
       />

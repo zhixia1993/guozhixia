@@ -3,11 +3,13 @@ import {
   ArrowLeft, Tag, Sparkles, BookOpen, Unlink,
 } from 'lucide-react'
 import type { DataProperty, OntologyObject, PropertyConstraints } from './ObjectDetailPanel'
-import { SelectDictionaryModal, type DictionaryInfo } from './SelectDictionaryModal'
+import { SelectDictionaryModal } from './SelectDictionaryModal'
+import type { DictionaryInfo } from '../types/dictionary'
 
 interface PropertyDetailPanelProps {
   property: DataProperty
   object: OntologyObject
+  dictionaries: DictionaryInfo[]
   onBack: () => void
   onUpdate: (property: DataProperty) => void
 }
@@ -22,7 +24,7 @@ const xsdTypeMap: Record<string, string> = {
   enum: 'xsd:string',
 }
 
-export function PropertyDetailPanel({ property, object, onBack, onUpdate }: PropertyDetailPanelProps) {
+export function PropertyDetailPanel({ property, object, dictionaries, onBack, onUpdate }: PropertyDetailPanelProps) {
   const [showDictModal, setShowDictModal] = useState(false)
   const [constraints, setConstraints] = useState<PropertyConstraints>(
     property.constraints ?? { mandatory: false }
@@ -243,6 +245,7 @@ export function PropertyDetailPanel({ property, object, onBack, onUpdate }: Prop
         open={showDictModal}
         onClose={() => setShowDictModal(false)}
         onSelect={handleSelectDictionary}
+        dictionaries={dictionaries}
         currentDictId={property.dictionary?.dictId}
       />
     </div>

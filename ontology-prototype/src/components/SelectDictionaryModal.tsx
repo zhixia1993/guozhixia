@@ -1,80 +1,26 @@
 import { useState } from 'react'
 import { X, Search, BookOpen, Check } from 'lucide-react'
 import { cn } from '../lib/utils'
-
-export interface DictionaryEntry {
-  code: string
-  displayName: string
-}
-
-export interface DictionaryInfo {
-  id: string
-  name: string
-  code: string
-  desc: string
-  entryCount: number
-  entries: DictionaryEntry[]
-}
-
-export const availableDictionaries: DictionaryInfo[] = [
-  {
-    id: 'dict1',
-    name: '帐目类型字典',
-    code: 'ACCT_ITEM_TYPE',
-    desc: '电信经分帐目类型码表',
-    entryCount: 128,
-    entries: [
-      { code: '01', displayName: '语音通话费' },
-      { code: '02', displayName: '短信费' },
-      { code: '03', displayName: '流量费' },
-      { code: '04', displayName: '月租费' },
-      { code: '05', displayName: '增值业务费' },
-    ],
-  },
-  {
-    id: 'dict2',
-    name: '用户状态字典',
-    code: 'USER_STATUS',
-    desc: '用户状态枚举码表',
-    entryCount: 8,
-    entries: [
-      { code: '0', displayName: '正常' },
-      { code: '1', displayName: '欠费' },
-      { code: '2', displayName: '停机' },
-      { code: '3', displayName: '销户' },
-    ],
-  },
-  {
-    id: 'dict3',
-    name: '处置类型字典',
-    code: 'DISPOSAL_TYPE',
-    desc: '号码处置类型码表',
-    entryCount: 12,
-    entries: [
-      { code: 'STOP', displayName: '关停' },
-      { code: 'RESUME', displayName: '复开' },
-      { code: 'WARN', displayName: '预警' },
-    ],
-  },
-]
+import type { DictionaryInfo } from '../types/dictionary'
 
 interface SelectDictionaryModalProps {
   open: boolean
   onClose: () => void
   onSelect: (dict: DictionaryInfo) => void
+  dictionaries: DictionaryInfo[]
   currentDictId?: string
 }
 
-export function SelectDictionaryModal({ open, onClose, onSelect, currentDictId }: SelectDictionaryModalProps) {
+export function SelectDictionaryModal({ open, onClose, onSelect, dictionaries, currentDictId }: SelectDictionaryModalProps) {
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState<string | null>(currentDictId ?? null)
 
-  const filtered = availableDictionaries.filter(
+  const filtered = dictionaries.filter(
     (d) => !search || d.name.includes(search) || d.code.includes(search)
   )
 
   const handleConfirm = () => {
-    const dict = availableDictionaries.find((d) => d.id === selected)
+    const dict = dictionaries.find((d) => d.id === selected)
     if (dict) {
       onSelect(dict)
       handleClose()
@@ -114,7 +60,9 @@ export function SelectDictionaryModal({ open, onClose, onSelect, currentDictId }
           </div>
 
           <div className="max-h-72 space-y-2 overflow-y-auto">
-            {filtered.map((dict) => (
+            {filtered.length === 0 ? (
+              <p className="py-8 text-center text-sm text-slate-400">暂无可用字典，请先在「字典」页创建</p>
+            ) : filtered.map((dict) => (
               <button
                 key={dict.id}
                 onClick={() => setSelected(dict.id)}

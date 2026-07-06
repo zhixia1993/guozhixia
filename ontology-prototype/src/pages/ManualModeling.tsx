@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import {
   Plus, ChevronRight, Save, Send, Share2,
   ZoomIn, ZoomOut, Maximize2, Network, List,
+  Box, BookOpen,
 } from 'lucide-react'
 import { GraphCanvas } from '../components/GraphCanvas'
 import { StatusBadge } from '../components/StatusBadge'
@@ -15,8 +16,23 @@ import {
   type OntologyObject,
 } from '../components/ObjectDetailPanel'
 import { type CreatePropertyData } from '../components/CreatePropertyModal'
+import { DictionaryPanel } from '../components/DictionaryPanel'
 import { cardDisposalDataMapping } from '../components/ObjectDataTab'
+import type { DictionaryInfo, CreateDictionaryData } from '../types/dictionary'
 import { cn } from '../lib/utils'
+
+type DesignSection = 'objects' | 'dictionaries'
+
+function toDictionaryInfo(data: CreateDictionaryData, id?: string): DictionaryInfo {
+  return {
+    id: id ?? `dict-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    name: data.name,
+    code: data.code,
+    desc: data.desc,
+    entryCount: data.entries.length,
+    entries: data.entries,
+  }
+}
 
 const cardDisposalProps = [
   { id: 'p1', name: '二次实人未通过原因', desc: '二次实人认证未通过的具体原因', type: 'string' },
@@ -163,6 +179,8 @@ const graphEdges = [
 export function ManualModeling() {
   const { id } = useParams<{ id: string }>()
   const [objects, setObjects] = useState<OntologyObject[]>(initialObjects)
+  const [dictionaries, setDictionaries] = useState<DictionaryInfo[]>([])
+  const [designSection, setDesignSection] = useState<DesignSection>('objects')
   const [selectedObjectKey, setSelectedObjectKey] = useState('card_disposal')
   const [objectSearch, setObjectSearch] = useState('')
   const [viewMode, setViewMode] = useState<'detail' | 'graph'>('detail')
@@ -241,6 +259,29 @@ export function ManualModeling() {
     setViewMode('detail')
   }
 
+  const handleCreateDictionary = (data: CreateDictionaryData) => {
+    setDictionaries((prev) => [...prev, toDictionaryInfo(data)])
+  }
+
+  const handleBulkImportDictionaries = (items: CreateDictionaryData[]) => {
+    setDictionaries((prev) => [
+      ...prev,
+      ...items.map((item) => toDictionaryInfo(item)),
+    ])
+  }
+
+  const handleDeleteDictionary = (dictId: string) => {
+    setDictionaries((prev) => prev.filter((d) => d.id !== dictId))
+    setObjects((prev) =>
+      prev.map((obj) => ({
+        ...obj,
+        dataProperties: obj.dataProperties.map((p) =>
+          p.dictionary?.dictId === dictId ? { ...p, dictionary: undefined } : p
+        ),
+      }))
+    )
+  }
+
   return (
     <div className="flex h-full flex-col">
       {/* Top bar */}
@@ -286,6 +327,44 @@ export function ManualModeling() {
       </div>
 
       <div className="flex flex-1 overflow-hidden">
+        {/* Design nav */}
+        <aside className="flex w-44 shrink-0 flex-col border-r border-slate-200 bg-white">
+          <div className="border-b border-slate-100 px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">设计</p>
+          </div>
+          <nav className="flex-1 p-2">
+            <button
+              onClick={() => setDesignSection('objects')}
+              className={cn(
+                'mb-0.5 flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors',
+                designSection === 'objects' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'
+              )}
+            >
+              <Box className="h-4 w-4" /> 对象
+            </button>
+            <button
+              onClick={() => setDesignSection('dictionaries')}
+              className={cn(
+                'mb-0.5 flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors',
+                designSection === 'dictionaries' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'
+              )}
+            >
+              <BookOpen className="h-4 w-4" /> 字典
+            </button>
+          </nav>
+        </aside>
+
+        {designSection === 'dictionaries' ? (
+          <div className="flex-1 overflow-hidden">
+            <DictionaryPanel
+              dictionaries={dictionaries}
+              onCreate={handleCreateDictionary}
+              onBulkImport={handleBulkImportDictionaries}
+              onDelete={handleDeleteDictionary}
+            />
+          </div>
+        ) : (
+          <>
         {/* Object sidebar */}
         <ObjectSidebar
           objects={objects}
@@ -306,6 +385,7 @@ export function ManualModeling() {
               <ObjectDetailPanel
                 object={selectedObject}
                 objectOptions={objectNames}
+                dictionaries={dictionaries}
                 onUpdate={handleUpdateObject}
                 onCreateProperty={handleCreateProperty}
               />
@@ -338,9 +418,12 @@ export function ManualModeling() {
             />
           </div>
         )}
+          </>
+        )}
       </div>
 
       {/* Secondary actions bar for relations */}
+      {designSection === 'objects' && (
       <div className="flex items-center gap-2 border-t border-slate-200 bg-slate-50 px-5 py-2">
         <button
           onClick={() => setShowCreateRelation(true)}
@@ -350,6 +433,7 @@ export function ManualModeling() {
         </button>
         <span className="text-xs text-slate-400">点击左侧对象查看/编辑数据属性与关系</span>
       </div>
+      )}
 
       <Modal
         open={showAuditModal}
