@@ -56,10 +56,31 @@ export interface DirectoryNode {
 }
 
 const cardDisposalProps: DataProperty[] = [
-  { id: 'p1', name: '二次实人未通过原因', desc: '二次实人认证未通过的具体原因', type: 'string' },
+  { id: 'p1', name: '二次实人未通过原因', desc: '0表示未参与二次实人认证，1表示认证未通过，2表示认证超时', type: 'string' },
   { id: 'p2', name: '状态变更', desc: '号码处置状态变更记录', type: 'string' },
+  { id: 'p3', name: '企业上报公司编码', desc: '上报企业的公司编码', type: 'string' },
+  { id: 'p4', name: '是否投诉', desc: '用户是否发起投诉', type: 'string' },
+  { id: 'p5', name: '投诉时间', desc: '投诉发生时间', type: 'string' },
+  { id: 'p6', name: '数据类型', desc: '数据来源类型标识', type: 'string' },
+  { id: 'p7', name: '日期', desc: '处置日期', type: 'string' },
+  { id: 'p8', name: '处置描述', desc: '号码处置的详细描述', type: 'string' },
   { id: 'p9', name: '处置类型', desc: '关停/复开等处置类型', type: 'string' },
+  { id: 'p10', name: '处置结果', desc: '处置执行结果', type: 'string' },
+  { id: 'p11', name: '上报来源', desc: '数据上报来源渠道', type: 'string' },
+  { id: 'p12', name: '风险等级', desc: '风险评估等级', type: 'string' },
   { id: 'p13', name: '关停原因', desc: '号码关停原因分类', type: 'string' },
+  { id: 'p14', name: '复开时间', desc: '号码复开时间', type: 'string' },
+  { id: 'p15', name: '工单编号', desc: '关联工单编号', type: 'string' },
+  { id: 'p16', name: '操作人', desc: '处置操作人', type: 'string' },
+  { id: 'p17', name: '操作时间', desc: '处置操作时间', type: 'string' },
+  { id: 'p18', name: '审批状态', desc: '审批流程状态', type: 'string' },
+  { id: 'p19', name: '省份编码', desc: '归属省份编码', type: 'string' },
+  { id: 'p20', name: '城市编码', desc: '归属城市编码', type: 'string' },
+  { id: 'p21', name: '渠道类型', desc: '业务渠道类型', type: 'string' },
+  { id: 'p22', name: '备注', desc: '补充备注信息', type: 'string' },
+  { id: 'p23', name: '创建时间', desc: '记录创建时间', type: 'string' },
+  { id: 'p24', name: '更新时间', desc: '记录最后更新时间', type: 'string' },
+  { id: 'p25', name: '数据来源', desc: '原始数据来源系统', type: 'string' },
 ]
 
 export const defaultOntologyObjects: OntologyObject[] = [
@@ -83,6 +104,10 @@ export const defaultOntologyObjects: OntologyObject[] = [
     ],
     relations: [{ id: 'r1', name: '关联基站', key: 'relates_to_station', target: '基站', comment: '通话发生的基站' }],
     actions: [],
+  },
+  {
+    name: '通信事件', key: 'comm_event', parent: 'Thing (Root)',
+    dataProperties: [], relations: [], actions: [],
   },
   {
     name: '用户/客户', key: 'customer', parent: 'Thing (Root)',

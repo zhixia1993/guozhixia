@@ -12,6 +12,7 @@ interface PropertyDetailPanelProps {
   dictionaries: DictionaryInfo[]
   onBack: () => void
   onUpdate: (property: DataProperty) => void
+  backLabel?: string
 }
 
 const xsdTypeMap: Record<string, string> = {
@@ -24,7 +25,7 @@ const xsdTypeMap: Record<string, string> = {
   enum: 'xsd:string',
 }
 
-export function PropertyDetailPanel({ property, object, dictionaries, onBack, onUpdate }: PropertyDetailPanelProps) {
+export function PropertyDetailPanel({ property, object, dictionaries, onBack, onUpdate, backLabel = '返回结构' }: PropertyDetailPanelProps) {
   const [showDictModal, setShowDictModal] = useState(false)
   const [constraints, setConstraints] = useState<PropertyConstraints>(
     property.constraints ?? { mandatory: false }
@@ -60,7 +61,7 @@ export function PropertyDetailPanel({ property, object, dictionaries, onBack, on
           onClick={onBack}
           className="mb-3 flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700"
         >
-          <ArrowLeft className="h-4 w-4" /> 返回结构
+          <ArrowLeft className="h-4 w-4" /> {backLabel}
         </button>
 
         <div className="flex items-start gap-4">

@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Box, FileText, Bot, Plus, Pencil, Trash2, Link2, Search, BookOpen,
-  Send, Database, Globe, Plug,
+  Send, Database, Globe, Plug, ChevronRight,
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { AddActionModal, type ObjectAction } from './AddActionModal'
@@ -82,6 +82,14 @@ export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [
   const [comment, setComment] = useState(object.comment ?? '')
   const [llmComment, setLlmComment] = useState(object.llmComment ?? '')
 
+  useEffect(() => {
+    setSelectedPropertyId(null)
+    setSelectedRelationId(null)
+    setComment(object.comment ?? '')
+    setLlmComment(object.llmComment ?? '')
+    setTab('structure')
+  }, [object.key, object.comment, object.llmComment])
+
   const handleAddActions = (actions: ObjectAction[]) => {
     onUpdate?.({ ...object, actions: [...object.actions, ...actions] })
   }
@@ -138,6 +146,7 @@ export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [
         object={object}
         dictionaries={dictionaries}
         onBack={() => setSelectedPropertyId(null)}
+        backLabel="返回对象结构"
         onUpdate={handleUpdateProperty}
       />
     )
@@ -275,11 +284,16 @@ export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [
                       <button
                         key={prop.id}
                         onClick={() => setSelectedPropertyId(prop.id)}
-                        className="group flex w-full items-start gap-3 px-5 py-3.5 text-left hover:bg-slate-50/80"
+                        className={cn(
+                          'group flex w-full items-start gap-3 px-5 py-3.5 text-left transition-colors hover:bg-slate-50/80',
+                          selectedPropertyId === prop.id && 'bg-indigo-50/60'
+                        )}
                       >
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-slate-900">{prop.name}</p>
-                          {prop.desc && <p className="mt-0.5 text-xs text-slate-400 line-clamp-1">{prop.desc}</p>}
+                          {prop.desc && (
+                            <p className="mt-0.5 text-xs leading-relaxed text-slate-400 line-clamp-2">{prop.desc}</p>
+                          )}
                         </div>
                         <span className="shrink-0 rounded bg-slate-100 px-2 py-0.5 font-mono text-[11px] text-slate-500">
                           {prop.type}
@@ -287,6 +301,7 @@ export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [
                         {prop.dictionary && (
                           <BookOpen className="h-3.5 w-3.5 shrink-0 text-indigo-400" />
                         )}
+                        <ChevronRight className="h-4 w-4 shrink-0 text-slate-300 opacity-0 transition-opacity group-hover:opacity-100" />
                       </button>
                     ))}
                   </div>
