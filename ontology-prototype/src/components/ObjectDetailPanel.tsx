@@ -8,6 +8,7 @@ import { AddActionModal, type ObjectAction } from './AddActionModal'
 import { ObjectDataTab, type VirtualDataMapping } from './ObjectDataTab'
 import { CreatePropertyModal, type CreatePropertyData } from './CreatePropertyModal'
 import { PropertyDetailPanel } from './PropertyDetailPanel'
+import { RelationDetailPanel } from './RelationDetailPanel'
 import type { DictionaryInfo } from '../types/dictionary'
 
 export interface DictionaryMapping {
@@ -38,8 +39,12 @@ export interface DataProperty {
 export interface ObjectRelation {
   id: string
   name: string
+  key?: string
   target: string
+  domain?: string
   desc?: string
+  comment?: string
+  llmDesc?: string
 }
 
 export interface OntologyObject {
@@ -61,15 +66,17 @@ interface ObjectDetailPanelProps {
   dictionaries?: DictionaryInfo[]
   onUpdate?: (object: OntologyObject) => void
   onCreateProperty?: (data: CreatePropertyData) => void
+  onAddRelation?: () => void
 }
 
 type TabKey = 'structure' | 'actions' | 'data'
 
-export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [], onUpdate, onCreateProperty }: ObjectDetailPanelProps) {
+export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [], onUpdate, onCreateProperty, onAddRelation }: ObjectDetailPanelProps) {
   const [tab, setTab] = useState<TabKey>('structure')
   const [showAddAction, setShowAddAction] = useState(false)
   const [showCreateProperty, setShowCreateProperty] = useState(false)
   const [selectedPropertyId, setSelectedPropertyId] = useState<string | null>(null)
+  const [selectedRelationId, setSelectedRelationId] = useState<string | null>(null)
   const [editingComment, setEditingComment] = useState(false)
   const [editingLlm, setEditingLlm] = useState(false)
   const [comment, setComment] = useState(object.comment ?? '')
@@ -96,12 +103,32 @@ export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [
   ]
 
   const selectedProperty = object.dataProperties.find((p) => p.id === selectedPropertyId)
+  const selectedRelation = object.relations.find((r) => r.id === selectedRelationId)
 
   const handleUpdateProperty = (updated: DataProperty) => {
     onUpdate?.({
       ...object,
       dataProperties: object.dataProperties.map((p) => (p.id === updated.id ? updated : p)),
     })
+  }
+
+  const handleUpdateRelation = (updated: ObjectRelation) => {
+    onUpdate?.({
+      ...object,
+      relations: object.relations.map((r) => (r.id === updated.id ? updated : r)),
+    })
+  }
+
+  if (selectedRelation && tab === 'structure') {
+    return (
+      <RelationDetailPanel
+        relation={selectedRelation}
+        domainObject={object}
+        rangeName={selectedRelation.target}
+        onBack={() => setSelectedRelationId(null)}
+        onUpdate={handleUpdateRelation}
+      />
+    )
   }
 
   if (selectedProperty && tab === 'structure') {
@@ -278,7 +305,10 @@ export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [
                   <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-700">
                     {object.relations.length}
                   </span>
-                  <button className="flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-600 hover:bg-slate-50">
+                  <button
+                    onClick={() => onAddRelation?.()}
+                    className="flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                  >
                     <Plus className="h-3.5 w-3.5" /> 添加
                   </button>
                 </div>
@@ -292,21 +322,17 @@ export function ObjectDetailPanel({ object, objectOptions = [], dictionaries = [
                 ) : (
                   <div className="divide-y divide-slate-50">
                     {object.relations.map((rel) => (
-                      <div key={rel.id} className="group flex items-center gap-3 px-5 py-3.5 hover:bg-slate-50/80">
+                      <button
+                        key={rel.id}
+                        onClick={() => setSelectedRelationId(rel.id)}
+                        className="group flex w-full items-center gap-3 px-5 py-3.5 text-left hover:bg-slate-50/80"
+                      >
                         <Link2 className="h-4 w-4 shrink-0 text-blue-500" />
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-slate-900">{rel.name}</p>
                           <p className="text-xs text-slate-400">→ {rel.target}</p>
                         </div>
-                        <div className="flex shrink-0 gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
-                          <button className="rounded p-1 text-slate-400 hover:bg-slate-200 hover:text-slate-600">
-                            <Pencil className="h-3.5 w-3.5" />
-                          </button>
-                          <button className="rounded p-1 text-slate-400 hover:bg-red-50 hover:text-red-500">
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </button>
-                        </div>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 )}

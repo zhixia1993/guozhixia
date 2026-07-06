@@ -1,9 +1,19 @@
-import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { Plus, Search, Network, GitBranch, Eye, Pencil, Share2 } from 'lucide-react'
+import { useState, useMemo } from 'react'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import { Plus, Search, Network, GitBranch, Eye, Pencil, Share2, List } from 'lucide-react'
 import { StatusBadge } from '../components/StatusBadge'
 import { GraphCanvas } from '../components/GraphCanvas'
+import { ModelDirectoryTree } from '../components/ModelDirectoryTree'
+import { ModelCatalogPanel } from '../components/ModelCatalogPanel'
+import {
+  getDefaultOntologyModel,
+  buildGraphFromObjects,
+  buildDirectoryTree,
+  type OntologyModel,
+  type DirectoryNode,
+} from '../lib/ontologyModel'
 import type { ModelStatus } from '../lib/utils'
+import { cn } from '../lib/utils'
 
 type ModelType = 'ontology' | 'rule' | 'logic'
 
@@ -96,8 +106,12 @@ export function ModelLibrary() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((item) => (
-          <Link key={item.name} to={`/models/${modelType}/1`} className="card-hover group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        {items.map((item, idx) => (
+          <Link
+            key={item.name}
+            to={modelType === 'ontology' ? `/models/${modelType}/${idx + 1}` : `/models/${modelType}/1`}
+            className="card-hover group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+          >
             <div className="mb-4 flex items-start justify-between">
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-100 to-violet-100">
                 {modelType === 'ontology' ? <Network className="h-5 w-5 text-indigo-600" /> : modelType === 'rule' ? <GitBranch className="h-5 w-5 text-indigo-600" /> : <GitBranch className="h-5 w-5 text-violet-600" />}
@@ -125,30 +139,42 @@ export function ModelLibrary() {
 }
 
 export function ModelDetail() {
-  const [view, setView] = useState<'graph' | 'tree'>('graph')
-  const isPublished = true
+  const { id = '1' } = useParams<{ type: string; id: string }>()
+  const navigate = useNavigate()
+  const [view, setView] = useState<'graph' | 'catalog'>('graph')
+  const [model] = useState<OntologyModel>(() => getDefaultOntologyModel(id))
+  const [selectedNode, setSelectedNode] = useState<DirectoryNode | null>(null)
+  const [selectedGraphId, setSelectedGraphId] = useState<string | undefined>()
 
-  const treeItems = [
-    { label: '对象 (12)', children: ['用户', '账户', '套餐', '账单'] },
-    { label: '关系 (8)', children: ['拥有 (用户→套餐)', '包含 (用户→账户)', '消费 (账户→账单)'] },
-    { label: '属性 (32)', children: ['用户ID', '姓名', '状态', '欠费天数'] },
-    { label: '规则 (5)', children: ['欠费停机规则', '复机校验规则'] },
-    { label: '逻辑 (3)', children: ['经分问答技能', '反诈溯源技能'] },
-  ]
+  const isPublished = true
+  const editable = !isPublished
+
+  const tree = useMemo(() => buildDirectoryTree(model), [model])
+  const graphData = useMemo(() => buildGraphFromObjects(model.objects), [model.objects])
+
+  const handleEdit = () => {
+    navigate(`/modeling/manual/${model.id}`)
+  }
 
   return (
     <div className="flex h-full flex-col">
       <div className="border-b border-slate-200 bg-white px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <h1 className="text-xl font-bold text-slate-900">电信经分本体</h1>
-            <span className="text-sm text-slate-400">v1.2</span>
+            <h1 className="text-xl font-bold text-slate-900">{model.name}</h1>
+            <span className="text-sm text-slate-400">{model.version}</span>
             <StatusBadge status="published" />
           </div>
           <div className="flex gap-2">
             {isPublished && (
               <button className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-50">申请变更</button>
             )}
+            <button
+              onClick={handleEdit}
+              className="flex items-center gap-1.5 rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-sm font-medium text-indigo-700 hover:bg-indigo-100"
+            >
+              <Pencil className="h-4 w-4" /> 进入建模编辑
+            </button>
             <button className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-50">
               <Share2 className="h-4 w-4" /> 共享到资源广场
             </button>
@@ -156,62 +182,90 @@ export function ModelDetail() {
           </div>
         </div>
         <div className="mt-4 flex gap-1">
-          <button onClick={() => setView('graph')} className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium ${view === 'graph' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}`}>
-            <Network className="h-4 w-4" /> 图视图
+          <button
+            onClick={() => setView('graph')}
+            className={cn(
+              'flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium',
+              view === 'graph' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'
+            )}
+          >
+            <Network className="h-4 w-4" /> 知识图谱
           </button>
-          <button onClick={() => setView('tree')} className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium ${view === 'tree' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}`}>
-            <GitBranch className="h-4 w-4" /> 树视图
+          <button
+            onClick={() => setView('catalog')}
+            className={cn(
+              'flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium',
+              view === 'catalog' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'
+            )}
+          >
+            <List className="h-4 w-4" /> 目录视图
           </button>
         </div>
       </div>
 
       <div className="flex flex-1 overflow-hidden">
         {view === 'graph' ? (
-          <div className="flex-1 p-6">
-            <div className="h-full">
-              <GraphCanvasWrapper />
+          <div className="flex flex-1 overflow-hidden">
+            <div className="flex-1 p-6">
+              <GraphCanvas
+                nodes={graphData.nodes}
+                edges={graphData.edges}
+                selectedId={selectedGraphId}
+                onNodeClick={setSelectedGraphId}
+                readOnly={isPublished}
+              />
             </div>
+            <aside className="w-80 shrink-0 border-l border-slate-200 bg-white">
+              {selectedGraphId ? (
+                <ModelCatalogPanel
+                  node={tree.flatMap((c) => c.children ?? []).find((n) => n.meta?.key === selectedGraphId) ?? null}
+                  model={model}
+                  editable={editable}
+                  onEdit={handleEdit}
+                />
+              ) : (
+                <div className="flex h-full flex-col items-center justify-center p-6 text-center text-slate-400">
+                  <Network className="mb-2 h-8 w-8 text-slate-200" />
+                  <p className="text-sm">点击图谱节点查看对象详情</p>
+                </div>
+              )}
+            </aside>
           </div>
         ) : (
-          <div className="flex-1 overflow-y-auto p-6">
-            <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-900">
-                <GitBranch className="h-5 w-5 text-indigo-600" /> 电信经分本体
+          <div className="flex flex-1 overflow-hidden">
+            <aside className="w-80 shrink-0 overflow-y-auto border-r border-slate-200 bg-white p-4">
+              <div className="mb-3 flex items-center gap-2">
+                <GitBranch className="h-5 w-5 text-indigo-600" />
+                <h3 className="font-semibold text-slate-900">模型目录</h3>
               </div>
-              {treeItems.map((group) => (
-                <div key={group.label} className="mb-3">
-                  <p className="mb-1.5 text-sm font-semibold text-slate-700">▼ {group.label}</p>
-                  <div className="ml-4 space-y-1">
-                    {group.children.map((child) => (
-                      <p key={child} className="rounded-lg px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50">├ {child}</p>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              <p className="mb-4 text-xs text-slate-400">
+                对象 · 属性 · 关系 · 字典 · 规则 · 逻辑
+              </p>
+              <ModelDirectoryTree
+                tree={tree}
+                selectedId={selectedNode?.id ?? null}
+                onSelect={setSelectedNode}
+                editable={editable}
+              />
+            </aside>
+            <div className="flex-1 overflow-hidden bg-slate-50/30">
+              <ModelCatalogPanel
+                node={selectedNode}
+                model={model}
+                editable={editable}
+                onEdit={handleEdit}
+              />
             </div>
           </div>
         )}
 
-        {isPublished && (
-          <aside className="w-80 shrink-0 border-l border-slate-200 bg-white p-5">
+        {isPublished && view === 'graph' && (
+          <aside className="w-72 shrink-0 border-l border-slate-200 bg-white p-5">
             <h3 className="mb-1 font-semibold text-slate-900">标注</h3>
-            <p className="mb-4 text-xs text-slate-500">已发布模型仅支持标注，不可直接编辑</p>
+            <p className="mb-4 text-xs text-slate-500">已发布模型支持标注与目录浏览</p>
             <div className="mb-4 space-y-3">
               <div className="rounded-xl bg-slate-50 p-4">
-                <div className="mb-1 flex items-center gap-2">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-xs font-medium text-indigo-700">李</div>
-                  <span className="text-sm font-medium text-slate-800">李四</span>
-                  <span className="text-xs text-slate-400">06-01</span>
-                </div>
                 <p className="text-sm text-slate-600">建议增加「实名状态」属性到用户对象</p>
-              </div>
-              <div className="rounded-xl bg-slate-50 p-4">
-                <div className="mb-1 flex items-center gap-2">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-violet-100 text-xs font-medium text-violet-700">王</div>
-                  <span className="text-sm font-medium text-slate-800">王五</span>
-                  <span className="text-xs text-slate-400">05-28</span>
-                </div>
-                <p className="text-sm text-slate-600">账单对象建议增加「账单周期」属性</p>
               </div>
             </div>
             <button className="w-full rounded-lg border border-dashed border-indigo-300 py-2.5 text-sm font-medium text-indigo-600 hover:bg-indigo-50">+ 添加标注</button>
@@ -219,24 +273,5 @@ export function ModelDetail() {
         )}
       </div>
     </div>
-  )
-}
-
-function GraphCanvasWrapper() {
-  return (
-    <GraphCanvas
-      nodes={[
-        { id: 'user', label: '用户', x: 200, y: 150, type: 'entity' },
-        { id: 'account', label: '账户', x: 420, y: 100, type: 'entity' },
-        { id: 'package', label: '套餐', x: 420, y: 220, type: 'entity' },
-        { id: 'bill', label: '账单', x: 640, y: 160, type: 'entity' },
-      ]}
-      edges={[
-        { from: 'user', to: 'account', label: '包含' },
-        { from: 'user', to: 'package', label: '拥有' },
-        { from: 'account', to: 'bill', label: '消费' },
-      ]}
-      readOnly
-    />
   )
 }
