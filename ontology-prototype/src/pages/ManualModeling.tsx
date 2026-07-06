@@ -7,8 +7,9 @@ import {
 import { GraphCanvas } from '../components/GraphCanvas'
 import { StatusBadge } from '../components/StatusBadge'
 import { Modal } from '../components/Modal'
+import { CreateObjectModal } from '../components/CreateObjectModal'
 
-const treeData = [
+const initialTreeData = [
   { type: 'object', label: '对象', items: ['用户', '账户', '套餐', '账单'] },
   { type: 'relation', label: '关系', items: ['拥有', '包含', '消费'] },
   { type: 'attribute', label: '属性', items: ['用户ID', '姓名', '状态', '欠费天数'] },
@@ -31,7 +32,21 @@ export function ManualModeling() {
   const { id } = useParams<{ id: string }>()
   const [selectedNode, setSelectedNode] = useState('user')
   const [showAuditModal, setShowAuditModal] = useState(false)
+  const [showCreateObject, setShowCreateObject] = useState(false)
+  const [treeData, setTreeData] = useState(initialTreeData)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({ object: true, relation: true, attribute: false })
+
+  const objectItems = treeData.find((g) => g.type === 'object')?.items ?? []
+
+  const handleCreateObject = (data: { name: string; key: string }) => {
+    setTreeData((prev) =>
+      prev.map((g) =>
+        g.type === 'object' ? { ...g, items: [...g.items, data.name] } : g
+      )
+    )
+    setSelectedNode(data.name)
+    setExpanded((e) => ({ ...e, object: true }))
+  }
 
   return (
     <div className="flex h-full flex-col">
@@ -78,7 +93,10 @@ export function ManualModeling() {
             ))}
           </div>
           <div className="border-t border-slate-100 p-3 space-y-1.5">
-            <button className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-indigo-300 bg-indigo-50/50 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50">
+            <button
+              onClick={() => setShowCreateObject(true)}
+              className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-indigo-300 bg-indigo-50/50 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50"
+            >
               <Plus className="h-4 w-4" /> 添加对象
             </button>
             <button className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-slate-300 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">
@@ -166,6 +184,16 @@ export function ManualModeling() {
           </label>
         </div>
       </Modal>
+
+      <CreateObjectModal
+        open={showCreateObject}
+        onClose={() => setShowCreateObject(false)}
+        onCreate={handleCreateObject}
+        parentOptions={[
+          { value: 'Thing', label: 'Thing (Root)' },
+          ...objectItems.map((item) => ({ value: item, label: item })),
+        ]}
+      />
     </div>
   )
 }
