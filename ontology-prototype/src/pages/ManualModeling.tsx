@@ -8,6 +8,7 @@ import { GraphCanvas } from '../components/GraphCanvas'
 import { StatusBadge } from '../components/StatusBadge'
 import { Modal } from '../components/Modal'
 import { CreateObjectModal } from '../components/CreateObjectModal'
+import { CreateRelationModal } from '../components/CreateRelationModal'
 
 const initialTreeData = [
   { type: 'object', label: '对象', items: ['用户', '账户', '套餐', '账单'] },
@@ -33,6 +34,7 @@ export function ManualModeling() {
   const [selectedNode, setSelectedNode] = useState('user')
   const [showAuditModal, setShowAuditModal] = useState(false)
   const [showCreateObject, setShowCreateObject] = useState(false)
+  const [showCreateRelation, setShowCreateRelation] = useState(false)
   const [treeData, setTreeData] = useState(initialTreeData)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({ object: true, relation: true, attribute: false })
 
@@ -46,6 +48,17 @@ export function ManualModeling() {
     )
     setSelectedNode(data.name)
     setExpanded((e) => ({ ...e, object: true }))
+  }
+
+  const handleCreateRelation = (data: { name: string; domain: string; range: string }) => {
+    const label = `${data.name} (${data.domain}→${data.range})`
+    setTreeData((prev) =>
+      prev.map((g) =>
+        g.type === 'relation' ? { ...g, items: [...g.items, label] } : g
+      )
+    )
+    setSelectedNode(label)
+    setExpanded((e) => ({ ...e, relation: true }))
   }
 
   return (
@@ -99,7 +112,10 @@ export function ManualModeling() {
             >
               <Plus className="h-4 w-4" /> 添加对象
             </button>
-            <button className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-slate-300 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">
+            <button
+              onClick={() => setShowCreateRelation(true)}
+              className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-slate-300 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50"
+            >
               <Plus className="h-4 w-4" /> 添加关系
             </button>
           </div>
@@ -193,6 +209,12 @@ export function ManualModeling() {
           { value: 'Thing', label: 'Thing (Root)' },
           ...objectItems.map((item) => ({ value: item, label: item })),
         ]}
+      />
+      <CreateRelationModal
+        open={showCreateRelation}
+        onClose={() => setShowCreateRelation(false)}
+        onCreate={handleCreateRelation}
+        objectOptions={objectItems}
       />
     </div>
   )
