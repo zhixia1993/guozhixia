@@ -97,6 +97,7 @@ export const defaultOntologyObjects: OntologyObject[] = [
   },
   {
     name: '通话事件', key: 'call_event', parent: 'Thing (Root)',
+    source: 'anti_fraud_0428.ttl',
     dataProperties: [
       { id: 'acct_item_type_a', name: '费用1帐目类型', key: 'acct_item_type_a', parent: 'topDataProperty', desc: '费用1帐目类型', type: 'int', constraints: { mandatory: false } },
       { id: 'ce1', name: '通话时长', key: 'duration', desc: '通话持续秒数', type: 'int' },
@@ -151,6 +152,17 @@ export const defaultOntologyObjects: OntologyObject[] = [
 ]
 
 export const defaultDictionaries: DictionaryInfo[] = [
+  {
+    id: 'dict-acct', name: '帐目类型字典', code: 'ACCT_ITEM_TYPE', desc: '电信经分帐目类型码表',
+    entryCount: 5,
+    entries: [
+      { code: '01', displayName: '语音通话费' },
+      { code: '02', displayName: '短信费' },
+      { code: '03', displayName: '流量费' },
+      { code: '04', displayName: '月租费' },
+      { code: '05', displayName: '增值业务费' },
+    ],
+  },
   {
     id: 'dict-contract', name: '合同状态', code: 'contract_status', desc: '合同状态枚举',
     entryCount: 2,

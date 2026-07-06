@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   ArrowLeft, Tag, Sparkles, BookOpen, Unlink,
 } from 'lucide-react'
@@ -10,9 +10,10 @@ interface PropertyDetailPanelProps {
   property: DataProperty
   object: OntologyObject
   dictionaries: DictionaryInfo[]
-  onBack: () => void
+  onBack?: () => void
   onUpdate: (property: DataProperty) => void
   backLabel?: string
+  embedded?: boolean
 }
 
 const xsdTypeMap: Record<string, string> = {
@@ -25,11 +26,15 @@ const xsdTypeMap: Record<string, string> = {
   enum: 'xsd:string',
 }
 
-export function PropertyDetailPanel({ property, object, dictionaries, onBack, onUpdate, backLabel = '返回结构' }: PropertyDetailPanelProps) {
+export function PropertyDetailPanel({ property, object, dictionaries, onBack, onUpdate, backLabel = '返回结构', embedded = false }: PropertyDetailPanelProps) {
   const [showDictModal, setShowDictModal] = useState(false)
   const [constraints, setConstraints] = useState<PropertyConstraints>(
     property.constraints ?? { mandatory: false }
   )
+
+  useEffect(() => {
+    setConstraints(property.constraints ?? { mandatory: false })
+  }, [property.id, property.constraints])
 
   const handleSelectDictionary = (dict: DictionaryInfo) => {
     onUpdate({
@@ -57,12 +62,14 @@ export function PropertyDetailPanel({ property, object, dictionaries, onBack, on
     <div className="flex h-full flex-col bg-white">
       {/* Header */}
       <div className="border-b border-slate-200 px-6 py-4">
-        <button
-          onClick={onBack}
-          className="mb-3 flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700"
-        >
-          <ArrowLeft className="h-4 w-4" /> {backLabel}
-        </button>
+        {!embedded && onBack && (
+          <button
+            onClick={onBack}
+            className="mb-3 flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700"
+          >
+            <ArrowLeft className="h-4 w-4" /> {backLabel}
+          </button>
+        )}
 
         <div className="flex items-start gap-4">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-blue-500">
@@ -80,6 +87,12 @@ export function PropertyDetailPanel({ property, object, dictionaries, onBack, on
             </div>
             <p className="mt-1 text-sm text-slate-500">
               继承自: <span className="font-medium text-slate-700">{property.parent ?? 'topDataProperty (Root)'}</span>
+              {object.source && (
+                <>
+                  <span className="mx-2 text-slate-300">·</span>
+                  From: <span className="font-mono text-slate-600">{object.source}</span>
+                </>
+              )}
             </p>
           </div>
         </div>
@@ -195,8 +208,9 @@ export function PropertyDetailPanel({ property, object, dictionaries, onBack, on
               </p>
               <button
                 onClick={() => setShowDictModal(true)}
-                className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50"
+                className="flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50"
               >
+                <BookOpen className="h-4 w-4 text-slate-500" />
                 选择字典
               </button>
             </div>
